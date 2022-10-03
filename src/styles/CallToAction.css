@@ -1,0 +1,13 @@
+.cardBg {
+    background-color: #611f35d0;
+}
+
+.btn-welcome{
+    background-color: black;
+    border: 1px solid white;
+}
+
+.btn-welcome:hover{
+    background-color: rgb(42, 0, 70);
+    border: 1px solid white;
+}
