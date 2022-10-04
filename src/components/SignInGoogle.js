@@ -1,21 +1,47 @@
 import React, { useEffect, useRef } from 'react'
 import * as jose from 'jose'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { loggedTrue } from '../features/loggedSlice'
+import { useGetLoginMutation } from '../features/usersAPI'
 
 export const SignInGoogle = () => {
     const buttonDiv = useRef(null)
+
+    const navigate = useNavigate()
+
+    const handleNavigate = () => {
+    navigate('/home')
+    }
+
+    const dispatch = useDispatch()
+
+    const [newLogin] = useGetLoginMutation()
+
     async function handleCredentialResponse (response) {
       let userObject = jose.decodeJwt(response.credential);
+
       let data = {
-        name: userObject.name,
-        lastName: userObject.family_name,
-      
-        mail: userObject.email,
+        email: userObject.email,
         password: userObject.sub,
- 
-        role: "user",
         from: "google",
       };
-       console.log(userObject)
+
+      await newLogin(data)
+          .then((success) => {
+            console.log(success)
+            let user = success?.data?.response?.user
+            console.log(user);
+            /* let token = succes?.data?.response?.token */
+            localStorage.setItem("userLogged", JSON.stringify(user))
+            /* localStorage.setItem("token", JSON.stringify(token)) */
+            dispatch(loggedTrue())
+            /* showLoginMsg(user.name) */
+            handleNavigate()
+        })
+        .catch((error) => {
+          console.log(error);
+        })
 
     }
 
@@ -29,9 +55,9 @@ export const SignInGoogle = () => {
 
             });
             google.accounts.id.renderButton(
-             buttonDiv.current,
+            buttonDiv.current,
              { theme: "outline", size: "medium", text: "signin_with", locale: "en" } // customization attributes
-             );
+            );
           }
 
     }, [])
