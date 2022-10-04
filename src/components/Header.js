@@ -1,13 +1,30 @@
 import React from 'react'
 import '../styles//Header.css'
-import {Link as LinkRouter} from 'react-router-dom'
-import Login from './Login'
+import {Link as LinkRouter, useNavigate} from 'react-router-dom'
+import { useGetSignOutMutation} from '../features/usersAPI'
 import ShoppingCart from './ShoppingCart'
 import {  useState } from "react";
-
+import { entry } from '../features/loggedSlice'
+import { useSelector, useDispatch } from 'react-redux';
 
 export default function Header() {
+
+    const logged = useSelector((state) => state.logged.loggedState)
+
+    const dispatch = useDispatch()
+
+    const [signOut] = useGetSignOutMutation()
+
+    const navigate = useNavigate()
+
+    const handleNavigate = () => {
+        navigate('/')
+    }
+
     const [open, setOpen] = useState(false);
+    const [openProfile, setOpenProfile] = useState(false);
+
+    let user = JSON.parse(localStorage.getItem('userLogged'))
 
     const openMenu = () => {
         if (open === true) {
@@ -16,6 +33,26 @@ export default function Header() {
           setOpen(true);
         }
       };  
+
+      const openProfileMenu = () => {
+        setOpenProfile(!openProfile)
+      };  
+
+      const handleLogOut = async() => {
+        try{
+        let object = {
+            logged: false,
+            id: user.id,
+        }
+        await signOut(object)
+        localStorage.removeItem('userLogged');
+        dispatch(entry())
+        handleNavigate()
+        }catch(error){
+        console.log(error);
+        }
+    }
+
     return (
         <>
             <div className="navBar navbar bg-black">
@@ -42,16 +79,32 @@ export default function Header() {
                         <label  tabIndex={0} className="btn btn-ghost btn-circle">
                             <div className="indicator" >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                <span className="badge badge-sm indicator-item">8</span>
+                                <span className="badge badge-sm indicator-item">0</span>
                             </div>
                         </label>
-                        {open? (<ShoppingCart/>): null}
+                        {logged ? (open ? <ShoppingCart/> : null ) : null}
 
                     </div>
-                    <div className="dropdown dropdown-end">
-                        <Login/>
-                    </div>
-
+                    <div className="dropdown dropdown-end" onClick={openProfileMenu}>
+                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    {logged ? <img src={user?.photo} /> : <img src="https://res.cloudinary.com/teepublic/image/private/s--UymRXkch--/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1570281377/production/designs/6215195_0.jpg" /> }
+                                </div>
+                            </label>
+                            {logged ? (openProfile ? (<><ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                <li>
+                                <a className="justify-between">
+                                    Profile
+                                    <span className="badge">New</span>
+                                </a>
+                                </li>
+                                <li><a>Settings</a></li>
+                                <li><a onClick={handleLogOut}>Log out</a></li>
+                            </ul></>) : null) : (openProfile ? (<><ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                <li><LinkRouter to={'/signin'}>Sign in</LinkRouter></li>
+                                <li><LinkRouter to={'/signup'}>Sign up</LinkRouter></li>
+                            </ul></>) : null)}
+                            </div>
                 </div>
             </div>
 
