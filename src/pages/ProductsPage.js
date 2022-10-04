@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import '../styles/ProductsPage.css'
 import { useGetAllProductsQuery ,useGetFilteredProductsQuery } from '../features/productsApi'
 import { Link as LinkRouter } from 'react-router-dom'
@@ -29,18 +29,36 @@ export default function ProductsPage() {
         </div>
     )
 
+    const [filter, setFilter] = useState()
+
+    function upperCaseOne(search){
+        return search.charAt(0).toUpperCase() + search.slice(1)
+    }
+
+    const filterData = (e) => {
+        e.preventDefault()
+        setFilter(upperCaseOne(e.target.value));
+        console.log(filter);
+    }
+
     let show
     if (type == null) {
-        show = allProducts?.response.map(productCard)
+        { filter ? show = allProducts?.response.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response.map(productCard)}
     } else {
-        show = products?.response.map(productCard)
+        { filter ? show = products?.response.filter((item => item.brand.includes(filter))).map(productCard) : show = products?.response.map(productCard)}
     }
 
     return (
 
         <PageLayout>
+            <div className="form-control">
+            <label className="input-group input-group-md flex justify-end align-items-center py-4 pr-5 bg-white">
+                <span>TS</span>
+                <input type="text" placeholder="Type here" onChange={filterData} className="input input-bordered input-md" />
+            </label>
+            </div>
             <div className="flex justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
-                {show}
+                {show.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
             </div>
         </PageLayout>
     )
