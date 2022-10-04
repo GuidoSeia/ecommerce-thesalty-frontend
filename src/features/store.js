@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import watchesSlice from './watchesSlice'
 
 
-export const store = configureStore({
+export default  configureStore({
     reducer: {
         [watchesSlice.reducerPath]: watchesSlice.reducer,
     }
