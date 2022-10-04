@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRef } from "react";
+import { SignInGoogle } from './SignInGoogle';
 
 
 const SignIn = () => {
@@ -48,6 +49,8 @@ const SignIn = () => {
   </div>
 </div>
     </form>
+
+<SignInGoogle/>
   </div>
   )
 }
