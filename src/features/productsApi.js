@@ -10,6 +10,8 @@ const productsApi = createApi({
 
     endpoints: (builder) => ({
 
+        getAllProducts: builder.query({ query: () => `/products` }),
+
         getFilteredProducts: builder.query({ query: (type) => `/products?type=${type}` }),
 
     })
@@ -17,4 +19,4 @@ const productsApi = createApi({
 
 export default productsApi
 
-export const { useGetFilteredProductsQuery } = productsApi
+export const { useGetAllProductsQuery , useGetFilteredProductsQuery } = productsApi
