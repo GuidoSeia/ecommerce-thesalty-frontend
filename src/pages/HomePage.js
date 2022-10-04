@@ -2,6 +2,7 @@ import React from 'react'
 import '../styles/HomePage.css'
 import { useGetAllProductsQuery } from '../features/watchesSlice'
 import { Link as LinkRouter } from 'react-router-dom'
+import PageLayout from "../components/layout/PageLayout"
 
 export default function HomePage() {
 
@@ -32,6 +33,7 @@ export default function HomePage() {
     ]
 
     const carouselCard = (card) => (
+    
         <div className="card m-5 w-96 shadow-xl image-full">
             <figure><img src={card.image} alt="Shoes" /></figure>
             <div className="card-body flex justify-center gap-6 items-center">
@@ -99,7 +101,8 @@ export default function HomePage() {
     )
 
     return (
-        <>
+
+        <PageLayout>
             <div className="flex justify-center bg-white">
                 {data.map(carouselCard)}
             </div>
@@ -112,6 +115,7 @@ export default function HomePage() {
                 <h2 className="w-full p-5 text-center text-5xl text-black">Sunglasses</h2>
                 {productsData?.response.map(sunglassesCards)}
             </div>
-        </>
+            </PageLayout>
     )
+
 }
