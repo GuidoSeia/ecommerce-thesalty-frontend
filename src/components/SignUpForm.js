@@ -20,29 +20,50 @@ const SignUp = () => {
   return (
     <div>
     <form ref={form} className="form-control">
-    <div className="form-control w-full max-w-xs">
-  <label className="label">
-    <span className="label-text">Name, Last Name</span>
-  </label>
-  <input type="text"  name="name"  className="input input-bordered w-full max-w-xs" />
+    <div className="hero min-h-screen bg-base-200">
+  <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className="text-center lg:text-left">
+      <h1 className="text-5xl font-bold">SignUp</h1>
+      <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+    </div>
+    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div className="card-body">
 
-  <label className="label">
-    <span className="label-text">Mail</span>
-  </label>
-  <input type="email"  name="mail"  className="input input-bordered w-full max-w-xs" />
+      <div className="form-control">
+          <label className="label">
+            <span className="label-text">Name and Lastname</span>
+          </label>
+          <input type="text" name="name" className="input input-bordered" />
+        </div>
 
-  <label className="label">
-    <span className="label-text">Photo</span>
-  </label>
-  <input type="mail"  name="photo"  className="input input-bordered w-full max-w-xs" />
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+          <input type="text" placeholder="mail" className="input input-bordered" />
+        </div>
 
-  <label className="label">
-    <span className="label-text">Password</span>
-  </label>
-  <input type="password"  name="pass"  className="input input-bordered w-full max-w-xs" />
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo</span>
+          </label>
+          <input type="text" name="photo" className="input input-bordered" />
+        </div>
 
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+          <input type="text" placeholder="password" className="input input-bordered" />
+        </div>
+
+        <div className="form-control mt-6">
+          <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-    <button className="btn btn-link" onClick={handleSubmit}>SignUp</button>
     </form>
   </div>
   )
