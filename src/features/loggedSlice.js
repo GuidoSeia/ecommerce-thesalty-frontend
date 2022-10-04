@@ -1,19 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
-export const loggedSlice = createSlice ({
-    name:"logged",
+export const loggedSlice = createSlice({
+    name: "logged",
     initialState: {
         loggedState: false,
     },
-    reducer: {
-        entry: (state)=>{
-            state.loggedState =!stateloggedState;
+    reducers: {
+        entry: (state) => {
+            state.loggedState = !state.loggedState;
         },
-        loggedTrue: (state)=> {
-            state.loggedState =true;
+        loggedTrue: (state) => {
+            state.loggedState = true;
         }
     }
 })
 
-export const { entry, loggedTrue} = loggedSlice.actions
+export const { entry, loggedTrue } = loggedSlice.actions
+
 export default loggedSlice.reducer
