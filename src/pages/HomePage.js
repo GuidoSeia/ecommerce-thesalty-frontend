@@ -3,6 +3,7 @@ import '../styles/HomePage.css'
 import { useGetFilteredProductsQuery } from '../features/productsApi'
 import { Link as LinkRouter } from 'react-router-dom'
 import PageLayout from "../components/layout/PageLayout"
+import ChatBot from '../components/ChatBot'
 
 export default function HomePage() {
 
@@ -164,6 +165,7 @@ export default function HomePage() {
                     <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
                 </div>
             </div>
+            <ChatBot></ChatBot>
         </PageLayout>
     )
 
