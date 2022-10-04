@@ -11,7 +11,7 @@ export default function CallToAction() {
             </figure>
             <div className="card-body items-center text-center">
                 <div className="card-actions">
-                    {/* <LinkRouter className="btn btn-welcome btn-primary" to={'/home'}>Go Home</LinkRouter> */}
+                   <LinkRouter className="btn btn-welcome btn-primary" to={'/home'}>Go Home</LinkRouter> 
                 </div>
             </div>
         </div>
