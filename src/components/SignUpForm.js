@@ -95,8 +95,11 @@ const SignUp = () => {
           ref={captcha}
         />
         </div>
+        <div className="flex justify-center align-items-center pt-5">
+          <SignUpGoogle/> 
+        </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+          <button className="btn btn-primary" onClick={handleSubmit}>Sign up</button>
         </div>
       </div>
     </div>
@@ -104,7 +107,6 @@ const SignUp = () => {
 </div>
 
     </form>
-    <SignUpGoogle/> 
    
   </div>
 
