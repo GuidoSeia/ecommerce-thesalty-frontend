@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRef } from "react";
 import { SignUpGoogle } from './SignUpGoogle';
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 const SignUp = () => {
@@ -15,7 +16,14 @@ const SignUp = () => {
       password: formData.get("password"),
     };
     console.log(formUser)
+  }
 
+  const captcha = useRef(null)
+
+  function onChange() {
+    if(captcha.current.getValue()){
+      console.log(captcha.current.getValue())
+    }
   }
 
   return (
@@ -30,7 +38,6 @@ const SignUp = () => {
     </div>
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div className="card-body">
-
       <div className="form-control">
           <label className="label">
             <span className="label-text">Name and Lastname</span>
@@ -58,7 +65,14 @@ const SignUp = () => {
           </label>
           <input type="text" placeholder="password" className="input input-bordered" />
         </div>
-
+        <div className="flex justify-center align-items-center mt-5">
+        <ReCAPTCHA
+          sitekey="6LfLI1UiAAAAAEG2Baygi7bZD1cAggQcuDvK3W0N"
+          onChange={onChange}
+          theme={'dark'}
+          ref={captcha}
+        />
+        </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
         </div>
