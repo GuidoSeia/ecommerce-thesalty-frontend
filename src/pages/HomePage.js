@@ -1,12 +1,21 @@
 import React from 'react'
 import '../styles/HomePage.css'
-import { useGetAllProductsQuery } from '../features/watchesSlice'
+import { useGetFilteredProductsQuery } from '../features/productsApi'
 import { Link as LinkRouter } from 'react-router-dom'
 import PageLayout from "../components/layout/PageLayout"
 
 export default function HomePage() {
 
-    let { data: productsData } = useGetAllProductsQuery()
+    let { data: watches } = useGetFilteredProductsQuery("reloj")
+    let { data: sunglasses } = useGetFilteredProductsQuery("anteojos")
+    let { data: backpack } = useGetFilteredProductsQuery("mochilas")
+    let { data: wallet } = useGetFilteredProductsQuery("billetera")
+    let { data: handbag } = useGetFilteredProductsQuery("bolsos")
+    let { data: fragrance } = useGetFilteredProductsQuery("perfume")
+
+
+    console.log(watches?.response)
+
 
     const data = [
         {
@@ -33,24 +42,24 @@ export default function HomePage() {
     ]
 
     const carouselCard = (card) => (
-    
+
         <div className="card m-5 w-96 shadow-xl image-full">
             <figure><img src={card.image} alt="Shoes" /></figure>
             <div className="card-body flex justify-center gap-6 items-center">
-                {card.type == "offer" ?
+                {card.type === "offer" ?
                     (
                         <>
                             <div className="badge badge-home text-2xl p-4">OFFER !!</div>
                             <h2 className="text-white">do you like offers?</h2>
                             <h2 className="text-white"> here we have some for you</h2>
                         </>
-                    ) : card.type == "new" ?
+                    ) : card.type === "new" ?
                         (
                             <>
                                 <div className="badge badge-home text-2xl p-5">New Products</div>
                                 <h2 className="text-white">come see our new products</h2>
                             </>
-                        ) : card.type == "latest" ?
+                        ) : card.type === "latest" ?
                             (
                                 <>
                                     <div className="badge badge-home text-2xl p-4">latest products</div>
@@ -64,40 +73,32 @@ export default function HomePage() {
         </div>
     )
 
-    const WatchesCards = card => (
-        <div className="card m-5 w-56 h-96 bg-base-100 shadow-xl">
+    const productCard = card => (
+        <div className="card border-black border m-5 w-72 h-96 shadow-xl">
             <figure className="h-1/2">
                 <img className="h-full w-full object-cover" src={card.photo} alt="Shoes" />
             </figure>
             <div className="card-body h-1/2">
-                <h2 className="card-title">
+                <h2 className="card-title text-white">
                     {card.brand}
                 </h2>
-                <p></p>
+                <div className='flex flex-column flex-wrap'>
+                    <p className='text-white'>
+                        Model: {card.model}
+                    </p>
+                    <p className='text-white'>
+                        $: {card.price}
+                    </p>
+                    <p className='text-white'>
+                        Stock: {card.stock}
+                    </p>
+                </div>
                 <div className="card-actions justify-end">
                     <div className="badge badge-outline">Fashion</div>
                     <div className="badge badge-outline">Products</div>
                 </div>
             </div>
         </div >
-    )
-
-    const sunglassesCards = card => (
-        <div className="card m-5 w-56 h-96 bg-base-100 shadow-xl">
-            <figure className="h-1/2">
-                <img className="h-full w-full object-cover" src={card.photo} alt="Shoes" />
-            </figure>
-            <div className="card-body h-1/2">
-                <h2 className="card-title">
-                    {card.title}
-                </h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                    <div className="badge badge-outline">Fashion</div>
-                    <div className="badge badge-outline">Products</div>
-                </div>
-            </div>
-        </div>
     )
 
     return (
@@ -107,15 +108,63 @@ export default function HomePage() {
                 {data.map(carouselCard)}
             </div>
 
-            <div className="flex justify-center items-center flex-wrap gap-12 bg-black">
+            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
                 <h2 className="w-full p-5 text-center text-5xl">Watches</h2>
-                {productsData?.response.map(WatchesCards)}
+                <div className='flex'>
+                    {watches?.response.slice(0, 4).map(productCard)}
+                </div>
+                <div>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                </div>
             </div>
-            <div className="flex justify-center items-center flex-wrap bg-white">
+            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
                 <h2 className="w-full p-5 text-center text-5xl text-black">Sunglasses</h2>
-                {productsData?.response.map(sunglassesCards)}
+                <div className='flex'>
+                    {sunglasses?.response.slice(0, 4).map(productCard)}
+                </div>
+                <div>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                </div>
             </div>
-            </PageLayout>
+            <div className='flex justify-around bg-combined'>
+                <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
+                    <h2 className="w-full p-5 text-center text-5xl text-white">Backpack</h2>
+                    <div className='flex'>
+                        {backpack?.response.slice(0, 2).map(productCard)}
+                    </div>
+                    <div>
+                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    </div>
+                </div>
+                <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
+                    <h2 className="w-full p-5 text-center text-5xl text-black">Handbag</h2>
+                    <div className='flex'>
+                        {handbag?.response.slice(0, 2).map(productCard)}
+                    </div>
+                    <div>
+                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    </div>
+                </div>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
+                <h2 className="w-full p-5 text-center text-5xl text-white">Wallet</h2>
+                <div className='flex'>
+                    {wallet?.response.slice(0, 4).map(productCard)}
+                </div>
+                <div>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                </div>
+            </div>
+            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
+                <h2 className="w-full p-5 text-center text-5xl text-black">Fragrance</h2>
+                <div className='flex'>
+                    {fragrance?.response.slice(0, 4).map(productCard)}
+                </div>
+                <div>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                </div>
+            </div>
+        </PageLayout>
     )
 
 }
