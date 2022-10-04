@@ -1,6 +1,8 @@
 import React from 'react'
 import '../styles//Header.css'
 import {Link as LinkRouter} from 'react-router-dom'
+import Login from './Login'
+import ShoppingCart from './ShoppingCart'
 
 export default function Header() {
     return (
@@ -12,9 +14,11 @@ export default function Header() {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-52">
-                            <li><a>Homepage</a></li>
-                            <li><a>Portfolio</a></li>
-                            <li><a>About</a></li>
+                            <li><a>Home</a></li>
+                            <li><LinkRouter to="/products">Products</LinkRouter></li>
+                            <li><a>¿Quienes Somos?</a></li>
+                            <li><a>Locales y ¿Donde puedes encontrarnos?</a></li>
+                            <li><a>Contactanos! </a></li> 
                         </ul>
                     </div>
                 </div>
@@ -22,6 +26,7 @@ export default function Header() {
                 <LinkRouter to={'/home'}><img src="/logo-white.png" width="150" alt="Shoes" className="rounded-xl" /></LinkRouter>            
                 </div>
                 <div className="navbar-end">
+                    
                     <div className="dropdown dropdown-end">
                         <label tabIndex={0} className="btn btn-ghost btn-circle">
                             <div className="indicator">
@@ -29,23 +34,24 @@ export default function Header() {
                                 <span className="badge badge-sm indicator-item">8</span>
                             </div>
                         </label>
-                        <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-black shadow">
-                            <div className="card-body">
+<ShoppingCart/>
+                          {/*   <div className="card-body">
                                 <span className="font-bold text-lg">8 Items</span>
                                 <span className="text-info">Subtotal: $999</span>
                                 <div className="card-actions">
                                     <button className="bG-color btn btn-block">View cart</button>
                                 </div>
-                            </div>
-                        </div>
+                            </div> */}
                     </div>
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+
+                        <Login/>
+                    {/*     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 <img src="https://placeimg.com/80/80/people" />
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-52">
+                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-52">
                             <li>
                                 <a className="justify-between">
                                     Profile
@@ -53,7 +59,7 @@ export default function Header() {
                             </li>
                             <li><a>Settings</a></li>
                             <li><a>Logout</a></li>
-                        </ul>
+                        </ul>  */}
                     </div>
 
                 </div>
