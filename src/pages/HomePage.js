@@ -114,7 +114,7 @@ export default function HomePage() {
                     {watches?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=reloj'}>See more.</LinkRouter>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
@@ -123,7 +123,7 @@ export default function HomePage() {
                     {sunglasses?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=anteojos'}>See more.</LinkRouter>
                 </div>
             </div>
             <div className='flex justify-around bg-combined'>
@@ -133,7 +133,7 @@ export default function HomePage() {
                         {backpack?.response.slice(0, 2).map(productCard)}
                     </div>
                     <div>
-                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=mochilas'}>See more.</LinkRouter>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
@@ -142,7 +142,7 @@ export default function HomePage() {
                         {handbag?.response.slice(0, 2).map(productCard)}
                     </div>
                     <div>
-                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=bolsos'}>See more.</LinkRouter>
                     </div>
                 </div>
             </div>
@@ -152,7 +152,7 @@ export default function HomePage() {
                     {wallet?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=billetera'}>See more.</LinkRouter>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
@@ -161,7 +161,7 @@ export default function HomePage() {
                     {fragrance?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=perfume'}>See more.</LinkRouter>
                 </div>
             </div>
         </PageLayout>
