@@ -1,0 +1,25 @@
+.card{
+    transition: transform .2s; /* Animation */
+}
+.card:hover {
+    transform: scale(.9);
+}
+
+.btn-home-page{
+    background-color: black;
+    border: none;
+}
+
+.btn-home-page:hover{
+    background-color: rgb(42, 0, 70);
+    border: 1px solid white;
+}
+
+.badge {
+    border: none;
+    color: white;
+}
+
+.badge-home{
+    background-color: #E23E57;
+}
