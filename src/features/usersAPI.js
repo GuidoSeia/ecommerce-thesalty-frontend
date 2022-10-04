@@ -6,7 +6,8 @@ export const usersAPI = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: url,
     }),
-endpoints: (builder) =>({
+    endpoints: (builder) =>({
+      
     getNewUser: builder.mutation({
         query(user) {
           return {
@@ -23,20 +24,18 @@ endpoints: (builder) =>({
             url: "auth/signin",
             method: "POST",
             body: user,
-          };
-        },
+          }}
+        }),
 
         getSignOut: builder.mutation({
-            query: ({ id, ...data }) => ({
-              url: `auth/signout/${id}`,
-              method: "PATCH",
-              body: data,
-            }),
-          }),
+          query: ({id, ...rest}) => ({
+          url: `/auth/${id}`,
+          method: 'PATCH',
+          body: rest,
+          })
         }),
 })
 })
-
 
 export default usersAPI;
 export const {
