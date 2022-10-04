@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import watchesSlice from './watchesSlice'
+import productsApi from './productsApi'
 
 
 export default  configureStore({
     reducer: {
-        [watchesSlice.reducerPath]: watchesSlice.reducer,
+        [productsApi.reducerPath]: productsApi.reducer,
     }
 })

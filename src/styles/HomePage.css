@@ -23,3 +23,28 @@
 .badge-home{
     background-color: #E23E57;
 }
+
+.card{
+    background-color: #360027;
+}
+
+.btn-card-home{
+    background-color: #88304E;
+    border: 1px solid #360027;
+}
+
+.btn-card-home:hover{
+    background-color: #ad204f;
+}
+
+.bg-combined{
+    background-color: #1f0016;
+}
+
+.bg-products-v1{
+    background-color: black;
+}
+
+.bg-products-v2{
+    background-color: white;
+}
