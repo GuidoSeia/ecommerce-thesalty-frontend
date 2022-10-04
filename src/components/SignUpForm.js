@@ -26,7 +26,7 @@ const SignUp = () => {
       role: "user"
     };
     console.log(formUser)
-  }
+
 
     try {
       const response = await newUser(formUser)
@@ -45,6 +45,7 @@ const SignUp = () => {
     if(captcha.current.getValue()){
       console.log(captcha.current.getValue())
   }
+}
 
   return (
    
