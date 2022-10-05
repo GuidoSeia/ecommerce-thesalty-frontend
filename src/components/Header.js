@@ -1,3 +1,4 @@
+
 import React from 'react'
 import '../styles//Header.css'
 import {Link as LinkRouter, useNavigate} from 'react-router-dom'
@@ -8,53 +9,51 @@ import { entry } from '../features/loggedSlice'
 import { useSelector, useDispatch } from 'react-redux';
 
 export default function Header() {
+  const logged = useSelector((state) => state.logged.loggedState);
 
-    const logged = useSelector((state) => state.logged.loggedState)
+  const dispatch = useDispatch()
+  const [signOut] = useGetSignOutMutation()
+  const navigate = useNavigate()
 
-    const dispatch = useDispatch()
+  const [openProfile, setOpenProfile] = useState(false);
+  let user = JSON.parse(localStorage.getItem('userLogged'))
 
-    const [signOut] = useGetSignOutMutation()
+  const [open, setOpen] = useState(false);
 
-    const navigate = useNavigate()
+  const handleNavigate = () => {
+    navigate('/products')
+}
 
-    const handleNavigate = () => {
-        navigate('/')
+
+  const openMenu = () => {
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
     }
+  };
 
-    const [open, setOpen] = useState(false);
-    const [openProfile, setOpenProfile] = useState(false);
+  const openProfileMenu = () => {
+    setOpenProfile(!openProfile);
+  };
 
-    let user = JSON.parse(localStorage.getItem('userLogged'))
-
-    const openMenu = () => {
-        if (open === true) {
-          setOpen(false);
-        } else {
-          setOpen(true);
-        }
-      };  
-
-      const openProfileMenu = () => {
-        setOpenProfile(!openProfile)
-      };  
-
-      const handleLogOut = async() => {
-        try{
-        let object = {
-            logged: false,
-            id: user.id,
-        }
-        await signOut(object)
-        localStorage.removeItem('userLogged');
-        dispatch(entry())
-        handleNavigate()
-        }catch(error){
-        console.log(error);
-        }
+  const handleLogOut = async () => {
+    try {
+      let object = {
+        logged: false,
+        id: user.id,
+      };
+      await signOut(object);
+      localStorage.removeItem("userLogged");
+      dispatch(entry());
+      handleNavigate();
+    } catch (error) {
+      console.log(error);
     }
+  };
+
 
     return (
-        <>
             <div className="navBar navbar bg-black">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -65,6 +64,7 @@ export default function Header() {
                             <li><LinkRouter to="/home">Home</LinkRouter></li>
                             <li><LinkRouter to="/products">Products</LinkRouter></li>
                             <li><LinkRouter to="/aboutUs">About Us</LinkRouter></li>
+                            {user?.role === "admin" ? (<li> <LinkRouter to="/admin">Administrator Profile</LinkRouter></li>):null}
                         </ul>
                     </div>
                 </div>
@@ -72,7 +72,6 @@ export default function Header() {
                 <LinkRouter to={'/home'}><img src="/logo-white.png" width="150" alt="Shoes" className="rounded-xl" /></LinkRouter>            
                 </div>
                 <div className="navbar-end">
-                    
                     <div className="dropdown dropdown-end" onClick={openMenu}>
                         <label  tabIndex={0} className="btn btn-ghost btn-circle">
                             <div className="indicator" >
@@ -86,27 +85,73 @@ export default function Header() {
                     <div className="dropdown dropdown-end" onClick={openProfileMenu}>
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    {logged ? <img src={user?.photo} /> : <img src="https://res.cloudinary.com/teepublic/image/private/s--UymRXkch--/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1570281377/production/designs/6215195_0.jpg" /> }
+                                    {logged ? <img src={user?.photo} alt="a"/> : <img src="https://res.cloudinary.com/teepublic/image/private/s--UymRXkch--/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1570281377/production/designs/6215195_0.jpg" /> }
                                 </div>
                             </label>
                             {logged ? (openProfile ? (<><ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                                <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
-                                </li>
-                                <li><a>Settings</a></li>
-                                <li><a onClick={handleLogOut}>Log out</a></li>
-                            </ul></>) : null) : (openProfile ? (<><ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><LinkRouter to={'/signin'}>Sign in</LinkRouter></li>
-                                <li><LinkRouter to={'/signup'}>Sign up</LinkRouter></li>
-                            </ul></>) : null)}
-                            </div>
-                </div>
-            </div>
+                            <li>
+                      <a href="#my-modal-2">Profile</a>
+                    </li>
+                    <li>
+                      <a onClick={handleLogOut}>Log out</a>
+                    </li>
+                  </ul>
+                </>
+              ) : null
+            ) : openProfile ? (
+              <>
+                <ul
+                  tabIndex={0}
+                  className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <li>
+                    <LinkRouter to={"/signin"}>Sign in</LinkRouter>
+                  </li>
+                  <li>
+                    <LinkRouter to={"/signup"}>Sign up</LinkRouter>
+                  </li>
+                </ul>
+              </>
+            ) : null}
+            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <div className="modal" id="my-modal-2">
+                <div className="modal-box">
+                    <div className="flex justify-center items-center">
+                    <div className="avatar online">
+                        <div className="w-24 rounded-full">
+                            <img src={user?.photo} />
+                        </div>
+                    </div>
 
-
-        </>
-    )
+                    <div className="flex justify-content-center align-items-center flex-col text-center my-3 mx-5">
+                        <p className="text-2xl">{user?.name}</p>
+                        <p className="text-2xl">{user?.email}</p>
+                    </div>
+                    </div>
+                    <div className="flex justify-evenly align-evenly">
+                    <div className="stats shadow">
+                    <div className="stat">
+                        <div className="stat-title">Total buys</div>
+                        <div className="stat-value">23</div>
+                        <div className="stat-desc">21% more than last month</div>
+                    </div>
+                    </div>
+                    <div className="stats shadow">
+                    <div className="stat">
+                        <div className="stat-title">Total reviews</div>
+                        <div className="stat-value">12</div>
+                        <div className="stat-desc">5% more than last month</div>
+                    </div>
+                    </div>
+                    </div>
+                    <div className="modal-action">
+                        <a href="#" className="btn">Close</a>
+                    </div>
+          </div>
+        </div>
+        </div>
+        </div>
+        </div>
+  );
 }
+

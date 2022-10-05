@@ -14,6 +14,11 @@ export default function ProductsPage() {
     let { data: allProducts } = useGetAllProductsQuery(type)
     let { data: products } = useGetFilteredProductsQuery(type)
 
+    let user = JSON.parse(localStorage.getItem('userLogged'))
+    let userRole = user?.role
+  
+    console.log(userRole)
+
     const productCard = card => (
         <div key={card._id} className="card card-products w-72 bg-base-100 shadow-xl">
             <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo} alt="Shoes" /></figure>
@@ -24,6 +29,7 @@ export default function ProductsPage() {
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
                     <button className="btn btn-primary">Buy Now</button>
+                    {userRole === "admin"? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit Now!</LinkRouter></button>):null}
                 </div>
             </div>
         </div>
@@ -52,12 +58,12 @@ export default function ProductsPage() {
 
         <PageLayout>
             <div className="form-control">
-            <label className="input-group input-group-md flex justify-end align-items-center py-4 pr-5 bg-white">
+            <label className="input-group input-group-md flex justify-center align-items-center py-4 bg-white">
                 <span>TS</span>
-                <input type="text" placeholder="Type here" onChange={filterData} className="input input-bordered input-md" />
+                <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
             </label>
             </div>
-            <div className="flex justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
+            <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
                 {show?.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
             </div>
         </PageLayout>
