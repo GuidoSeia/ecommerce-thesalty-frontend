@@ -14,6 +14,11 @@ export default function ProductsPage() {
     let { data: allProducts } = useGetAllProductsQuery(type)
     let { data: products } = useGetFilteredProductsQuery(type)
 
+    let user = JSON.parse(localStorage.getItem('userLogged'))
+    let userRole = user?.role
+  
+    console.log(userRole)
+
     const productCard = card => (
         <div key={card._id} className="card card-products w-72 bg-base-100 shadow-xl">
             <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo} alt="Shoes" /></figure>
@@ -24,6 +29,7 @@ export default function ProductsPage() {
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
                     <button className="btn btn-primary">Buy Now</button>
+                    {userRole === "admin"? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit Now!</LinkRouter></button>):null}
                 </div>
             </div>
         </div>
