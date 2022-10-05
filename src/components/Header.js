@@ -7,6 +7,8 @@ import ShoppingCart from './ShoppingCart'
 import {  useState } from "react";
 import { entry } from '../features/loggedSlice'
 import { useSelector, useDispatch } from 'react-redux';
+
+
 //import AdminProfile from '../pages/AdminProfile'
 
 
@@ -14,19 +16,21 @@ export default function Header() {
   const logged = useSelector((state) => state.logged.loggedState);
 
 
-    const logged = useSelector((state) => state.logged.loggedState)
+  
     const dispatch = useDispatch()
     const [signOut] = useGetSignOutMutation()
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
+
     const [openProfile, setOpenProfile] = useState(false);
     let user = JSON.parse(localStorage.getItem('userLogged'))
    
 
 
   const [open, setOpen] = useState(false);
-  const [openProfile, setOpenProfile] = useState(false);
 
+  const handleNavigate = () => {
+    navigate('/products')
+}
 
 
   const openMenu = () => {
@@ -58,8 +62,7 @@ export default function Header() {
 
 
     return (
-        <>
-            <div className="navBar navbar bg-black">
+             <div className="navBar navbar bg-black">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -110,9 +113,6 @@ export default function Header() {
 
                 </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </>
+    
   );
 }
