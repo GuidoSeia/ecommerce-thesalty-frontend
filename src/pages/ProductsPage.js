@@ -58,7 +58,7 @@ export default function ProductsPage() {
             </label>
             </div>
             <div className="flex justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
-                {show.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
+                {show?.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
             </div>
         </PageLayout>
     )
