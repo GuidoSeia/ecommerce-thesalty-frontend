@@ -2,6 +2,7 @@ import React from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export default function CartPage() {
 
@@ -13,14 +14,14 @@ export default function CartPage() {
             description: "descripcion reloj",
             image: "https://www.woodenson.cl/wp-content/uploads/sites/2/2021/10/DSC_0127-600x600.jpg",
             price: 1000,
-            quantity: 2
+            quantity: 1
         },
         {
             id: 2,
             title: "Sunglasses",
             description: "descripcion anteojos",
             image: "https://cdn.shopify.com/s/files/1/0270/6663/0217/products/711426.jpg?v=1634050720",
-            price: 1000,
+            price: 2000,
             quantity: 2
         },
         {
@@ -28,8 +29,8 @@ export default function CartPage() {
             title: "backpack",
             description: "descripcion mochila",
             image: "https://i0.wp.com/chevyproductos.cl/wp-content/uploads/mochila-rolltop-40-lt-negra.jpg?resize=400%2C400&ssl=1",
-            price: 1000,
-            quantity: 2
+            price: 3000,
+            quantity: 3
         },
     ]
 
@@ -49,21 +50,31 @@ export default function CartPage() {
                     </div>
                     <div>
                         <div className="font-bold">{product.title}</div>
-                        <div className="text-sm opacity-50">$: {product.price}</div>
+                        <div className="text-sm opacity-50 flex gap-1">
+                            <p>$:</p>
+                            <p className='unitPrice'>{product.price}</p>
+                        </div>
                     </div>
                 </div>
             </td>
             <td>
                 {product.description}
             </td>
-            <td className='text-center'>{product.quantity}</td>
+            <td className='text-center quantity'>{product.quantity}</td>
         </tr>
     )
+
     return (
         <PageLayout>
             <div className='flex items-center cart-container p-5 text-white h-full'>
                 <div className="flex flex-col w-full h-full lg:flex-row">
                     <div className="grid flex-grow h-full card cart-card bg-base-300 rounded-box place-items-center">
+                        <ul className="steps p-3">
+                            <li className="step step-primary mx-2">Choose products</li>
+                            <li className="step step-primary mx-2">Confirm payment</li>
+                            <li className="step mx-2">Pay</li>
+                            <li className="step mx-2">Order end</li>
+                        </ul>
                         <div className="overflow-x-auto w-full">
                             <table className="table w-full">
                                 <thead>
@@ -104,7 +115,7 @@ export default function CartPage() {
                             <div className="cart-summary-body mt-2 flex flex-col justify-center gap-5">
                                 <div className='flex p-3 justify-between'>
                                     <p>Nombre del producto</p>
-                                    <p>$ 000000</p>
+                                    <p>$</p>
                                 </div>
                                 <div className='flex p-3 justify-between'>
                                     <div>
@@ -120,7 +131,7 @@ export default function CartPage() {
                                 </div>
                             </div>
                             <div className='flex justify-center'>
-                            <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter>
+                                <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter>
                             </div>
                         </div>
                     </div>
