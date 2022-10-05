@@ -4,7 +4,7 @@ import {Link as LinkRouter} from 'react-router-dom'
 
 export default function Footer() {
   return (
-<footer className="footerContainer footer items-center p-4 bg-black text-neutral-content">
+<footer className="footerContainer footer justify-evenly items-center p-4 bg-black text-neutral-content">
   <div className="items-center grid-flow-col">
   <LinkRouter to={'/home'}><img src="/logo-white.png" width="70" alt="Shoes" className="rounded-xl" /></LinkRouter>
     <p>Copyright © 2022 - All right reserved</p>
