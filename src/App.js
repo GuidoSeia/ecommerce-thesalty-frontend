@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import { useSelector, useDispatch } from 'react-redux';
 import { loggedTrue } from './features/loggedSlice'
+import InfoPage from './pages/InfoPage';
 
 export default function App() {
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route path='/signup' element={!logged ? <SignUp/> : null} />
         <Route path='/signin' element={!logged ? <SignIn/> : null} />
         <Route path='/products' element={<ProductsPage/>} />
+        <Route path='/aboutUs' element={<InfoPage />}/>
       </Routes>
     </BrowserRouter>
   );
