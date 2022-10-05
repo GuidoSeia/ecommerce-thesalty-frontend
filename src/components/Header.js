@@ -1,4 +1,3 @@
-
 import React from 'react'
 import '../styles//Header.css'
 import { Link as LinkRouter, useNavigate } from 'react-router-dom'
@@ -22,10 +21,14 @@ export default function Header() {
 
   const [open, setOpen] = useState(false);
 
+
   const handleNavigate = () => {
     navigate('/products')
   }
 
+  const handleNavigateToHome = () => {
+    navigate('/')
+  }
 
   const openMenu = () => {
     if (open === true) {
@@ -48,7 +51,7 @@ export default function Header() {
       await signOut(object);
       localStorage.removeItem("userLogged");
       dispatch(entry());
-      handleNavigate();
+      handleNavigateToHome();
     } catch (error) {
       console.log(error);
     }
