@@ -77,6 +77,10 @@ const SignIn = () => {
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+          
+        </div>
+        <div className="flex justify-center align-items-center mt-6">
+          <SignInGoogle />
         </div>
       </div>
     </div>
@@ -84,7 +88,6 @@ const SignIn = () => {
 </div>
     </form>
 
-<SignInGoogle/>
   </div>
   )
 }
