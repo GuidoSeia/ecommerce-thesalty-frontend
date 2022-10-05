@@ -63,8 +63,8 @@ export default function Header() {
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-52">
                             <li><LinkRouter to="/home">Home</LinkRouter></li>
                             <li><LinkRouter to="/products">Products</LinkRouter></li>
+                            <li><LinkRouter to="/aboutUs">About Us</LinkRouter></li>
                             {user?.role === "admin" ? (<li> <LinkRouter to="/admin">Administrator Profile</LinkRouter></li>):null}
-
                         </ul>
                     </div>
                 </div>
