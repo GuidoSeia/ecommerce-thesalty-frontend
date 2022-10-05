@@ -46,7 +46,6 @@ export const SignInGoogle = () => {
     }
 
     useEffect (()=>{
-        window.onload = function () {
             /* global google*/
             google.accounts.id.initialize({
               client_id: "17949108607-dg6u3mnf3slql5tle4u5dqhr117oq6i7.apps.googleusercontent.com",
@@ -56,14 +55,15 @@ export const SignInGoogle = () => {
             });
             google.accounts.id.renderButton(
             buttonDiv.current,
-             { theme: "outline", size: "medium", text: "signin_with", locale: "en" } // customization attributes
+            { theme: "filled_black", size: "medium", text: "signin_with", locale: 'en', type: "standar"}
             );
-          }
-
     }, [])
+
   return (
-    <div>
-     <div ref={buttonDiv}></div>
-     </div>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+      <div ref={buttonDiv}>
+    
+      </div>
+    </div>
   )
 }
