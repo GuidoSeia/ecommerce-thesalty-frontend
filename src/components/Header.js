@@ -1,3 +1,4 @@
+
 import React from 'react'
 import '../styles//Header.css'
 import {Link as LinkRouter, useNavigate} from 'react-router-dom'
@@ -8,7 +9,10 @@ import { entry } from '../features/loggedSlice'
 import { useSelector, useDispatch } from 'react-redux';
 //import AdminProfile from '../pages/AdminProfile'
 
+
 export default function Header() {
+  const logged = useSelector((state) => state.logged.loggedState);
+
 
     const logged = useSelector((state) => state.logged.loggedState)
     const dispatch = useDispatch()
@@ -19,37 +23,39 @@ export default function Header() {
     let user = JSON.parse(localStorage.getItem('userLogged'))
    
 
-    const handleNavigate = () => {
-        navigate('/')
+
+  const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+
+
+
+  const openMenu = () => {
+    if (open === true) {
+      setOpen(false);
+    } else {
+      setOpen(true);
     }
+  };
 
+  const openProfileMenu = () => {
+    setOpenProfile(!openProfile);
+  };
 
-    const openMenu = () => {
-        if (open === true) {
-          setOpen(false);
-        } else {
-          setOpen(true);
-        }
-      };  
-
-      const openProfileMenu = () => {
-        setOpenProfile(!openProfile)
-      };  
-
-      const handleLogOut = async() => {
-        try{
-        let object = {
-            logged: false,
-            id: user.id,
-        }
-        await signOut(object)
-        localStorage.removeItem('userLogged');
-        dispatch(entry())
-        handleNavigate()
-        }catch(error){
-        console.log(error);
-        }
+  const handleLogOut = async () => {
+    try {
+      let object = {
+        logged: false,
+        id: user.id,
+      };
+      await signOut(object);
+      localStorage.removeItem("userLogged");
+      dispatch(entry());
+      handleNavigate();
+    } catch (error) {
+      console.log(error);
     }
+  };
+
 
     return (
         <>
@@ -101,10 +107,12 @@ export default function Header() {
                                 <li><LinkRouter to={'/signup'}>Sign up</LinkRouter></li>
                             </ul></>) : null)}
                             </div>
+
                 </div>
             </div>
-
-
-        </>
-    )
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

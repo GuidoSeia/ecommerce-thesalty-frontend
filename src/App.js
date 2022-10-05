@@ -8,6 +8,7 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
+import CartPage from './pages/CartPage';
 import { useSelector, useDispatch } from 'react-redux';
 import { loggedTrue } from './features/loggedSlice'
 import AdminProfile from './pages/AdminProfile';
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/newproduct" element={ userRole ==="admin" ? <NewProducts/> : null} />
 
         <Route path='/products' element={<ProductsPage/>} />
+        <Route path='/cart' element={<CartPage/>} />
       </Routes>
     </BrowserRouter>
   );

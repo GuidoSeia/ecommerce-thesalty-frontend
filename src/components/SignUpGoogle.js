@@ -32,7 +32,6 @@ export const SignUpGoogle = () => {
     }
 
     useEffect (()=>{
-        window.onload = function () {
             /* global google*/
             google.accounts.id.initialize({
               client_id: "17949108607-dg6u3mnf3slql5tle4u5dqhr117oq6i7.apps.googleusercontent.com",
@@ -44,12 +43,11 @@ export const SignUpGoogle = () => {
              buttonDiv.current,
              { theme: "outline", size: "medium", text: "signup_with", locale: "en" } // customization attributes
              );
-          }
-
     }, [])
+    
   return (
-    <div>
+    <>
      <div ref={buttonDiv}></div>
-     </div>
+     </>
   )
 }
