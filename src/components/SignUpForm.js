@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRef } from "react";
 import { SignUpGoogle } from './SignUpGoogle';
+import ReCAPTCHA from "react-google-recaptcha";
 import { useDispatch } from "react-redux";
 import {useNavigate} from "react-router-dom"
 import { useGetNewUserMutation } from '../features/usersAPI';
@@ -26,6 +27,7 @@ const SignUp = () => {
     };
     console.log(formUser)
 
+
     try {
       const response = await newUser(formUser)
       navigate("/signin");
@@ -35,8 +37,15 @@ const SignUp = () => {
      
     }
     form.current.reset();
-
   }
+  
+  const captcha = useRef(null)
+
+  function onChange() {
+    if(captcha.current.getValue()){
+      console.log(captcha.current.getValue())
+  }
+}
 
   return (
    
@@ -50,7 +59,7 @@ const SignUp = () => {
     </div>
     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
       <div className="card-body">
-{/*Input */}
+      {/*Input */}
       <div className="form-control">
           <label className="label">
             <span className="label-text">Name and Lastname</span>
@@ -78,9 +87,19 @@ const SignUp = () => {
           </label>
           <input type="text" name="password" className="input input-bordered" />
         </div>
-
+        <div className="flex justify-center align-items-center mt-5">
+        <ReCAPTCHA
+          sitekey="6LfLI1UiAAAAAEG2Baygi7bZD1cAggQcuDvK3W0N"
+          onChange={onChange}
+          theme={'dark'}
+          ref={captcha}
+        />
+        </div>
+        <div className="flex justify-center align-items-center pt-5">
+          <SignUpGoogle/> 
+        </div>
         <div className="form-control mt-6">
-          <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+          <button className="btn btn-primary" onClick={handleSubmit}>Sign up</button>
         </div>
       </div>
     </div>
@@ -88,7 +107,6 @@ const SignUp = () => {
 </div>
 
     </form>
-    <SignUpGoogle/> 
    
   </div>
 

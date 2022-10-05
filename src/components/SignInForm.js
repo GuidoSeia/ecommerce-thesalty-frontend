@@ -1,22 +1,56 @@
 import React from 'react'
 import { useRef } from "react";
+import { useGetLoginMutation } from '../features/usersAPI';
+import { useNavigate } from 'react-router-dom'
 import { SignInGoogle } from './SignInGoogle';
-
+import { useDispatch } from 'react-redux';
+import { loggedTrue } from '../features/loggedSlice'
 
 const SignIn = () => {
+
+  const [newLogin] = useGetLoginMutation()
+
+  const dispatch = useDispatch()
+
   const form = useRef();
+
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate('/home')
+  }
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+
     const formData = new FormData(form.current);
+
     const formUser = {
-     
-      mail: formData.get("mail"),
-      
+      email: formData.get("email"),
       password: formData.get("password"),
     };
-    console.log(formUser)
 
+    await newLogin(formUser)
+        .then((success) => {
+          let user = success?.data?.response?.user
+          /* let token = success?.data?.response?.token */
+          if(user !== undefined){
+            localStorage.setItem("userLogged", JSON.stringify(user))
+            /* localStorage.setItem("token", JSON.stringify(token)) */
+            /* showLoginMsg(user?.name) */
+            dispatch(loggedTrue())
+            form.current.reset()
+            handleNavigate()
+          }else{
+            console.log('Email or password invalid')
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        })
   }
+
   return (
     <div>
     <form ref={form} className="form-control">
@@ -32,17 +66,21 @@ const SignIn = () => {
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="text" name="mail" className="input input-bordered" />
+          <input type="text" name="email" className="input input-bordered" />
         </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text">Password</span>
           </label>
           <input type="password" name="password" className="input input-bordered" />
-         
+        
         </div>
         <div className="form-control mt-6">
           <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
+          
+        </div>
+        <div className="flex justify-center align-items-center mt-6">
+          <SignInGoogle />
         </div>
       </div>
     </div>
@@ -50,7 +88,6 @@ const SignIn = () => {
 </div>
     </form>
 
-<SignInGoogle/>
   </div>
   )
 }
