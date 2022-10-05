@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import * as jose from 'jose'
 import { useGetNewUserMutation } from '../features/usersAPI'
+import { toast } from 'react-toastify';
+import { success } from 'daisyui/src/colors';
 
 export const SignUpGoogle = () => {
     const buttonDiv = useRef(null)
@@ -19,17 +21,26 @@ export const SignUpGoogle = () => {
         role: "user",
         from: "google",
       };
-
-      console.log(data);
-
       await newUser(data)
         .then((success) => {
-          console.log(success);
+          successMessage(success?.data.message)
         })
         .catch((error) => {
-          console.log(error);
+          errorMessage(error)
         })
     }
+
+    const successMessage = (message) => {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    };
+  
+    const errorMessage = (message) => {
+      toast.error(message, {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    };
 
     useEffect (()=>{
             /* global google*/
