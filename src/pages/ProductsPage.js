@@ -47,7 +47,6 @@ export default function ProductsPage() {
 
                     </div>
                     {userRole === "admin" ? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit</LinkRouter></button>):null}
-                
             </div>
         </div>
     )

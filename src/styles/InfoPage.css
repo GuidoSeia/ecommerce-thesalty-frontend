@@ -1,0 +1,153 @@
+.infoPage-container {
+    min-height: 80vh;
+    background-color: white;
+}
+
+.aboutUs-container {
+    display: flex;
+    justify-content: center;
+    background-image:
+        url("https://images.pexels.com/photos/8717523/pexels-photo-8717523.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: contain;
+    background-position: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+.text-Container{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.603);
+    border: 1px rgba(255, 255, 255, 0.418) solid;
+    height: 100%;
+    width: 50%;
+    border-radius: 1rem;
+}
+.text-Container h1{
+    font-weight: 400;
+    font-size: 3rem;
+}
+
+.text-Container p{
+    padding: 1rem;
+    font-weight: 300;
+    font-size: 25px;
+}
+
+.ubication-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image:
+        url("https://images.pexels.com/photos/9620354/pexels-photo-9620354.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    gap: 10px;
+    padding: 1rem;
+    
+}
+
+.contact-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.87);
+    border: 1px rgba(255, 255, 255, 0.418) solid;
+    border-radius: 1rem;
+    width: 20%;
+
+}
+
+.ubication-container h2 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.text-ubication{
+    color: white;
+    display: flex;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.contactUs-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-image:
+        url("https://images.unsplash.com/photo-1556262965-14fa6922eb8c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    background-size: contain;
+    background-position: center;
+    height: 100%;
+    gap: 10px;
+    padding: 1rem;
+}
+
+.inputAndText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.678);
+    border: 1px rgba(255, 255, 255, 0.418) solid;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    width: 40rem;
+}
+.inputAndText h2{
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 400;
+
+}
+.inputName{
+    background-color: rgba(65, 65, 65, 0.5);
+    color: rgb(255, 255, 255);
+    width: 100%;
+}
+.inputMsg{
+    background-color: rgba(65, 65, 65, 0.5);
+    color: rgb(255, 255, 255);
+    height: 10rem;
+    width: 100%;
+}
+
+@media (max-width: 1141px){
+    .text-Container{
+        width: 80%;
+
+    }
+    .contact-container{
+        width: 30%; 
+    }
+
+}
+
+@media (max-width: 1123px){
+    .text-Container{
+        width: 100%;
+
+    }
+    .contact-container{
+        width: 40%;
+    
+    }
+
+}
+
+@media (max-width: 600px){
+    .text-Container{
+        width: 100%;
+
+    }
+    .contact-container{
+        width: 100%;
+    
+    }
+
+}

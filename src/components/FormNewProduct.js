@@ -1,6 +1,7 @@
 import React from 'react'
 import {  useRef } from "react"
 import {useGetNewProductMutation} from "../features/productsApi"
+import '../styles//FormNewProduct.css'
 
 
 export default function FormNewProduct() {
@@ -36,14 +37,14 @@ const [newProd] = useGetNewProductMutation()
     <div>
 
 <div>
-    <form ref={formRef}  className="form-control">
+    <form ref={formRef}  className="">
     <div className="hero min-h-screen bg-base-200">
   <div className="hero-content flex-col lg:flex-row-reverse">
-    <div className="text-center lg:text-left">
+    <div className="sideBar">
       <h1 className="text-5xl font-bold">New Product</h1>
-      <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+      <figure><img src="/relojes-hombre-abaco.webp" alt="Shoes" /></figure>
     </div>
-    <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+    <div className="">
       <div className="card-body">
         <div className="form-control">
           <label className="label">
@@ -62,7 +63,7 @@ const [newProd] = useGetNewProductMutation()
 <label className="label">
   <span className="label-text">Description</span>
 </label>
-<input type="text" name="description" className="input input-bordered" />
+<textarea type="text" name="description" className="input input-bordered decription" />
 </div>
 <div className="form-control">
 <label className="label">
