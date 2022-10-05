@@ -52,12 +52,12 @@ export default function ProductsPage() {
 
         <PageLayout>
             <div className="form-control">
-            <label className="input-group input-group-md flex justify-end align-items-center py-4 pr-5 bg-white">
+            <label className="input-group input-group-md flex justify-center align-items-center py-4 bg-white">
                 <span>TS</span>
-                <input type="text" placeholder="Type here" onChange={filterData} className="input input-bordered input-md" />
+                <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
             </label>
             </div>
-            <div className="flex justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
+            <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
                 {show?.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
             </div>
         </PageLayout>

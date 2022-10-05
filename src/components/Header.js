@@ -80,7 +80,7 @@ export default function Header() {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-black rounded-box w-52"
             >
               <li>
-                <a>Home</a>
+              <LinkRouter to="/home">Home</LinkRouter>
               </li>
               <li>
                 <LinkRouter to="/products">Products</LinkRouter>
@@ -148,7 +148,7 @@ export default function Header() {
                     className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                   >
                     <li>
-                        <a href="#my-modal-2">Profile</a>
+                        <a htmlFor="my-modal-2">Profile</a>
                     </li>
                     <li>
                       <a onClick={handleLogOut}>Log out</a>
@@ -171,8 +171,8 @@ export default function Header() {
                 </ul>
               </>
             ) : null}
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
-            <div className="modal" id="my-modal-2">
+            <input type="checkbox" id="my-modal-2" className="modal-toggle" />
+            <div className="modal">
                 <div className="modal-box">
                     <div className="flex justify-center items-center">
                     <div className="avatar online">
