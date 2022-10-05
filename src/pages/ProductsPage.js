@@ -29,7 +29,7 @@ export default function ProductsPage() {
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
                     <button className="btn btn-primary">Buy Now</button>
-                    {userRole === "admin"? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit Now!</LinkRouter></button>):null}
+                    {userRole === "admin"? (<button className=" "><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit Now!</LinkRouter></button>):null}
                 </div>
             </div>
         </div>

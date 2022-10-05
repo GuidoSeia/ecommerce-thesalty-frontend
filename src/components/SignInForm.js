@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { SignInGoogle } from './SignInGoogle';
 import { useDispatch } from 'react-redux';
 import { loggedTrue } from '../features/loggedSlice'
+import '../styles//SignInForm.css'
 import { toast } from 'react-toastify';
 
 const SignIn = () => {
