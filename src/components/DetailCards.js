@@ -4,7 +4,6 @@ import { useEffect, useState, } from 'react'
 import apiurl from '../api';
 import axios from 'axios'
 
-
 export default function DetailCards() {
 
   let params = window.location.search

@@ -12,14 +12,12 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import CartPage from './pages/CartPage';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { loggedTrue } from './features/loggedSlice'
 import InfoPage from './pages/InfoPage';
 import AdminProfile from './pages/AdminProfile';
 import EditProducts from './pages/EditProducts';
 import NewProducts from './pages/NewProducts';
-
-
+import Details from './pages/Details'
 
 export default function App() {
 
