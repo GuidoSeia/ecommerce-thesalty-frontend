@@ -4,66 +4,85 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { loggedTrue } from '../features/loggedSlice'
 import { useGetLoginMutation } from '../features/usersAPI'
+import { toast } from 'react-toastify';
+
 
 export const SignInGoogle = () => {
-    const buttonDiv = useRef(null)
+  const buttonDiv = useRef(null)
 
-    const navigate = useNavigate()
+  const navigate = useNavigate()
 
-    const handleNavigate = () => {
+  const handleNavigate = () => {
     navigate('/home')
-    }
+  }
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    const [newLogin] = useGetLoginMutation()
+  const [newLogin] = useGetLoginMutation()
 
-    async function handleCredentialResponse (response) {
-      let userObject = jose.decodeJwt(response.credential);
+  async function handleCredentialResponse(response) {
+    let userObject = jose.decodeJwt(response.credential);
 
-      let data = {
-        email: userObject.email,
-        password: userObject.sub,
-        from: "google",
-      };
+    let data = {
+      email: userObject.email,
+      password: userObject.sub,
+      from: "google",
+    };
 
-      await newLogin(data)
-          .then((success) => {
-            console.log(success)
-            let user = success?.data?.response?.user
-            console.log(user);
-            /* let token = succes?.data?.response?.token */
-            localStorage.setItem("userLogged", JSON.stringify(user))
-            /* localStorage.setItem("token", JSON.stringify(token)) */
-            dispatch(loggedTrue())
-            /* showLoginMsg(user.name) */
-            handleNavigate()
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+    await newLogin(data)
+      .then((success) => {
+        console.log(success)
+        let user = success?.data?.response?.user
+        /* let token = succes?.data?.response?.token */
+        if (user != undefined) {
+          localStorage.setItem("userLogged", JSON.stringify(user))
+          /* localStorage.setItem("token", JSON.stringify(token)) */
+          dispatch(loggedTrue())
+          /* showLoginMsg(user.name) */
+          handleNavigate()
+          successMessage(success.data.message)
+        } else {
+          errorMessage(success.error.data.message)
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
 
-    }
+  }
 
-    useEffect (()=>{
-        window.onload = function () {
-            /* global google*/
-            google.accounts.id.initialize({
-              client_id: "17949108607-dg6u3mnf3slql5tle4u5dqhr117oq6i7.apps.googleusercontent.com",
-              callback: handleCredentialResponse,
-              context: "signin",
+  useEffect(() => {
+    /* global google*/
+    google.accounts.id.initialize({
+      client_id: "17949108607-dg6u3mnf3slql5tle4u5dqhr117oq6i7.apps.googleusercontent.com",
+      callback: handleCredentialResponse,
+      context: "signin",
 
-            });
-            google.accounts.id.renderButton(
-            buttonDiv.current,
-             { theme: "outline", size: "medium", text: "signin_with", locale: "en" } // customization attributes
-            );
-          }
+    });
+    google.accounts.id.renderButton(
+      buttonDiv.current,
+      { theme: "filled_black", size: "medium", text: "signin_with", locale: 'en', type: "standar" }
+    );
+  }, [])
 
-    }, [])
+
+  const successMessage = (message) => {
+    toast.success(message, {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  };
+
+  const errorMessage = (message) => {
+    toast.error(message, {
+      position: toast.POSITION.TOP_RIGHT
+    });
+  };
+
   return (
-    <div>
-     <div ref={buttonDiv}></div>
-     </div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+      <div ref={buttonDiv}>
+
+      </div>
+    </div>
   )
 }
