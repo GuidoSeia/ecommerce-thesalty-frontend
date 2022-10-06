@@ -22,8 +22,8 @@ export default function Header() {
   const [open, setOpen] = useState(false);
 
 
-  const handleNavigate = () => {
-    navigate('/products')
+  const handleNavigateToCart = () => {
+    navigate('/cart')
   }
 
   const handleNavigateToHome = () => {

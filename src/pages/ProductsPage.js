@@ -4,12 +4,18 @@ import { useGetAllProductsQuery ,useGetFilteredProductsQuery } from '../features
 import { Link as LinkRouter } from 'react-router-dom'
 import PageLayout from "../components/layout/PageLayout"
 import { type } from '@testing-library/user-event/dist/type'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../features/cartSlice'
 
 export default function ProductsPage() {
 
     let params = window.location.search
     let urlParams = new URLSearchParams(params)
     let type = urlParams.get("type")
+    const dispatch = useDispatch()
+
+    const cart = useSelector((state) => state.cart.cart)
+    console.log(cart);
 
     let { data: allProducts } = useGetAllProductsQuery(type)
     let { data: products } = useGetFilteredProductsQuery(type)
@@ -40,7 +46,7 @@ export default function ProductsPage() {
                     <p>Stock: {card.stock}</p>
                     </div>
                     <div className="flex justify-around">
-                        <button className="btn">Add to cart</button>
+                        <button className="btn"  onClick={() => dispatch(addToCart(card))}>Add to cart</button>
                         <button className="btn">Details</button>
                     </div>
                     <div>
@@ -65,9 +71,9 @@ export default function ProductsPage() {
 
     let show
     if (type == null) {
-        { filter ? show = allProducts?.response.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response.map(productCard)}
+        { filter ? show = allProducts?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response?.map(productCard)}
     } else {
-        { filter ? show = products?.response.filter((item => item.brand.includes(filter))).map(productCard) : show = products?.response.map(productCard)}
+        { filter ? show = products?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = products?.response?.map(productCard)}
     }
 
     return (
