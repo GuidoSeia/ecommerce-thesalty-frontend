@@ -2,9 +2,15 @@ import React from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import { addToCart } from '../features/cartSlice'
+import { decrementQuantity } from '../features/cartSlice'
+
+
 
 export default function CartPage() {
+
+    const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart.cart)
     console.log(cart);
@@ -35,6 +41,7 @@ export default function CartPage() {
             quantity: 3
         },
     ]
+    
 
     let tbody = (product) => (
         <tr key={product.id}>
@@ -62,7 +69,11 @@ export default function CartPage() {
             <td>
                 {product.description.slice(0, 50)}...
             </td>
-            <td className='text-center quantity'>{product.quantity}</td>
+            <td className='text-center quantity'>{product.quantity}
+            <p></p>
+            <button className="btnAdd"  onClick={() => dispatch(addToCart(product))}>+</button>
+            <button className="btnRemove"  onClick={() => dispatch(decrementQuantity(product))}>-</button>
+           </td>
         </tr>
     )
 
