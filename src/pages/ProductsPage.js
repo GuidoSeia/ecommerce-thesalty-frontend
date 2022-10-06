@@ -46,9 +46,9 @@ export default function ProductsPage() {
                     <p>Stock: {card.stock}</p>
                 </div>
               </div>
-                    <div className="flex justify-around">
-                        <button className="btn"  onClick={() => dispatch(addToCart(card))}>Add to cart</button>
-                        <LinkRouter className="btn btn-active btn-ghost" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
+                    <div className="flex justify-around bg-white p-3">
+                        <button className="btn btn-outline btn-primary"  onClick={() => dispatch(addToCart(card))}>Add to cart</button>
+                        <LinkRouter className="btn btn-ghost" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
                     </div>
                     <div>
                     </div>
