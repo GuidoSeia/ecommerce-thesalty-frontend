@@ -31,6 +31,9 @@ export default function Header() {
   }
 
   const openMenu = () => {
+    if (!user) {
+      toast.info("Please login to view cart")
+    }
     if (open === true) {
       setOpen(false);
     } else {
@@ -55,18 +58,11 @@ export default function Header() {
     } catch (error) {
       console.log(error);
     }
-
-  };
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
   };
 
   if (resultLogOut.isSuccess) {
     resultLogOut.isSuccess = false
-    successMessage(resultLogOut.data.message)
+    toast.success(resultLogOut.data.message);
   }
 
   return (

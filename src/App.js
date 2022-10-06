@@ -25,7 +25,7 @@ export default function App() {
   let user = JSON.parse(localStorage.getItem('userLogged'))
   let userRole = user?.role
   const dispatch = useDispatch()
-  
+
   if (localStorage.getItem('userLogged')) {
     dispatch(loggedTrue())
   }
@@ -34,20 +34,32 @@ export default function App() {
 
   return (
     <BrowserRouter>
-    <ToastContainer></ToastContainer>
+      <ToastContainer
+        toastStyle={{background: "#311D3F",
+        color: 'white'}}
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover={true}
+      />
       <Routes>
-        <Route path='/' element={<WelcomePage />}/>
-        <Route path="/home" element={<HomePage/>} />
-        <Route path='/signup' element={!logged ? <SignUp/> : null} />
-        <Route path='/signin' element={!logged ? <SignIn/> : null} />
-        <Route path="/admin" element={ userRole ==="admin" ? <AdminProfile/> : null} />
-        <Route path="/editproduct/:id" element={ userRole ==="admin" ? <EditProducts/> : null} />
-        <Route path="/newproduct" element={ userRole ==="admin" ? <NewProducts/> : null} />
-        <Route path='/products' element={<ProductsPage/>} />
-        <Route path='/Details' element={<Details/>} />
+        <Route path='/' element={<WelcomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path='/signup' element={!logged ? <SignUp /> : null} />
+        <Route path='/signin' element={!logged ? <SignIn /> : null} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile /> : null} />
+        <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
+        <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
+        <Route path='/products' element={<ProductsPage />} />
+        <Route path='/Details' element={<Details />} />
 
-        <Route path='/aboutUs' element={<InfoPage />}/>
-        <Route path='/cart' element={<CartPage/>} />
+        <Route path='/aboutUs' element={<InfoPage />} />
+        <Route path='/cart' element={<CartPage />} />
 
       </Routes>
     </BrowserRouter>

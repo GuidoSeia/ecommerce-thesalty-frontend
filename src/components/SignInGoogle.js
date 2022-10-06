@@ -31,7 +31,6 @@ export const SignInGoogle = () => {
 
     await newLogin(data)
       .then((success) => {
-        console.log(success)
         let user = success?.data?.response?.user
         /* let token = succes?.data?.response?.token */
         if (user != undefined) {
@@ -40,15 +39,14 @@ export const SignInGoogle = () => {
           dispatch(loggedTrue())
           /* showLoginMsg(user.name) */
           handleNavigate()
-          successMessage(success.data.message)
+          toast.success(success.data.message);
         } else {
-          errorMessage(success.error.data.message)
+          toast.error(success.error.data.message);
         }
       })
       .catch((error) => {
         console.log(error);
       })
-
   }
 
   useEffect(() => {
@@ -64,19 +62,6 @@ export const SignInGoogle = () => {
       { theme: "filled_black", size: "medium", text: "signin_with", locale: 'en', type: "standar" }
     );
   }, [])
-
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
-
-  const errorMessage = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
