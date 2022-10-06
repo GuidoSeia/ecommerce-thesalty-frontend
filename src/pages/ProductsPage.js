@@ -37,7 +37,7 @@ export default function ProductsPage() {
 
     const productCard = card => (
         <div key={card._id} className="card card-products w-72 bg-base-100 shadow-xl">
-            <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo} alt="Shoes" /></figure>
+            <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo?.[0]} alt="Shoes" /></figure>
             <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-start p-5">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
                 <p>{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
