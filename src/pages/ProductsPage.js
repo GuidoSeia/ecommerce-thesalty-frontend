@@ -24,6 +24,7 @@ export default function ProductsPage() {
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
                     <button className="btn btn-primary">Buy Now</button>
+                    <LinkRouter className="btn btn-active btn-ghost" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
                 </div>
             </div>
         </div>
