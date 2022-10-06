@@ -47,21 +47,21 @@ export default function HomePage() {
                     (
                         <>
                             <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-4">OFFER !!</div>
-                            <h2 className="text-white text-xs md:text-base lg:text-lg">do you like offers?</h2>
-                            <h2 className="text-white text-xs md:text-base lg:text-lg"> here we have some for you</h2>
+                            <h2 className="text-white text-xs md:text-base lg:text-lg">Do you like offers?</h2>
+                            <h2 className="text-white text-xs md:text-base lg:text-lg"> Here we have some for you</h2>
                         </>
                     ) : card.type === "new" ?
                         (
                             <>
                                 <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-5">New Products</div>
-                                <h2 className="text-white text-xs md:text-base lg:text-lg">come see our new products</h2>
+                                <h2 className="text-white text-xs md:text-base lg:text-lg">Come see our new products</h2>
                             </>
                         ) : card.type === "latest" ?
                             (
                                 <>
-                                    <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-4">latest products</div>
-                                    <h2 className="text-white text-xs md:text-base lg:text-lg">hurry up !!</h2>
-                                    <h2 className="text-white text-xs md:text-base lg:text-lg">latest products</h2>
+                                    <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-4">Latest products</div>
+                                    <h2 className="text-white text-xs md:text-base lg:text-lg">Hurry up !!</h2>
+                                    <h2 className="text-white text-xs md:text-base lg:text-lg">Latest products</h2>
                                 </>
 
                             ) : null}
@@ -73,7 +73,7 @@ export default function HomePage() {
     const productCard = card => (
         <div className="card border-black border w-40 m-1.5 h-52 md:m-1.5 md:w-40 md:h-80 lg:w-56 xl:m-10 xl:w-64 shadow-xl" key={card._id}>
             <figure className="h-1/2">
-                <img className="h-full w-full object-cover" src={card.photo} alt="Shoes" />
+                <img className="h-full w-full object-cover" src={card.photo?.[0]} alt="Shoes" />
             </figure>
             <div className="card-body h-1/2 flex justify-center p-2 md:justify-start md:p-5 lg:justify-evenly items-center">
                 <h2 className="card-title text-white text-sm lg:text-xl">

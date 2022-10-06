@@ -31,27 +31,27 @@ export default function DetailCards() {
       <div className="mx-auto pt-6 w-full px-6 lg:grid  lg:grid-cols-3 lg:gap-x-8 lg:px-8">
         <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
           <img
-            src={detailCards.photo}
+            src={detailCards?.photo?.[0]}
             className="h-full w-full object-cover object-center"
           />
         </div>
         <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
           <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
             <img
-              src={detailCards.photo}
+              src={detailCards?.photo?.[1]}
               className="h-72 w-full object-cover object-center"
             />
           </div>
           <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
             <img
-              src={detailCards.photo}
+              src={detailCards?.photo?.[2]}
               className="h-72 w-full object-cover object-center"
             />
           </div>
         </div>
         <div className="aspect-w-4 aspect-h-5 rounded-lg sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
           <img
-            src={detailCards.photo}
+            src={detailCards?.photo?.[3]}
             className="h-full w-full object-cover object-center rounded-lg"
           />
         </div>
@@ -64,9 +64,9 @@ export default function DetailCards() {
           </div>
         </div>
         <div className="py-2">
-        <p className="text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
-          <p className="text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: {detailCards.price}</p>
-          <p className="text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
+        <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
+          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
+          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}u</p>
           <div className="rating py-2">
             <input type="radio" name="rating-1" className="mask mask-star" checked />
             <input type="radio" name="rating-1" className="mask mask-star" />
