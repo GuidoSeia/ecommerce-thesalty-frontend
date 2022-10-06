@@ -2,10 +2,12 @@ import React from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useSelector } from 'react-redux';
 
 export default function CartPage() {
 
+    const cart = useSelector((state) => state.cart.cart)
+    console.log(cart);
 
     const data = [
         {
@@ -45,7 +47,7 @@ export default function CartPage() {
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                            <img src={product.image} alt="Avatar Tailwind CSS Component" />
+                            <img src={product.photo[0]} alt="Avatar Tailwind CSS Component" />
                         </div>
                     </div>
                     <div>
@@ -58,7 +60,7 @@ export default function CartPage() {
                 </div>
             </td>
             <td>
-                {product.description}
+                {product.description.slice(0, 50)}...
             </td>
             <td className='text-center quantity'>{product.quantity}</td>
         </tr>
@@ -90,7 +92,7 @@ export default function CartPage() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {data.map(tbody)}
+                                    {cart.map(tbody)}
                                 </tbody>
                                 <tfoot>
                                     <tr>
