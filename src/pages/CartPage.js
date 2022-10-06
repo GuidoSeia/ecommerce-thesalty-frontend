@@ -4,6 +4,7 @@ import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
+import { removeCart } from '../features/cartSlice'
 import { decrementQuantity } from '../features/cartSlice'
 
 export default function CartPage() {
@@ -81,20 +82,14 @@ export default function CartPage() {
                                 <tbody>
                                     {cart.map(tbody)}
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-
                             </table>
+                            {cart.length > 0 ? <div className="flex justify-center items-center bg-#360027">
+                                <button className="btn bg-base-100 m-3" onClick={() => dispatch(removeCart())}>Empty cart</button>
+                            </div> : null}
                         </div>
                     </div>
                     <div className="divider lg:divider-horizontal"></div>
-                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-start gap-5 items-center">
+                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center">
                         <div className='flex flex-col gap-3 justify-center items-center'>
                             <img width={100} src="/logo-white.png" alt="" />
                             <h2 className='text-white'>Order: #0000</h2>
