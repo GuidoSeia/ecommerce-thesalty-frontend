@@ -44,13 +44,15 @@ export default function ProductsPage() {
                 <div className="card-actions items-center">
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
+                    <button className="btn btn-primary">Buy Now</button>
+                    <LinkRouter className="btn btn-active btn-ghost" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
+                </div>
                     </div>
                     <div className="flex justify-around">
                         <button className="btn"  onClick={() => dispatch(addToCart(card))}>Add to cart</button>
                         <button className="btn">Details</button>
                     </div>
                     <div>
-
                     </div>
                     {userRole === "admin" ? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/"+ card._id}>Edit</LinkRouter></button>):null}
             </div>
