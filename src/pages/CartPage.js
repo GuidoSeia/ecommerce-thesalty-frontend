@@ -71,11 +71,11 @@ export default function CartPage() {
             <div className='flex items-center cart-container p-5 text-white h-full'>
                 <div className="flex flex-col w-full h-full lg:flex-row">
                     <div className="grid flex-grow h-full card cart-card bg-base-300 rounded-box place-items-center">
-                        <ul className="steps p-3">
-                            <li className="step step-primary mx-2">Choose products</li>
-                            <li className="step step-primary mx-2">Confirm payment</li>
-                            <li className="step mx-2">Pay</li>
-                            <li className="step mx-2">Order end</li>
+                        <ul className="steps p-4">
+                            <li className="step step-primary mx-2 text-xs md:text-base">Choose products</li>
+                            <li className="step step-primary mx-2 text-xs md:text-base">Confirm payment</li>
+                            <li className="step mx-2 text-xs md:text-base">Pay</li>
+                            <li className="step mx-2 text-xs md:text-base">Order end</li>
                         </ul>
                         <div className="overflow-x-auto w-full">
                             <table className="table w-full">
