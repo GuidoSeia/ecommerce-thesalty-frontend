@@ -90,6 +90,7 @@ export default function HomePage() {
                         <p className='text-white text-xs md:text-sm'>
                             Stock: {card.stock}
                         </p>
+                    
                     </div>
                 </div>
             </div>
