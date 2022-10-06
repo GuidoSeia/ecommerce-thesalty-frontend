@@ -134,29 +134,28 @@ export default function Header() {
             <div className="modal-box">
               <div className="flex justify-center items-center">
                 <div className="avatar online">
-                  <div className="w-24 rounded-full">
+                  <div className="w-12 sm:w-24 rounded-full">
                     <img src={user?.photo} />
                   </div>
                 </div>
-
                 <div className="flex justify-content-center align-items-center flex-col text-center my-3 mx-5">
                   <p className="text-2xl">{user?.name}</p>
-                  <p className="text-2xl">{user?.email}</p>
+                  <p className="text-sm sm:text-2xl">{user?.email}</p>
                 </div>
               </div>
-              <div className="flex justify-evenly align-evenly">
+              <div className="flex flex-col gap-5 sm:flex-row sm:gap-0 justify-evenly align-evenly">
                 <div className="stats shadow">
                   <div className="stat">
-                    <div className="stat-title">Total buys</div>
-                    <div className="stat-value">23</div>
-                    <div className="stat-desc">21% more than last month</div>
+                    <div className="text-sm stat-title">Total buys</div>
+                    <div className="text-sm stat-value">23</div>
+                    <div className="text-sm stat-desc">21% more than last month</div>
                   </div>
                 </div>
                 <div className="stats shadow">
                   <div className="stat">
-                    <div className="stat-title">Total reviews</div>
-                    <div className="stat-value">12</div>
-                    <div className="stat-desc">5% more than last month</div>
+                    <div className="text-sm stat-title">Total reviews</div>
+                    <div className="text-sm stat-value">12</div>
+                    <div className="text-sm stat-desc">5% more than last month</div>
                   </div>
                 </div>
               </div>
