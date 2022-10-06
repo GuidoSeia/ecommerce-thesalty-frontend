@@ -6,8 +6,6 @@ import { useSelector,useDispatch } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import { decrementQuantity } from '../features/cartSlice'
 
-
-
 export default function CartPage() {
 
     const dispatch = useDispatch()
