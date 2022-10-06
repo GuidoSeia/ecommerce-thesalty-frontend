@@ -17,3 +17,14 @@
 .cart-summary-body p{
     color: white;
 }
+
+@media screen and (max-width: 425px) {
+    .steps .step{
+        margin: 0;
+    }
+    
+    .steps .step:before{
+        width: 50%;
+    }
+}
+
