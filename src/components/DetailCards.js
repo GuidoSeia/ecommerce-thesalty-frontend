@@ -33,7 +33,7 @@ export default function DetailCards() {
   }, [productId])
 
   return (
-    <div className='DetailCards-Container'>
+    <div className='DetailCards-Container flex flex-col justify-center items-center'>
       <div className="mx-auto pt-6 w-full px-6 lg:grid  lg:grid-cols-3 lg:gap-x-8 lg:px-8">
         <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
           <img
@@ -62,17 +62,19 @@ export default function DetailCards() {
           />
         </div>
       </div>
-      <div className="mx-auto px-4 pt-10 pb-16 flex justify-center items-center flex-wrap">
+      <div className="flex justify-center items-center flex-wrap">
+      <div className="mx-auto px-4 pt-10 pb-10 flex justify-center items-center flex-wrap">
         <div className="lg:col-span-2 lg:pr-8 mx-5">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">{detailCards.brand}</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">{detailCards.brand} <span className="badge badge-lg">NEW</span></h1>
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <p className="text-2xl tracking-tight py-3 text-gray-900">{detailCards.description}</p>
           </div>
         </div>
       </div>
+      <div className="flex justify-center px-4">
         <div className="flex justify-center items-center flex-wrap">
           <div className="flex justify-center items-center flex-col mb-10 mx-20">
-          <p className="text-2xl tracking-tight py-2 font-bold text-gray-900">Model: {detailCards.model}</p>
+          <p className="text-2xl tracking-tight py-2 font-bold text-gray-900">Model: {detailCards.model} </p>
           <p className="text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
           <p className="text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
           <div className="rating py-2">
@@ -96,6 +98,7 @@ export default function DetailCards() {
           </div>
         </div>
       </div>
-
+      </div>
+      </div>
   )
 }
