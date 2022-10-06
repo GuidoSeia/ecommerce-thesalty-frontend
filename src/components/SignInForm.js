@@ -72,7 +72,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <form ref={form} className="form-control">
+      <form ref={form} className="form-control d-flex justify-center items-center">
         <div className="hero min-h-screen bg-base-200">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left">
