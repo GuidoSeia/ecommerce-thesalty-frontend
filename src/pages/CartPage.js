@@ -37,8 +37,7 @@ export default function CartPage() {
                     <div>
                         <div className="font-bold">{product.title}</div>
                         <div className="text-sm opacity-50 flex gap-1">
-                            <p>$:</p>
-                            <p className='unitPrice'>{product.price}</p>
+                            <p className='unitPrice text-md'>${product.price}</p>
                         </div>
                     </div>
                 </div>
@@ -99,7 +98,20 @@ export default function CartPage() {
                             <div className="cart-summary-body mt-2 flex flex-col justify-center gap-5">
                                 <div className='flex p-3 justify-between'>
                                     <p>Nombre del producto</p>
-                                    <p>$</p>
+                                    <div>
+                                        {cart.map((item) => 
+                                        <>
+                                            <p>{item?.brand}</p>
+                                        </>
+                                        )}
+                                    </div>
+                                    <div>
+                                        {cart.map((item) => 
+                                        <>
+                                            <p>${item?.price*item.quantity}</p>
+                                        </>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className='flex p-3 justify-between'>
                                     <div>
