@@ -25,7 +25,6 @@ export default function DetailCards() {
       )
   }, [productId])
 
-  console.log(detailCards)
   return (
     <div className='DetailCards-Container'>
       <div className="mx-auto pt-6 w-full px-6 lg:grid  lg:grid-cols-3 lg:gap-x-8 lg:px-8">
@@ -56,7 +55,7 @@ export default function DetailCards() {
           />
         </div>
       </div>
-      <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
+      <div className="mx-auto px-4 pt-10 pb-16 ">
         <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">{detailCards.brand}</h1>
           <div className="mt-4 lg:row-span-3 lg:mt-0">
@@ -77,11 +76,11 @@ export default function DetailCards() {
           <div>
           <button
             type="submit"
-            className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="mt-10 btn-details flex ml-24 items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >Add favorites </button>
           <button
             onClick={() => dispatch(addToCart(detailCards))}
-            className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="mt-10 btn-details flex ml-24 items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >Add to cart</button>
 
           </div>
