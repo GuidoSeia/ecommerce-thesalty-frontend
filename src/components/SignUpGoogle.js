@@ -23,24 +23,12 @@ export const SignUpGoogle = () => {
       };
       await newUser(data)
         .then((success) => {
-          successMessage(success?.data.message)
+          toast.success(success?.data.message);
         })
         .catch((error) => {
-          errorMessage(error)
+          toast.error(error);
         })
-    }
-
-    const successMessage = (message) => {
-      toast.success(message, {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    };
-  
-    const errorMessage = (message) => {
-      toast.error(message, {
-        position: toast.POSITION.TOP_RIGHT
-      });
-    };
+    }  
 
     useEffect (()=>{
             /* global google*/

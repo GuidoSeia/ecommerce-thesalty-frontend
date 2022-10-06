@@ -31,9 +31,9 @@ const SignUp = () => {
     try {
       await newUser(formUser).then(success => {
         if (success.error) {
-          errorMessage(success.error.data.message)
+          toast.error(success.error.data.message);
         } else {
-          successMessage(success.data.message)
+          toast.success(success.data.message);
           navigate("/signin")
         }
       }).catch(err => {
@@ -55,19 +55,6 @@ const SignUp = () => {
       console.log(captcha.current.getValue())
     }
   }
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
-
-  const errorMessage = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
-
 
   return (
 

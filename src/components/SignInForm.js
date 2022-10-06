@@ -38,7 +38,7 @@ const SignIn = () => {
         let user = success?.data?.response?.user
         /* let token = success?.data?.response?.token */
         if (user !== undefined) {
-          successMessage(success?.data.message)
+          toast.success(success?.data.message);
           localStorage.setItem("userLogged", JSON.stringify(user))
           /* localStorage.setItem("token", JSON.stringify(token)) */
           /* showLoginMsg(user?.name) */
@@ -47,9 +47,9 @@ const SignIn = () => {
           handleNavigate()
         } else {
           if (success.data) {
-            errorMessage(success?.data.message)
+            toast.error(success?.data.message);
           } else {
-            errorMessage(success?.error.data.message)
+            toast.error(success?.error.data.message);
           }
         }
       })
@@ -57,18 +57,6 @@ const SignIn = () => {
         console.log(err);
       })
   }
-
-  const successMessage = (message) => {
-    toast.success(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
-
-  const errorMessage = (message) => {
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT
-    });
-  };
 
   return (
     <div>
