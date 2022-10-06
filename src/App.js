@@ -9,7 +9,8 @@ import SignIn from './pages/SignIn';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import { useSelector, useDispatch } from 'react-redux';
-import { loggedTrue } from './features/loggedSlice'
+import { loggedTrue } from './features/loggedSlice';
+import Details from './pages/Details';
 
 export default function App() {
 
@@ -31,6 +32,7 @@ export default function App() {
         <Route path='/signup' element={!logged ? <SignUp/> : null} />
         <Route path='/signin' element={!logged ? <SignIn/> : null} />
         <Route path='/products' element={<ProductsPage/>} />
+        <Route path='/Details' element={<Details/>} />
       </Routes>
     </BrowserRouter>
   );
