@@ -18,6 +18,22 @@
     color: white;
 }
 
+.btnAdd{
+    background-color: #360027;
+    padding: 6px;
+    border-radius: 10px 0 0 10px;
+    margin-top: 5px;
+}
+
+.btnRemove{
+    background-color: #360027;
+    padding: 6px;
+    border-radius:0 10px 10px 0;
+    margin-top: 5px;
+    
+   
+}
+
 @media screen and (max-width: 425px) {
     .steps .step{
         margin: 0;

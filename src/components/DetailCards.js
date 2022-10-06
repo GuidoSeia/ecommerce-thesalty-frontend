@@ -3,12 +3,16 @@ import '../styles/Details.css'
 import { useEffect, useState, } from 'react'
 import apiurl from '../api';
 import axios from 'axios'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../features/cartSlice'
 
 export default function DetailCards() {
 
   let params = window.location.search
   let urlParams = new URLSearchParams(params)
   let productId = urlParams.get("productId")
+  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart.cart)
 
 
   const [detailCards, setDetailCards] = useState([])
@@ -69,16 +73,17 @@ export default function DetailCards() {
             <input type="radio" name="rating-1" className="mask mask-star" />
             <input type="radio" name="rating-1" className="mask mask-star" />
             <input type="radio" name="rating-1" className="mask mask-star" />
-          </div>
-          <div className='flex flex-col gap-5 items-center'>
-            <button
-              type="submit"
-              className="btn-details w-40 sm:w-64 items-center justify-center rounded-md py-3 font-medium text-white focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >Add favorites </button>
-            <button
-              type="submit"
-              className="btn-details w-40 sm:w-64 items-center justify-center rounded-md py-3 font-medium text-white focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >Add to cart</button>
+          </div> 
+          <div>
+          <button
+            type="submit"
+            className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >Add favorites </button>
+          <button
+            onClick={() => dispatch(addToCart(detailCards))}
+            className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          >Add to cart</button>
+
           </div>
         </div>
       </div>

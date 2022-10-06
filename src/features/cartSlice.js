@@ -16,22 +16,19 @@ reducers: {
         }
     }
     ,
-    incrementQuantity: (state, action) => {
-    const item = state.cart.find((item) => item.id === action.payload);
-    item.quantity++;
-    },
+    
     decrementQuantity: (state, action) => {
-    const item = state.cart.find((item) => item.id === action.payload);
-    if (item.quantity === 1) {
-        item.quantity = 1
+    const itemInCart = state.cart.find((item) => item._id === action.payload._id);
+    if (itemInCart.quantity === 1) {
+        const removeItem = state.cart.filter(
+            (item) => item._id !== action.payload._id);
+            state.cart = removeItem;
+        
     } else {
-        item.quantity--;
+        itemInCart.quantity--;
     }
     },
-    removeItem: (state, action) => {
-    const removeItem = state.cart.filter((item) => item.id !== action.payload);
-    state.cart = removeItem;
-    },
+   
 },
 });
 
