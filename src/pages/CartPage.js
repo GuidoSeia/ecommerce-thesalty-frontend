@@ -4,9 +4,8 @@ import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
+import { removeCart } from '../features/cartSlice'
 import { decrementQuantity } from '../features/cartSlice'
-
-
 
 export default function CartPage() {
 
@@ -15,33 +14,11 @@ export default function CartPage() {
     const cart = useSelector((state) => state.cart.cart)
     console.log(cart);
 
-    const data = [
-        {
-            id: 1,
-            title: "Watch",
-            description: "descripcion reloj",
-            image: "https://www.woodenson.cl/wp-content/uploads/sites/2/2021/10/DSC_0127-600x600.jpg",
-            price: 1000,
-            quantity: 1
-        },
-        {
-            id: 2,
-            title: "Sunglasses",
-            description: "descripcion anteojos",
-            image: "https://cdn.shopify.com/s/files/1/0270/6663/0217/products/711426.jpg?v=1634050720",
-            price: 2000,
-            quantity: 2
-        },
-        {
-            id: 3,
-            title: "backpack",
-            description: "descripcion mochila",
-            image: "https://i0.wp.com/chevyproductos.cl/wp-content/uploads/mochila-rolltop-40-lt-negra.jpg?resize=400%2C400&ssl=1",
-            price: 3000,
-            quantity: 3
-        },
-    ]
-    
+    const addition = (acc, currentValue) => {
+        return acc+currentValue.price*currentValue.quantity
+    }
+  
+    let total = cart.reduce(addition, 0);
 
     let tbody = (product) => (
         <tr key={product.id}>
@@ -71,8 +48,8 @@ export default function CartPage() {
             </td>
             <td className='text-center quantity'>{product.quantity}
             <p></p>
-            <button className="btnAdd"  onClick={() => dispatch(addToCart(product))}>+</button>
-            <button className="btnRemove"  onClick={() => dispatch(decrementQuantity(product))}>-</button>
+            <button className="btnAdd btn w-10"  onClick={() => dispatch(addToCart(product))}>+</button>
+            <button className="btnRemove btn w-10"  onClick={() => dispatch(decrementQuantity(product))}>-</button>
            </td>
         </tr>
     )
@@ -105,20 +82,14 @@ export default function CartPage() {
                                 <tbody>
                                     {cart.map(tbody)}
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </tfoot>
-
                             </table>
+                            {cart.length > 0 ? <div className="flex justify-center items-center bg-#360027">
+                                <button className="btn bg-base-100 m-3" onClick={() => dispatch(removeCart())}>Empty cart</button>
+                            </div> : null}
                         </div>
                     </div>
                     <div className="divider lg:divider-horizontal"></div>
-                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-start gap-5 items-center">
+                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center">
                         <div className='flex flex-col gap-3 justify-center items-center'>
                             <img width={100} src="/logo-white.png" alt="" />
                             <h2 className='text-white'>Order: #0000</h2>
@@ -139,7 +110,7 @@ export default function CartPage() {
                                     <div>
                                         <p>$ 000000</p>
                                         <p>$ 000000</p>
-                                        <p>$ 000000</p>
+                                        <p>${total}</p>
                                     </div>
                                 </div>
                             </div>
