@@ -75,7 +75,7 @@ export default function DetailCards() {
           <button
             type="submit"
             className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add favourites </button>
+          >Add favorites </button>
           <button
             type="submit"
             className="mt-10 btn-details flex ml-24 w-full items-center justify-center rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
