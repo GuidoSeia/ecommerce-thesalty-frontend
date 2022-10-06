@@ -21,6 +21,7 @@ export default function DetailCards() {
     axios.get(apiurl + '/products/' + productId)
       .then(response => {
         setDetailCards(response.data.response)
+        console.log(detailCards);
       }
       )
   }, [productId])
