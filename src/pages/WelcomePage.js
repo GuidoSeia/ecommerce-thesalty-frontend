@@ -15,7 +15,7 @@ export default function WelcomePage() {
     };
 
     return (
-        <div className="flex justify-center items-center h-full">
+        <div className="flex justify-center items-center h-full" id="screen">
             <CallToAction></CallToAction>
             <Particles
                 id="particles-js"
