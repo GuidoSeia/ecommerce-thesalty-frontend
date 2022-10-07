@@ -5,9 +5,9 @@ import '../../styles/CountdownTimer.css'
 
 const ExpiredNotice = () => {
     return (
-        <div className="expired-notice">
-            <span>Expired!!!</span>
-            <p>Please select a future date and time.</p>
+        <div className="expired-notice flex justify-center items-center gap-1">
+            <span>Coupon expired!!!</span>
+            <p>Please wait for another coupon</p>
         </div>
     );
 };
