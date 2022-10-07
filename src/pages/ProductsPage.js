@@ -5,6 +5,7 @@ import { Link as LinkRouter } from 'react-router-dom'
 import PageLayout from "../components/layout/PageLayout"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
+import { toast } from 'react-toastify';
 
 export default function ProductsPage() {
 
@@ -14,6 +15,8 @@ export default function ProductsPage() {
     const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart.cart)
+
+    const logged = useSelector((state) => state.logged.loggedState);
 
     let { data: allProducts } = useGetAllProductsQuery(type)
     let { data: products } = useGetFilteredProductsQuery(type)
@@ -33,7 +36,7 @@ export default function ProductsPage() {
                 </div>
             </div>
             <div className="flex justify-around bg-white p-3">
-                <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button>
+                { logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={()=>toast.error('Login to add to cart')}>Add to cart</button> }
                 <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
             </div>
             <div className="flex justify-center items-center bg-white">
