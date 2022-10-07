@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
@@ -6,20 +6,36 @@ import { useSelector,useDispatch } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import { removeCart } from '../features/cartSlice'
 import { decrementQuantity } from '../features/cartSlice'
+import { toast } from 'react-toastify';
+import { codeTrue } from '../features/codeSlice'
 
 export default function CartPage() {
 
     const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart.cart)
-    console.log(cart);
 
     const addition = (acc, currentValue) => {
         return acc+currentValue.price*currentValue.quantity
     }
-  
-    let total = cart.reduce(addition, 0);
 
+    const code = useSelector((state) => state.code.codeState)
+
+    const codeRef = useRef()
+
+    const [total, setTotal] = useState(cart.reduce(addition, 0))
+
+    const applyDiscount = () => {
+        if(codeRef.current.value == '2020'){
+            setTotal(total-20)
+            console.log(total);
+            dispatch(codeTrue())
+            toast.success('Discount applied');
+        } else {
+            toast.error('Incorrect code');
+        }
+    }
+    
     let tbody = (product) => (
         <tr key={product.id}>
             <th>
@@ -49,7 +65,7 @@ export default function CartPage() {
             <p></p>
             <button className="btnAdd btn w-10"  onClick={() => dispatch(addToCart(product))}>+</button>
             <button className="btnRemove btn w-10"  onClick={() => dispatch(decrementQuantity(product))}>-</button>
-           </td>
+        </td>
         </tr>
     )
 
@@ -74,8 +90,8 @@ export default function CartPage() {
                                             </label>
                                         </th>
                                         <th className=''>Product</th>
-                                        <th className=''>description</th>
-                                        <th className='text-center'>quantity</th>
+                                        <th className=''>Description</th>
+                                        <th className='text-center'>Quantity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,13 +107,13 @@ export default function CartPage() {
                     <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center">
                         <div className='flex flex-col gap-3 justify-center items-center'>
                             <img width={100} src="/logo-white.png" alt="" />
-                            <h2 className='text-white'>Order: #0000</h2>
-                            <p className='text-white'>05/10/22</p>
+                            <h2 className='text-white'>Order: #0678</h2>
+                            <p className='text-white'>14/10/22</p>
                         </div>
                         <div className='flex flex-col gap-2 w-full'>
                             <div className="cart-summary-body mt-2 flex flex-col justify-center gap-5">
                                 <div className='flex p-3 justify-between'>
-                                    <p>Nombre del producto</p>
+                                    <p>Name product</p>
                                     <div>
                                         {cart.map((item) => 
                                         <>
@@ -114,14 +130,19 @@ export default function CartPage() {
                                     </div>
                                 </div>
                                 <div className='flex p-3 justify-between'>
-                                    <div>
+                                    <div className="flex flex-col justify-between align-center gap-2">
                                         <p>Subtotal</p>
                                         <p>Discount *cupon*</p>
                                         <p className='font-bold'>Total</p>
                                     </div>
-                                    <div>
+                                    <div className="flex flex-col justify-center align-center gap-2">
                                         <p>$ 000000</p>
-                                        <p>$ 000000</p>
+                                        <div className="flex justify-center items-center ">
+                                        { code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input" /> }
+                                            { code == false ? <button onClick={applyDiscount} className="h-3 ml-1 btn">
+                                                Add
+                                            </button> : null }
+                                        </div>
                                         <p>${total}</p>
                                     </div>
                                 </div>
