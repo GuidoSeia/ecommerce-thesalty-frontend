@@ -57,7 +57,7 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let endTimeDate = (e.target.endTime.value * 24 * 60 * 60 * 1000)
+    let endTimeDate = (e.target.endTime.value * 30 * 1000)
     const newCoupon = {
       couponCode: e.target.code.value,
       currentTime: new Date().getTime(),
@@ -98,13 +98,13 @@ export default function App() {
         pauseOnHover={true}
       />
       {/* <CountdownTimer targetDate={jajas} /> */}
-      <CountdownTimer targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
+      <CountdownTimer couponId={coupon?.response[0]?._id} targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
       <Routes>
         <Route path='/' element={<WelcomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path='/signup' element={!logged ? <SignUp /> : null} />
         <Route path='/signin' element={!logged ? <SignIn /> : null} />
-        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} /> : null} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon?.response[0]?._id}/> : null} />
         <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
         <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
         <Route path='/products' element={<ProductsPage />} />
