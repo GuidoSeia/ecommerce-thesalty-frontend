@@ -19,6 +19,11 @@ const couponApi = createApi({
         NewCoupon: builder.mutation({
             query({ ...newCoupon }) { return { url: "coupons/", method: "POST", body: newCoupon, }; }
         }),
+
+        deleteCoupon: builder.mutation({
+            query: (id) => ({ url: `coupons/${id}`, method: "DELETE"})
+        }),
+
     })
 })
 
@@ -27,5 +32,6 @@ export default couponApi
 export const {
     useNewCouponMutation,
     useGetCouponQuery,
-    useGetAllCouponsQuery
+    useGetAllCouponsQuery,
+    useDeleteCouponMutation
 } = couponApi
