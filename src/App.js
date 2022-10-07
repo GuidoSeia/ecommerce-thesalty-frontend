@@ -94,7 +94,7 @@ export default function App() {
         <Route path='/Details' element={<Details />} />
 
         <Route path='/aboutUs' element={<InfoPage />} />
-        <Route path='/cart' element={<CartPage />} />
+        <Route path='/cart' element={<CartPage coupon={coupon} />} />
 
       </Routes>
     </BrowserRouter>
