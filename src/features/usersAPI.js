@@ -34,6 +34,15 @@ export const usersAPI = createApi({
           body: rest,
           })
         }),
+        signInToken: builder.mutation({
+          query: (token) => ({
+              url: '/auth/token',
+              method: 'GET',
+              headers: {
+                Authorization: "Bearer " + token
+              }
+          })
+      }),
 })
 })
 
@@ -41,5 +50,6 @@ export default usersAPI;
 export const {
     useGetNewUserMutation,
     useGetLoginMutation,
-    useGetSignOutMutation
+    useGetSignOutMutation,
+    useSignInTokenMutation
 } = usersAPI
