@@ -12,7 +12,7 @@ export default function AdminProfile({ functionCountdown }) {
   return (
     <div>
       <PageLayout>
-        <div className="bodyContainer flex flex-wrap">
+        <div className="bodyContainer flex flex-wrap justify-center items-center">
 
           <div className="cardContainer">
             <figure><img src="/billeteras.webp" alt="Shoes" /></figure>

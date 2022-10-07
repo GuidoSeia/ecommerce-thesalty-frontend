@@ -9,7 +9,9 @@ import { decrementQuantity } from '../features/cartSlice'
 import { toast } from 'react-toastify';
 import { codeTrue } from '../features/codeSlice'
 
-export default function CartPage() {
+export default function CartPage({coupon}) {
+
+    let couponCode = coupon?.response?.[0]?.couponCode;
 
     const dispatch = useDispatch()
 
@@ -25,10 +27,13 @@ export default function CartPage() {
 
     const [total, setTotal] = useState(cart.reduce(addition, 0))
 
+    let totalCart = cart.reduce(addition, 0)
+
+    let totalWithDiscount = totalCart - 20
+
     const applyDiscount = () => {
-        if(codeRef.current.value == '2020'){
-            setTotal(total-20)
-            console.log(total);
+        if(codeRef.current.value == couponCode){
+            setTotal(totalCart-20)
             dispatch(codeTrue())
             toast.success('Discount applied');
         } else {
@@ -143,7 +148,7 @@ export default function CartPage() {
                                                 Add
                                             </button> : null }
                                         </div>
-                                        <p>${total}</p>
+                                        <p>${!code ? totalCart : <>{totalWithDiscount}<span className="badge badge-lg">%OFF</span></> }</p>
                                     </div>
                                 </div>
                             </div>

@@ -33,12 +33,12 @@ export default function ProductsPage() {
                 </div>
             </div>
             <div className="flex justify-around bg-white p-3">
-                <button className="btn btn-outline btn-primary" onClick={() => dispatch(addToCart(card))}>Add to cart</button>
-                <LinkRouter className="btn btn-ghost" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
+                <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button>
+                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
             </div>
-            <div>
+            <div className="flex justify-center items-center bg-white">
+            {userRole === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
             </div>
-            {userRole === "admin" ? (<button className="btn btn-primary"><LinkRouter className="btn btn-primary btn-home-page text-xs" to={"/editproduct/" + card._id}>Edit</LinkRouter></button>) : null}
         </div>
     )
 
