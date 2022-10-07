@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import CountdownTimer from './components/countdown/CountdownTimer'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNewCouponMutation, useGetAllCouponsQuery } from './features/couponApi';
+import { useEffect } from 'react'
+import { useSignInTokenMutation } from './features/usersAPI';
 
 
 //Pages
@@ -14,26 +16,41 @@ import SignIn from './pages/SignIn';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import CartPage from './pages/CartPage';
-import { loggedTrue } from './features/loggedSlice'
+import { setUser } from "./features/loggedSlice";
 import InfoPage from './pages/InfoPage';
 import AdminProfile from './pages/AdminProfile';
 import EditProducts from './pages/EditProducts';
 import NewProducts from './pages/NewProducts';
 import Details from './pages/Details'
-import { useState } from 'react';
 
 export default function App() {
 
   const logged = useSelector((state) => state.logged.loggedState)
-  let user = JSON.parse(localStorage.getItem('userLogged'))
+  const user = useSelector((state) => state.logged.user);
   let userRole = user?.role
   const dispatch = useDispatch()
 
-  if (localStorage.getItem('userLogged')) {
-    dispatch(loggedTrue())
-  }
+  const [signInToken] = useSignInTokenMutation();
 
-  /* const role = JSON.parse(localStorage.getItem('userLogged'))?.role */
+  async function verifyToken() {
+    try {
+      let res = await signInToken(JSON.parse(localStorage.getItem("token")));
+      console.log(res);
+      if (res.data?.success) {
+        dispatch(setUser(res.data?.response.user));
+      } else {
+        localStorage.removeItem("token");
+      }
+    } catch (error) {
+      console.log(error);
+      localStorage.removeItem("token");
+    }
+  }
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      verifyToken();
+    }
+  }, []);
 
   let { data: coupon } = useGetAllCouponsQuery()
   let [ newCupon ] = useNewCouponMutation()
