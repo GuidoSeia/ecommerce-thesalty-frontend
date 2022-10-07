@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import CountdownTimer from './components/countdown/CountdownTimer'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNewCouponMutation, useGetAllCouponsQuery } from './features/couponApi';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSignInTokenMutation } from './features/usersAPI';
 
 
@@ -53,11 +53,13 @@ export default function App() {
   }, []);
 
   let { data: coupon } = useGetAllCouponsQuery()
-  let [ newCupon ] = useNewCouponMutation()
+  let [newCupon] = useNewCouponMutation()
+  let [cupon, setCupon] = useState()
+  let ola = cupon
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let endTimeDate = (e.target.endTime.value * 30 * 1000)
+    let endTimeDate = (e.target.endTime.value * 24 * 60 * 60 * 1000)
     const newCoupon = {
       couponCode: e.target.code.value,
       currentTime: new Date().getTime(),
@@ -70,6 +72,7 @@ export default function App() {
       if (response.error) {
         toast.error(response.error.data.message);
       } else {
+        setCupon(response.data.response._id)
         toast.success(response.data.message)
       }
     }
@@ -104,7 +107,7 @@ export default function App() {
         <Route path="/home" element={<HomePage />} />
         <Route path='/signup' element={!logged ? <SignUp /> : null} />
         <Route path='/signin' element={!logged ? <SignIn /> : null} />
-        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon?.response[0]?._id}/> : null} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={ola} /> : null} />
         <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
         <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
         <Route path='/products' element={<ProductsPage />} />
