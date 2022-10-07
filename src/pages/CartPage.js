@@ -43,11 +43,6 @@ export default function CartPage({coupon}) {
     
     let tbody = (product) => (
         <tr key={product.id}>
-            <th>
-                <label>
-                    <input type="checkbox" className="checkbox" />
-                </label>
-            </th>
             <td>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
@@ -89,11 +84,6 @@ export default function CartPage({coupon}) {
                             <table className="table w-full">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <label>
-                                                <input type="checkbox" className="checkbox" />
-                                            </label>
-                                        </th>
                                         <th className=''>Product</th>
                                         <th className=''>Description</th>
                                         <th className='text-center'>Quantity</th>
@@ -136,12 +126,10 @@ export default function CartPage({coupon}) {
                                 </div>
                                 <div className='flex p-3 justify-between'>
                                     <div className="flex flex-col justify-between align-center gap-2">
-                                        <p>Subtotal</p>
                                         <p>Discount *cupon*</p>
                                         <p className='font-bold'>Total</p>
                                     </div>
                                     <div className="flex flex-col justify-center align-center gap-2">
-                                        <p>$ 000000</p>
                                         <div className="flex justify-center items-center ">
                                         { code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input" /> }
                                             { code == false ? <button onClick={applyDiscount} className="h-3 ml-1 btn">

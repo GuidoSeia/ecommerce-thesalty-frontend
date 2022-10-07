@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import {useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 export default function DetailCards() {
 
@@ -14,6 +15,8 @@ export default function DetailCards() {
   let urlParams = new URLSearchParams(params)
 
   let productId = urlParams.get("productId")
+
+  const logged = useSelector((state) => state.logged.loggedState)
   
   const navigate = useNavigate()
 
@@ -89,10 +92,12 @@ export default function DetailCards() {
             type="submit"
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >Add favorites ❤</button>
-          <button
+          { logged ? <button
             onClick={() => dispatch(addToCart(detailCards))}
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add to cart 🛒</button>
+          >Add to cart 🛒</button> : <button onClick={()=>toast.error('Login to add to cart')}
+          className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >Add to cart 🛒</button>}
           <button className="btn btn-details mt-10" onClick={() => navigate(-1)}>Go back</button>
           </div>
         </div>
