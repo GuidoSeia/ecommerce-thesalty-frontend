@@ -76,8 +76,7 @@ export default function DetailCards() {
         <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}u</p>
-
-          <div className="rating py-2">
+          <div className="rating py-2 ">
             <input type="radio" name="rating-1" className="mask mask-star" checked />
             <input type="radio" name="rating-1" className="mask mask-star" />
             <input type="radio" name="rating-1" className="mask mask-star" />
@@ -89,16 +88,20 @@ export default function DetailCards() {
           <button
             type="submit"
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add favorites </button>
+          >Add favorites ❤</button>
           <button
             onClick={() => dispatch(addToCart(detailCards))}
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add to cart</button>
-          <button className="btn mt-10" onClick={() => navigate(-1)}>Go back</button>
+          >Add to cart 🛒</button>
+          <button className="btn btn-details mt-10" onClick={() => navigate(-1)}>Go back</button>
           </div>
         </div>
       </div>
       </div>
       </div>
+  )
+}
+
+
   )
 }
