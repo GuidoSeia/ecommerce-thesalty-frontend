@@ -4,7 +4,7 @@ import { useGetLoginMutation } from '../features/usersAPI';
 import { useNavigate } from 'react-router-dom'
 import { SignInGoogle } from './SignInGoogle';
 import { useDispatch } from 'react-redux';
-import { loggedTrue } from '../features/loggedSlice'
+import { setUser } from '../features/loggedSlice'
 import '../styles//SignInForm.css'
 import { toast } from 'react-toastify';
 
@@ -36,13 +36,11 @@ const SignIn = () => {
     await newLogin(formUser)
       .then((success) => {
         let user = success?.data?.response?.user
-        /* let token = success?.data?.response?.token */
+        let token = success?.data?.response?.token
         if (user !== undefined) {
           toast.success(success?.data.message);
-          localStorage.setItem("userLogged", JSON.stringify(user))
-          /* localStorage.setItem("token", JSON.stringify(token)) */
-          /* showLoginMsg(user?.name) */
-          dispatch(loggedTrue())
+          localStorage.setItem("token", JSON.stringify(token))
+          dispatch(setUser(user))
           form.current.reset()
           handleNavigate()
         } else {

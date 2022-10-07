@@ -4,28 +4,24 @@ import { Link as LinkRouter, useNavigate } from 'react-router-dom'
 import { useGetSignOutMutation } from '../features/usersAPI'
 import ShoppingCart from './ShoppingCart'
 import { useState } from "react";
-import { entry } from '../features/loggedSlice'
+import { deleteUser } from '../features/loggedSlice'
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 
 export default function Header() {
-  const logged = useSelector((state) => state.logged.loggedState);
   const cart = useSelector((state) => state.cart.cart)
+
+  const logged = useSelector((state) => state.logged.loggedState)
+  const user = useSelector((state) => state.logged.user)
 
   const dispatch = useDispatch()
   const [signOut, resultLogOut] = useGetSignOutMutation()
   const navigate = useNavigate()
 
   const [openProfile, setOpenProfile] = useState(false);
-  let user = JSON.parse(localStorage.getItem('userLogged'))
 
   const [open, setOpen] = useState(false);
-
-
-  const handleNavigateToCart = () => {
-    navigate('/cart')
-  }
 
   const handleNavigateToHome = () => {
     navigate('/')
@@ -53,8 +49,8 @@ export default function Header() {
         id: user.id,
       };
       await signOut(object);
-      localStorage.removeItem("userLogged");
-      dispatch(entry());
+      dispatch(deleteUser());
+      localStorage.removeItem('token')
       handleNavigateToHome();
     } catch (error) {
       console.log(error);
