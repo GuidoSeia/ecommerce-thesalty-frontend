@@ -75,7 +75,7 @@ export default function DetailCards() {
         <div className="flex justify-center items-center flex-col flex-wrap">
         <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
-          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}u</p>
+          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
           <div className="rating py-2 ">
             <input type="radio" name="rating-1" className="mask mask-star" checked />
             <input type="radio" name="rating-1" className="mask mask-star" />
@@ -99,9 +99,5 @@ export default function DetailCards() {
       </div>
       </div>
       </div>
-  )
-}
-
-
   )
 }
