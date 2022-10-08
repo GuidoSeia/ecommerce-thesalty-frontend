@@ -42,7 +42,7 @@ const [newProd] = useGetNewProductMutation()
   <div className="hero-content flex-col lg:flex-row-reverse">
     <div className="sideBar">
       <h1 className="text-5xl font-bold">New Product</h1>
-      <figure><img src="/relojes-hombre-abaco.webp" alt="Shoes" /></figure>
+      <figure><img src="/relojes-hombre-abaco.webp" className="rounded-xl" alt="Shoes" /></figure>
     </div>
     <div className="">
       <div className="card-body">

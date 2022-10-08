@@ -134,6 +134,7 @@ export default function CartPage({ coupon }) {
                                 </div>
                                 <div className='flex p-3 justify-between'>
                                     <div className="flex flex-col justify-between align-center gap-2">
+                                        <p>Subtotal</p>
                                         <p>Discount *cupon*</p>
                                         <p className='font-bold'>Total</p>
                                     </div>
