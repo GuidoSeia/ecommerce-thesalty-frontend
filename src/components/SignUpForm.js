@@ -62,7 +62,7 @@ const SignUp = () => {
   return (
 
     <div className='containerSignUp'>
-      <video src="./assets/video.mp4" autoPlay loop playsInline muted/>
+      <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted/>
 
         
       
@@ -72,7 +72,7 @@ const SignUp = () => {
               <h1 className="text-5xl font-bold">SignUp</h1>
               
             </div>
-            <div className="container1 card flex-shrink-0 shadow-2xl ">
+            <div className="container1 card shadow-2xl ">
               <div className="card-body">
                 {/*Input */}
                 <div className="form-control">
