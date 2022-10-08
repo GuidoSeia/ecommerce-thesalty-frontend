@@ -6,7 +6,7 @@ import { SignInGoogle } from './SignInGoogle';
 import { useDispatch } from 'react-redux';
 
 import { setUser } from '../features/loggedSlice'
-import '../styles//SignInForm.css'
+import '../styles/SignInForm.css'
 
 import { toast } from 'react-toastify';
 import { Link as LinkRouter} from 'react-router-dom'
@@ -65,7 +65,7 @@ const SignIn = () => {
       <div className="input-container">
         
       
-      <form ref={form} className="form-control d-flex justify-center items-center">
+      <form ref={form} className="formSignIn form-control d-flex justify-center items-center">
             <div className="text-center lg:text-left p-4">
               <h1 className="text-5xl font-bold">Login now!</h1>
               

@@ -15,10 +15,7 @@ export default function FormEditProduct() {
   };
   const { id } = useParams();
   let idProduct = id;
-  console.log(idProduct);
-  const { data: dataProduct, refetch: refetchProduct } =
-    useGetProductQuery(idProduct);
-  // console.log(dataProduct)
+  const { data: dataProduct } = useGetProductQuery(idProduct);
   const [updateProduct] = useGetUpdateProductMutation();
 
   const hanldeUpdate = async (e) => {

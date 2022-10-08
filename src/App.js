@@ -8,8 +8,6 @@ import { useNewCouponMutation, useGetAllCouponsQuery } from './features/couponAp
 import { useEffect, useState } from 'react'
 import { useSignInTokenMutation } from './features/usersAPI';
 
-
-//Pages
 import WelcomePage from './pages/WelcomePage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
@@ -35,7 +33,6 @@ export default function App() {
   async function verifyToken() {
     try {
       let res = await signInToken(JSON.parse(localStorage.getItem("token")));
-      console.log(res);
       if (res.data?.success) {
         dispatch(setUser(res.data?.response.user));
       } else {
