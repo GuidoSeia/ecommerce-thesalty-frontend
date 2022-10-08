@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import {useNavigate} from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 export default function DetailCards() {
 
@@ -14,6 +15,8 @@ export default function DetailCards() {
   let urlParams = new URLSearchParams(params)
 
   let productId = urlParams.get("productId")
+
+  const logged = useSelector((state) => state.logged.loggedState)
   
   const navigate = useNavigate()
 
@@ -71,13 +74,12 @@ export default function DetailCards() {
           </div>
         </div>
 
-  <div className="flex justify-center px-4">
-        <div className="flex justify-center items-center flex-wrap">
+  <div className="flex justify-center px-4 flex-wrap">
+        <div className="flex justify-center flex-col items-center flex-wrap">
         <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
-          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}u</p>
-
-          <div className="rating py-2">
+          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
+          <div className="rating py-2 ">
             <input type="radio" name="rating-1" className="mask mask-star" checked />
             <input type="radio" name="rating-1" className="mask mask-star" />
             <input type="radio" name="rating-1" className="mask mask-star" />
@@ -89,12 +91,14 @@ export default function DetailCards() {
           <button
             type="submit"
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add favorites </button>
-          <button
+          >Add favorites ❤</button>
+          { logged ? <button
             onClick={() => dispatch(addToCart(detailCards))}
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add to cart</button>
-          <button className="btn mt-10" onClick={() => navigate(-1)}>Go back</button>
+          >Add to cart 🛒</button> : <button onClick={()=>toast.error('Login to add to cart')}
+          className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >Add to cart 🛒</button>}
+          <button className="btn btn-details mt-10" onClick={() => navigate(-1)}>Go back</button>
           </div>
         </div>
       </div>
@@ -102,3 +106,4 @@ export default function DetailCards() {
       </div>
   )
 }
+

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import * as jose from 'jose'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
-import { loggedTrue } from '../features/loggedSlice'
+import { setUser } from '../features/loggedSlice'
 import { useGetLoginMutation } from '../features/usersAPI'
 import { toast } from 'react-toastify';
 
@@ -32,12 +32,10 @@ export const SignInGoogle = () => {
     await newLogin(data)
       .then((success) => {
         let user = success?.data?.response?.user
-        /* let token = succes?.data?.response?.token */
+        let token = success?.data?.response?.token
         if (user != undefined) {
-          localStorage.setItem("userLogged", JSON.stringify(user))
-          /* localStorage.setItem("token", JSON.stringify(token)) */
-          dispatch(loggedTrue())
-          /* showLoginMsg(user.name) */
+          localStorage.setItem("token", JSON.stringify(token))
+          dispatch(setUser(user));
           handleNavigate()
           toast.success(success.data.message);
         } else {

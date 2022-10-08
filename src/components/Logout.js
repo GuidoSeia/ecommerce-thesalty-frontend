@@ -1,8 +1,8 @@
 import React from 'react'
 import { useGetSignOutMutation} from '../features/usersAPI'
 import { useDispatch } from 'react-redux';
-import { entry } from '../features/loggedSlice'
-import {Link , useNavigate} from 'react-router-dom'
+import { deleteUser } from '../features/loggedSlice'
+import {useNavigate} from 'react-router-dom'
 
 const Logout = () => {
 
@@ -25,8 +25,8 @@ const Logout = () => {
             id: user.id,
         }
         await signOut(object)
-        localStorage.removeItem('userLogged');
-        dispatch(entry())
+        dispatch(deleteUser())
+        handleNavigate()
         }catch(error){
         console.log(error);
         }
