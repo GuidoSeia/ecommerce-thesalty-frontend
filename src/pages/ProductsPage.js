@@ -67,7 +67,7 @@ export default function ProductsPage() {
 
     useEffect(()=>{
         refetch()
-    }, [show])
+    }, [])
 
     return (
 
