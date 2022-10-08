@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { SignInGoogle } from './SignInGoogle';
 import { useDispatch } from 'react-redux';
 import { loggedTrue } from '../features/loggedSlice'
-import '../styles//SignInForm.css'
+import '../styles/SignInForm.css'
 import { toast } from 'react-toastify';
+import { Link as LinkRouter} from 'react-router-dom'
 
 const SignIn = () => {
 
@@ -59,15 +60,17 @@ const SignIn = () => {
   }
 
   return (
-    <div>
+    <div className="main-container">
+      <video src="./assets/video2.mp4" autoPlay loop playsInline muted/>
+      <div className="input-container">
+        
+      
       <form ref={form} className="form-control d-flex justify-center items-center">
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content flex-col lg:flex-row-reverse">
-            <div className="text-center lg:text-left">
+            <div className="text-center lg:text-left p-4">
               <h1 className="text-5xl font-bold">Login now!</h1>
-              <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+              
             </div>
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="container2 card flex-shrink-0 shadow-2xl">
               <div className="card-body">
                 <div className="form-control">
                   <label className="label">
@@ -82,19 +85,26 @@ const SignIn = () => {
                   <input type="password" name="password" className="input input-bordered" />
 
                 </div>
-                <div className="form-control mt-6">
-                  <button className="btn btn-primary" onClick={handleSubmit}>Login</button>
-
+                <div className="btnform form-control mt-6">
+                  <button className="buttonform btn" onClick={handleSubmit}>Login</button>
                 </div>
+                  <p className='or'>or</p>
                 <div className="flex justify-center align-items-center mt-6">
                   <SignInGoogle />
                 </div>
+                
               </div>
+              
             </div>
-          </div>
-        </div>
+            <div className="textNew text-center lg:text-left p-4">
+              <p>Don't have a user? Please <LinkRouter className='link-new' to="/signup">create an account!</LinkRouter>  </p>          
+            </div>
+
       </form>
+      </div>
     </div>
+
+ 
   )
 }
 

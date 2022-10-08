@@ -6,6 +6,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import { useGetNewUserMutation } from '../features/usersAPI';
 import { toast } from 'react-toastify';
+import { Link as LinkRouter} from 'react-router-dom'
+import '../styles/SignUp.css'
+
 
 
 const SignUp = () => {
@@ -58,15 +61,18 @@ const SignUp = () => {
 
   return (
 
-    <div>
-      <form ref={form} className="form-control">
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content flex-col lg:flex-row-reverse">
+    <div className='containerSignUp'>
+      <video src="./assets/video.mp4" autoPlay loop playsInline muted/>
+
+        
+      
+      <form ref={form} className="formSignUp">
+
             <div className="text-center lg:text-left">
               <h1 className="text-5xl font-bold">SignUp</h1>
-              <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+              
             </div>
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="container1 card flex-shrink-0 shadow-2xl ">
               <div className="card-body">
                 {/*Input */}
                 <div className="form-control">
@@ -104,16 +110,22 @@ const SignUp = () => {
                     ref={captcha}
                   />
                 </div>
+                
+                <div className="btnform form-control mt-6">
+                  <button className="buttonform btn" onClick={handleSubmit}>Sign up</button>
+                </div>
+                
+                <p className='or'>or</p>
+
                 <div className="flex justify-center align-items-center pt-5">
                   <SignUpGoogle />
                 </div>
-                <div className="form-control mt-6">
-                  <button className="btn btn-primary" onClick={handleSubmit}>Sign up</button>
-                </div>
+
+                <div className="textNew text-center lg:text-left p-4">
+              <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>          
+            </div>
               </div>
             </div>
-          </div>
-        </div>
 
       </form>
 
