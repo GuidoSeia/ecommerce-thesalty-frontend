@@ -62,7 +62,7 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
           </div>
 
           <div className="cardContainer">
-            <form onSubmit={fnCountdown} className="h-full flex flex-col items-center justify-center">
+            <form onSubmit={fnCountdown} className="flex flex-col items-center justify-center">
               <h2>new discount coupon</h2>
               <label className="label">
                 <span className="label-text text-black text-base">Coupon code</span>
@@ -86,17 +86,15 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
           </div>
 
           <div className="cardContainer">
-            <figure className='w-full h-40 flex justify-center'>
-              <img width={150} src="https://cdn-icons-png.flaticon.com/512/2331/2331729.png" alt="Shoes" />
-            </figure>
+            <img width={150} src="https://cdn-icons-png.flaticon.com/512/2331/2331729.png" alt="Shoes" />
             <div className="subContainer">
-              <form onSubmit={handlDeleteCupon} className="h-full flex flex-col items-center justify-center">
+              <form onSubmit={handlDeleteCupon} className="flex flex-col items-center justify-center">
                 <h2 className="">Remove the current coupon</h2>
                 <label className="label">
                   <span className="label-text text-black text-base">Coupon code</span>
                 </label>
                 <input type="text" name="currentCode" className="input input-bordered h-10 text-xs w-full" value={coupon} disabled />
-                <div className="">
+                <div className="my-5">
                   <button className="btn btn-primary btn-home-page text-xs">Remove</button>
                 </div>
               </form>

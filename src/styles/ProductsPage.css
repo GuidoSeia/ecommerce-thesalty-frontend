@@ -8,3 +8,19 @@
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+.img-card{
+    width: 100%;
+    max-height: auto !important;
+    object-fit: cover;
+}
+
+.cardProduct {
+    width: 400px;
+    height: 750px;
+    border: 2px solid black;
+}
+
+.container-img img{
+    height: 400px;
+}

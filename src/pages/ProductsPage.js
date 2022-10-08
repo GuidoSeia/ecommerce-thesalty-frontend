@@ -18,18 +18,19 @@ export default function ProductsPage() {
 
     const logged = useSelector((state) => state.logged.loggedState);
 
-    let { data: allProducts } = useGetAllProductsQuery(type)
+    let { data: allProducts, refetch } = useGetAllProductsQuery(type)
     let { data: products } = useGetFilteredProductsQuery(type)
 
-    let user = JSON.parse(localStorage.getItem('userLogged'))
-    let userRole = user?.role
+    const user = useSelector((state) => state.logged.user);
 
     const productCard = card => (
-        <div key={card._id} className="card card-products w-72 bg-base-100 shadow-xl">
-            <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo?.[0]} alt="Shoes" /></figure>
+        <div key={card._id} className="card cardProduct bg-base-100 shadow-xl">
+            <div className="container-img">
+                <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
+            </div>
             <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-start p-5">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
-                <p>{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
+                <p className="">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
                 <div className="card-actions items-center">
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
@@ -40,7 +41,7 @@ export default function ProductsPage() {
                 <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
             </div>
             <div className="flex justify-center items-center bg-white">
-            {userRole === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
+            {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
             </div>
         </div>
     )
@@ -63,6 +64,10 @@ export default function ProductsPage() {
     } else {
         { filter ? show = products?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = products?.response?.map(productCard) }
     }
+
+    useEffect(()=>{
+        refetch()
+    }, [show])
 
     return (
 
