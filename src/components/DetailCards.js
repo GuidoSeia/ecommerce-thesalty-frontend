@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import {useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import Review from '../components/Review';
 
 export default function DetailCards() {
 
@@ -30,7 +31,7 @@ export default function DetailCards() {
     axios.get(apiurl + '/products/' + productId)
       .then(response => {
         setDetailCards(response.data.response)
-        console.log(detailCards);
+        
       }
       )
   }, [productId])
@@ -103,7 +104,9 @@ export default function DetailCards() {
         </div>
       </div>
       </div>
+      <Review />
       </div>
+      
   )
 }
 
