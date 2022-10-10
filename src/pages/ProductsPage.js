@@ -26,25 +26,26 @@ export default function ProductsPage() {
 
     const productCard = card => (
         <div key={card._id} className="card cardProduct shadow-xl">
-            <div className="container-img">
+            <div className="container-img bg-white flex justify-center items-center">
                 <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
             </div>
-            <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-between">
+            <div className="card-body text-center bg-white text-black flex flex-col justify-between">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
                 <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
                     <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
                 </div>
                 <div className="card-actions flex justify-center items-center">
-                    <p className="">$: {card.price}</p>
+                    <p className="">Price: ${card.price}</p>
                     <p className="">Stock: {card.stock}</p>
                 </div>
             </div>
             <div className="flex justify-around bg-white p-3">
                 { logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={()=>toast.error('Login to add to cart')}>Add to cart</button> }
-                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
+                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
+                {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
             </div>
             <div className="flex justify-center items-center bg-white">
-            {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
+            
             </div>
         </div>
     )

@@ -15,8 +15,9 @@ export default function CartPage({ coupon }) {
     const dispatch = useDispatch()
 
     const cart = useSelector((state) => state.cart.cart.cart)
+    console.log(cart);
     
-    const order = useSelector((state) => state.cart.orderNumber)
+    const order = useSelector((state) => state.cart.cart.orderNumber)
 
     const addition = (acc, currentValue) => {
         return acc + currentValue.price * currentValue.quantity
@@ -42,7 +43,7 @@ export default function CartPage({ coupon }) {
 
     useEffect(() => {
         if (subTotalCart == 0) {
-            toast.warning("you have no items in your shopping cart")
+            toast.warning("0 items in your shopping cart")
         } else {
             if (order == 0) {
                 dispatch(newOrder(Math.floor(Math.random() * 1000000)))

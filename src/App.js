@@ -21,6 +21,7 @@ import AdminProfile from './pages/AdminProfile';
 import EditProducts from './pages/EditProducts';
 import NewProducts from './pages/NewProducts';
 import Details from './pages/Details'
+import ScrollToTop from './components/ScrollToTop'
 
 export default function App() {
 
@@ -100,6 +101,7 @@ export default function App() {
       />
       {/* <CountdownTimer targetDate={jajas} /> */}
       <CountdownTimer couponId={coupon?.response[0]?._id} targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
+      <ScrollToTop />  
       <Routes>
         <Route path='/' element={<WelcomePage />} />
         <Route path="/home" element={<HomePage />} />

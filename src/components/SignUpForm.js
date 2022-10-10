@@ -32,23 +32,25 @@ const SignUp = () => {
     };
 
     try {
-      await newUser(formUser).then(success => {
+      await newUser(formUser)
+      .then(success => {
+      if(captcha.current.getValue()){
         if (success.error) {
           toast.error(success.error.data.message);
+          console.log(success.error);
         } else {
           toast.success(success.data.message);
+          form.current.reset();
           navigate("/signin")
         }
-      }).catch(err => {
-        console.log(err)
+      }else{
+        toast.error('Confirm captcha before sign up');
+      }
       })
-
     }
     catch (error) {
       console.error(error);
-
     }
-    form.current.reset();
   }
 
   const captcha = useRef(null)
