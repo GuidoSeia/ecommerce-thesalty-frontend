@@ -24,7 +24,7 @@ export default function ProductsPage() {
     const user = useSelector((state) => state.logged.user);
 
     const productCard = card => (
-        <div key={card._id} className="card cardProduct bg-base-100 shadow-xl">
+        <div key={card._id} className="card cardProduct shadow-xl">
             <div className="container-img">
                 <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
             </div>
@@ -72,10 +72,10 @@ export default function ProductsPage() {
     return (
 
         <PageLayout>
-            <div className="form-control">
-                <label className="input-group input-group-md flex justify-center align-items-center py-4 bg-white">
-                    <span>TS</span>
-                    <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
+            <div className="form-control text-white">
+                <label className="input-group input-group-md flex justify-center align-items-center py-4 bg-white text-white">
+                    <span className="bg-black">TS</span>
+                    <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md text-white bg-black" />
                 </label>
             </div>
             <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">

@@ -28,8 +28,9 @@
     background-color: #E23E57;
 }
 
-.card{
-    background-color: #360027 !important;
+.card-body{
+    background-color: #25252557 !important;
+    color: white;
 }
 
 .btn-card-home{

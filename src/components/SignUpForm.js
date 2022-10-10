@@ -73,7 +73,7 @@ const SignUp = () => {
               
             </div>
             <div className="container1 card shadow-2xl ">
-              <div className="card-body">
+              <div className="card-body card-signup">
                 {/*Input */}
                 <div className="form-control">
                   <label className="label">
