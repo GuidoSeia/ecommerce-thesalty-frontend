@@ -65,7 +65,7 @@ export default function HomePage() {
                                 </>
 
                             ) : null}
-                <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/home'}>See more.</LinkRouter>
+                <LinkRouter className="btn btn-primary btn-home-page text-xs" to={`/products?newLatest=${card.type}`}>See more.</LinkRouter>
             </div>
         </div>
     )
@@ -90,7 +90,7 @@ export default function HomePage() {
                         <p className='text-white text-xs md:text-sm'>
                             Stock: {card.stock}
                         </p>
-                    
+
                     </div>
                 </div>
             </div>

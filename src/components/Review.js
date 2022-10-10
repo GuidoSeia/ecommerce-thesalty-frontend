@@ -1,14 +1,21 @@
 import React from 'react'
 import '../styles/Review.css'
-import { useEffect, useState, } from 'react'
+import { useEffect, useState, useRef} from 'react'
+import { useNewReviewMutation } from '../features/reviewApi'
 import apiurl from '../api';
 import axios from 'axios'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import { refresh } from '../features/refreshSlice'
+
 
 function Review() {
 
       let params = window.location.search
+
+      const dispatch = useDispatch()
 
       let urlParams = new URLSearchParams(params)
 
@@ -16,21 +23,88 @@ function Review() {
 
       const [reviewCards, setReviewCards] = useState([])
 
+      const showError = (msj) => {
+            toast.error(msj, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+        };
+      
+        const showMsg = () => {
+            toast.success(`New review!`, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
+        };
+
+
+
+
       useEffect(() => {
             axios.get(apiurl + '/products/' + productId)
                   .then(response => {
                         setReviewCards(response.data.response)
-                        console.log(reviewCards);
+                       
                   }
                   )
       }, [productId])
 
+      /* newReview */
+
+      const [addNewReview] = useNewReviewMutation()
+
+      const reviewTitleRef = useRef()
+      const reviewRef = useRef()
+      const locationRef = useRef()
+      const ageRef = useRef()
+      const starRef = useRef()
+      const formRef = useRef()
+      
+
+
+      const newReview = async(review) => {
+      await addNewReview(review)
+        .then((succes) => {
+              /* alert */ 
+            formRef.current.reset()
+      })
+      .catch((error) => {
+       /* alert */
+      });
+      }
+
+
+
+      const handleReview = async(e) => {
+
+            e.preventDefault();
+
+            let review = {
+                  reviewtTitle : reviewTitleRef.current.value,
+                  review: reviewRef.current.value,
+                  location: locationRef.current.value,
+                  age: ageRef.current.value,
+                  star: starRef.current.value
+                }
+
+                if(reviewTitleRef.current.value == "" || reviewRef.current.value == "" || locationRef.current.value == "" || ageRef.current.value == "" ){
+                  showError('Please write a review')
+                }else{
+                 await newReview(review);
+                  showMsg()
+                  console.log(newReview)
+                }
+                
+            
+
+      }
+      
+      /* getAllReviews */
 
       return (
 <div>
             <div className='titleContainer text-white flex items-center justify-center h-28 '>
                   <h2 className=' text-5xl font-mono font-semibold tracking-wide'>Customer Reviews</h2>
             </div>        
+
             <div className='reviewContainer flex flex-wrap items-center justify-center '>
                   <div className='containerAllData  mb-2 w-11/12  bg-white'>
                         <div className='containerIntro flex justify-evenly items-center flex-wrap w-full'>
@@ -62,6 +136,7 @@ function Review() {
 
                               <label htmlFor="my-modal-5" className="btn modal-button m-10">Add review</label>
 
+
                                           <input type="checkbox" id="my-modal-5" className="modal-toggle" />
                                           <div className="modal">
                                                 <div className="modal-box w-11/12 max-w-5xl">
@@ -74,50 +149,44 @@ function Review() {
                                                             </div>
                                                             <div className='w-full'>
                                                                   <p className="py-4 text-xl">Hi! Know the experience of our customers is too important for us, share yours!</p>
-                                                                  <form>
+                                                                  <form  onSubmit={handleReview} ref={formRef}>
                                                                         <div className="form-review my-4">
                                                                               <label className="label">
                                                                                     <span className="label-text text-xl">Review Title</span>
                                                                               </label>
-                                                                              <input type="text" placeholder="Example: Fantastic product!" className="input input-bordered input-primary w-full max-w-xs" />
+                                                                              <input type="text" ref={reviewTitleRef} placeholder="Example: Fantastic product!" className="input input-bordered input-primary w-full max-w-xs" />
                                                                         </div>
                                                                         <div className="form-review my-4">
                                                                               <label className="label">
                                                                                     <span className="label-text text-xl">Review</span>
                                                                               </label>
-                                                                              <input type="text" placeholder="Example: I got thi product and it's really good" className="input input-bordered input-primary w-full max-w-xs" />
+                                                                              <input type="text" ref={reviewRef} placeholder="Example: I got thi product and it's really good" className="input input-bordered input-primary w-full max-w-xs" />
                                                                         </div>
                                                                         <div className="form-review my-4">
                                                                               <label className="label">
-                                                                                    <span className="label-text text-xl">location</span>
+                                                                                    <span className="label-text text-xl">Location</span>
                                                                               </label>
-                                                                              <input type="text" placeholder="Example: New York, NY" className="input input-bordered input-primary w-full max-w-xs" />
+                                                                              <input type="text" ref={locationRef} placeholder="Example: New York, NY" className="input input-bordered input-primary w-full max-w-xs" />
                                                                         </div>
                                                                         <div>
                                                                         <p className='text-xl my-4'>How old are you?</p>
-                                                                              <select className="select select-primary w-full max-w-xs">
-                                                                                    <option disabled selected>Select</option>
-                                                                                    <option>17 or under</option>
-                                                                                    <option>18 to 28</option>
-                                                                                    <option>28 to 38</option>
-                                                                                    <option>38 to 48</option>
-                                                                                    <option>49 or over</option>
-                                                                              </select>
+                                                                              <input type="number" ref={ageRef} placeholder="Example: 22" className="input input-bordered input-primary w-full max-w-xs" />                                                                                   
                                                                         </div>
                                                                         <div>
                                                                               <div className="rating my-6">
                                                                                     <p className='text-xl mr-6'>How would you rate this product? </p>
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" checked />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
+                                                                                    <input type="radio" value={1} ref={starRef} name="rating-2" className="mask mask-star-2 bg-purple-400" />
+                                                                                    <input type="radio" value={2} ref={starRef} name="rating-2" className="mask mask-star-2 bg-purple-400" />
+                                                                                    <input type="radio" value={3} ref={starRef} name="rating-2" className="mask mask-star-2 bg-purple-400" />
+                                                                                    <input type="radio" value={4} ref={starRef} name="rating-2" className="mask mask-star-2 bg-purple-400" />
+                                                                                    <input type="radio" value={5} ref={starRef} name="rating-2" className="mask mask-star-2 bg-purple-400" />
                                                                               </div>
                                                                         </div>
-                                                                  </form>
-                                                                  <div className="modal-action">
-                                                                        <label htmlFor="my-modal-5" className="btn shadow-md">Send review</label>
-                                                                  </div>
+
+                                                                        <div className="modal-action">
+                                                                        <button type="submit" htmlFor="my-modal-5" className="btn-review shadow-md">Send review</button>
+                                                                        </div>
+                                                                  </form>    
                                                             </div>
                                                       </div>
                                                 </div>

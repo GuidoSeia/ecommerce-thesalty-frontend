@@ -48,7 +48,7 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
   }
 
   useEffect(() => {
-    setCoupon(currentCouponId)
+    setCoupon(currentCouponId?.response?.[0]._id)
   }, [currentCouponId])
 
 

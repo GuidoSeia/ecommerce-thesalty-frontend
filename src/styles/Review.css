@@ -56,13 +56,21 @@
       
 }
 
-
-
-
-.btn:hover{
-      background-color:  #360027;
-      border: 1.5px solid black;
+.btn-review{
+      border: 1px solid black;
+      color: white;
+      border-radius: 5%;
+      margin: 1rem 0 0 5rem;
+      height: max-content;
+      background-color: #522546;
+      padding: 5px;
+      
 }
+
+
+.btn-review:hover{
+      background-color:  #7e3b6c;
+
 
 .review-box{
       border:2px solid lightgrey;
