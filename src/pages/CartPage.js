@@ -14,7 +14,8 @@ export default function CartPage({ coupon }) {
 
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart)
+    const cart = useSelector((state) => state.cart.cart.cart)
+    
     const order = useSelector((state) => state.cart.orderNumber)
 
     const addition = (acc, currentValue) => {

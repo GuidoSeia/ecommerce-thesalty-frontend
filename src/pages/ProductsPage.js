@@ -14,7 +14,8 @@ export default function ProductsPage() {
     let type = urlParams.get("type")
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart)
+    let cart = useSelector((state) => state.cart.cart.cart)
+    console.log(cart);
 
     const logged = useSelector((state) => state.logged.loggedState);
 
@@ -28,12 +29,14 @@ export default function ProductsPage() {
             <div className="container-img">
                 <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
             </div>
-            <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-start p-5">
+            <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-between">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
-                <p className="">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
-                <div className="card-actions items-center">
-                    <p>$: {card.price}</p>
-                    <p>Stock: {card.stock}</p>
+                <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
+                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
+                </div>
+                <div className="card-actions flex justify-center items-center">
+                    <p className="">$: {card.price}</p>
+                    <p className="">Stock: {card.stock}</p>
                 </div>
             </div>
             <div className="flex justify-around bg-white p-3">
