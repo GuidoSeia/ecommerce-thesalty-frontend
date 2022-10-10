@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 
 export default function Header() {
-  const cart = useSelector((state) => state.cart.cart)
+  const cart = useSelector((state) => state.cart.cart.cart)
 
   const logged = useSelector((state) => state.logged.loggedState)
   const user = useSelector((state) => state.logged.user)
