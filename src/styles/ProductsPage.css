@@ -16,11 +16,50 @@
 }
 
 .cardProduct {
-    width: 400px;
-    height: 750px;
+    width: 250px;
+    height: 500px;
     border: 2px solid black;
 }
 
 .container-img img{
-    height: 400px;
+    height: 150px;
+}
+
+.btn-products-card{
+    padding: .5rem;
+    font-size: .8rem;
+}
+
+.set-sticky{
+    position: sticky;
+    top: 40px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .cardProduct {
+        width: 230px;
+        height: 30rem;
+        border: 2px solid black;
+    }
+    .container-img img{
+        height: 10rem;
+    }
+
+    .set-sticky{
+        position: sticky;
+        top: 0;
+    }
+}
+
+/* CheckboxesProducts */
+
+.collapse-filters{
+    width: 100% !important;
+}
+
+.collapse-filters-content{
+    background-color: #352b44 !important;
+    width: 100%;
 }
