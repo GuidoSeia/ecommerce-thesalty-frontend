@@ -24,12 +24,10 @@
 .container-img{
     height: 300px;
     width: 100% !important;
-    border: 2px solid black;
-
 }
 
 .container-img img{
-    height: 150px;
+    height: 300px;
 }
 
 .btn-products-card{
