@@ -71,7 +71,7 @@ export default function HomePage() {
     )
 
     const productCard = card => (
-        <div className="card cardHome border-black border m-1.5 h-52 md:m-1.5 md:w-40 md:h-80 lg:w-56 xl:m-10 xl:h-96 xl:w-96 shadow-xl" key={card._id}>
+        <div className="card cardHome border-black border m-1.5 h-52 w-44 md:m-1.5 md:w-40 md:h-80 lg:w-56 xl:m-10 xl:h-96 xl:w-64 shadow-xl" key={card._id}>
             <figure className="h-1/2">
                 <img className="h-full w-full object-cover" src={card.photo?.[0]} alt="Shoes" />
             </figure>

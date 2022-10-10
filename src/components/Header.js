@@ -80,7 +80,7 @@ export default function Header() {
         </div>
       </div>
       <div className="navbar-center">
-        <LinkRouter to={'/home'}><img src="/logo-white.png" width="120" alt="Shoes" className="rounded-xl" /></LinkRouter>
+        <LinkRouter to={'/home'}><img src="/logo-white.png" width="80" alt="Shoes" className="rounded-xl" /></LinkRouter>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end" onClick={openMenu}>
