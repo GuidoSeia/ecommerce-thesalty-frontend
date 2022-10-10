@@ -104,23 +104,24 @@ function Review() {
             <div className='titleContainer text-white flex items-center justify-center h-28 '>
                   <h2 className=' text-5xl font-mono font-semibold tracking-wide'>Customer Reviews</h2>
             </div>        
-            <div className='reviewContainer flex items-center justify-center '>
-                  <div className='containerAllData  mb-2 w-11/12 mt-2  bg-white'>
-                        <div className='containerIntro mb-10 mt-5 flex w-full'>
-                              <div className='containerProduct w-4/12'>
-                                    <h2 className='text-black text-4xl font-bold mb-2  ml-5 mt-2'>{reviewCards.brand}</h2>
+
+            <div className='reviewContainer flex flex-wrap items-center justify-center '>
+                  <div className='containerAllData  mb-2 w-11/12  bg-white'>
+                        <div className='containerIntro flex justify-evenly items-center flex-wrap w-full'>
+                              <div className='containerProduct w-4/12 flex justify-center items-center gap-10 flex-col p-2 m-10'>
+                                    <h2 className='text-black text-4xl font-bold'>Rolex padre</h2>
                                     <div className="rating rating-lg  ml-5">
-                                          <input type="radio" value={1} name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                                          <input type="radio" value={2} name="rating-8" className="mask mask-star-2 bg-orange-400"  />
-                                          <input type="radio" value={3} name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                                          <input type="radio" value={4} name="rating-8" className="mask mask-star-2 bg-orange-400"  />
-                                          <input type="radio" value={5} name="rating-8" className="mask mask-star-2 bg-orange-400"checked />
-                                          <h4 className='text-black text-2xl font-bold ml-4 mt-1'> 4/5</h4>
+                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400"  />
+                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" checked />
+                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
+                                          <h4 className='text-black text-2xl font-bold'> 4/5</h4>
                                     </div>
-                                    <img src={reviewCards.photo} width="250" className='mt-5 mb-4 rounded-lg  ml-6'/>
+                                    <img src="/relojes-hombre-abaco.webp" width="250" height='400' className='rounded-lg'/>
                               </div>
                               
-                              <div className='w-4/12 flex flex-col mt-24 ml-24 justify-center mb-4'>
+                              <div className='flex flex-col justify-center m-10'>
                                     <p className='min-w-max'>5★</p>
                                     <progress className="progress progress-black w-56 min-w-max" value="60" max="100">22</progress>          
                                     <p>4★</p>
@@ -133,7 +134,8 @@ function Review() {
                                     <progress className="progress progress-black w-56" value="12" max="100">33</progress>
                               </div>
 
-                              <label htmlFor="my-modal-5" className="btn-review modal-button">Add review</label>
+                              <label htmlFor="my-modal-5" className="btn modal-button m-10">Add review</label>
+
 
                                           <input type="checkbox" id="my-modal-5" className="modal-toggle" />
                                           <div className="modal">
@@ -193,9 +195,9 @@ function Review() {
                         </div>
                         <div className='containerReviews'>
                               <h2 className='text-Answ text-white flex items-center justify-start h-28 text-4xl ml-5 font-mono font-semibold tracking-wide'>What do our users say ?</h2>
-                              <div className='containerCards flex space-x-14 flex justify-center'>
+                              <div className='containerCards flex space-x-14 justify-center'>
 
-                                    <div className="cardReview w-96 bg-base-100 shadow-xl w-1/4">
+                                    <div className="cardReview bg-base-100 shadow-xl w-1/4">
                                           <div className="card-body flex justify-center items-center">                                  
                                                 <div className="avatar">
                                                       <div className="w-24 rounded-full">

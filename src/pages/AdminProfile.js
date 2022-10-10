@@ -110,7 +110,7 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
                 <label className="label">
                   <span className="label-text text-black text-base">Coupon code</span>
                 </label>
-                <input type="text" name="currentCode" className="input input-bordered h-10 text-xs w-full" value={coupon} disabled />
+                <input type="text" name="currentCode" className="input input-bordered h-10 text-xs w-full" value={coupon} />
                 <div className="my-5">
                   <button className="btn btn-primary btn-home-page text-xs">Remove</button>
                 </div>
