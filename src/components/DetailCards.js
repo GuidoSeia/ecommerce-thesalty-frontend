@@ -41,7 +41,7 @@ export default function DetailCards() {
         <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
           <img
             src={detailCards?.photo?.[0]}
-            className="h-full w-full object-cover object-center"
+            className="h-72 w-full object-cover object-center"
           />
         </div>
         <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
