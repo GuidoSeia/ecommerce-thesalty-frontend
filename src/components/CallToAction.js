@@ -5,7 +5,7 @@ import {Link as LinkRouter} from 'react-router-dom'
 export default function CallToAction() {
     return (
 
-        <div className="card cardBg w-7/12 shadow-xl z-50">
+        <div className="card w-7/12 shadow-xl z-50" id="cardBg">
             <figure className="px-10 pt-10">
                 <img src="/logo-white.png" width="400" alt="Shoes" className="rounded-xl" />
             </figure>
