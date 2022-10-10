@@ -14,7 +14,8 @@ export default function CartPage({ coupon }) {
 
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart)
+    const cart = useSelector((state) => state.cart.cart.cart)
+    
     const order = useSelector((state) => state.cart.orderNumber)
 
     const addition = (acc, currentValue) => {
@@ -134,6 +135,7 @@ export default function CartPage({ coupon }) {
                                 </div>
                                 <div className='flex p-3 justify-between'>
                                     <div className="flex flex-col justify-between align-center gap-2">
+                                        <p>Subtotal</p>
                                         <p>Discount *cupon*</p>
                                         <p className='font-bold'>Total</p>
                                     </div>

@@ -36,9 +36,6 @@
       border-radius: 15px 15px 0 0;
 }
 
-.card-body{
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-}
 .collapse-title{ 
       color: white;
       background-color: #522546;
@@ -73,8 +70,7 @@
 
 .btn-review:hover{
       background-color:  #7e3b6c;
-      border: 1.5px solid black;
-}
+
 
 .review-box{
       border:2px solid lightgrey;

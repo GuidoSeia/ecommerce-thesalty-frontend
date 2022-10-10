@@ -24,7 +24,7 @@ const productsApi = createApi({
                     url: "products/",
                     method: "POST",
                     body: product,
-                  };
+                };
             }
         }),
 
@@ -34,7 +34,16 @@ const productsApi = createApi({
                     url: `products/${id}`,
                     method: "PATCH",
                     body: body,
-                  };
+                };
+            }
+        }),
+
+        getRemoveProduct: builder.mutation ({
+            query (id) {
+                return {
+                    url: `products/${id}`,
+                    method: "DELETE",
+                };
             }
         }),
     
@@ -44,8 +53,9 @@ const productsApi = createApi({
 export default productsApi
 
 export const { useGetAllProductsQuery ,
-     useGetFilteredProductsQuery,
-      useGetNewProductMutation,
-       useGetProductQuery,
-       useGetUpdateProductMutation
-     } = productsApi
+    useGetFilteredProductsQuery,
+    useGetNewProductMutation,
+    useGetProductQuery,
+    useGetUpdateProductMutation,
+    useGetRemoveProductMutation
+    } = productsApi

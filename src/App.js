@@ -5,11 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import CountdownTimer from './components/countdown/CountdownTimer'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNewCouponMutation, useGetAllCouponsQuery } from './features/couponApi';
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSignInTokenMutation } from './features/usersAPI';
 
 
-//Pages
 import WelcomePage from './pages/WelcomePage';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/SignIn';
@@ -35,7 +34,6 @@ export default function App() {
   async function verifyToken() {
     try {
       let res = await signInToken(JSON.parse(localStorage.getItem("token")));
-      console.log(res);
       if (res.data?.success) {
         dispatch(setUser(res.data?.response.user));
       } else {
@@ -53,7 +51,7 @@ export default function App() {
   }, []);
 
   let { data: coupon } = useGetAllCouponsQuery()
-  let [ newCupon ] = useNewCouponMutation()
+  let [newCupon] = useNewCouponMutation()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,13 +96,13 @@ export default function App() {
         pauseOnHover={true}
       />
       {/* <CountdownTimer targetDate={jajas} /> */}
-      <CountdownTimer targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
+      <CountdownTimer couponId={coupon?.response[0]?._id} targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
       <Routes>
         <Route path='/' element={<WelcomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path='/signup' element={!logged ? <SignUp /> : null} />
         <Route path='/signin' element={!logged ? <SignIn /> : null} />
-        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} /> : null} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon} /> : null} />
         <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
         <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
         <Route path='/products' element={<ProductsPage />} />

@@ -20,12 +20,12 @@
     color: white;
 }
 
-.badge-home{
-    background-color: #E23E57;
+.cardHome{
+    background-color: #360027  !important; 
 }
 
-.card{
-    background-color: #360027;
+.badge-home{
+    background-color: #E23E57;
 }
 
 .btn-card-home{
