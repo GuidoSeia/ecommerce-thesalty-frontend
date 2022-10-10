@@ -30,9 +30,9 @@ form h1 {
     padding: 1.5rem;
 }
 
-.card {
-    background-color: rgba(0, 0, 0, 0.637) !important;
-}
+/* .card-body {
+    background-color: #360027 !important;
+} */
 
 .textNew {
     color: white;
@@ -56,4 +56,11 @@ form h1 {
     font-style: italic;
     text-decoration: underline;
     font-weight: 600;
+}
+
+@media (max-width: 374px){
+   .card-signup{
+    width: 19rem;
+}
+
 }

@@ -17,7 +17,8 @@ export default function ProductsPage() {
 
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart)
+    let cart = useSelector((state) => state.cart.cart.cart)
+    console.log(cart);
 
     const logged = useSelector((state) => state.logged.loggedState);
 
@@ -42,16 +43,20 @@ export default function ProductsPage() {
     }, [])
 
     const productCard = card => (
+
         <div key={card._id} className="card cardProduct m-5 shadow-xl">
             <div className="container-img">
                 <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
             </div>
             <div className="card-body text-center bg-white text-black flex flex-col justify-start p-5">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
-                <p className="">{card.description.length > 100 ? `${card.description.slice(0, 60)}...` : card.description} </p>
-                <div className="card-actions items-center">
+                <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
+                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 60)}...` : card.description} </p>
+                </div>
+                <div className="card-actions flex justify-center items-center">
                     <p>$: {card.price}</p>
                     <p>Stock: {card.stock}</p>
+
                 </div>
             </div>
             <div className="flex justify-around bg-white p-2">
@@ -104,6 +109,7 @@ export default function ProductsPage() {
     return (
 
         <PageLayout>
+
             <div className='flex flex-col md:flex-row'>
                 <div className='set-sticky z-40 md:h-full md:w-1/6 '>
                     <CheckboxesProducts handlegender={handlegender} checked={newLast}></CheckboxesProducts>
@@ -127,6 +133,7 @@ export default function ProductsPage() {
                             </div>}
                     </div>
                 </div>
+
             </div>
         </PageLayout>
     )

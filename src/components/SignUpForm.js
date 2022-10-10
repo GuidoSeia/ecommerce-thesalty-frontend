@@ -69,12 +69,9 @@ const SignUp = () => {
       <form ref={form} className="formSignUp">
 
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">SignUp</h1>
-              
             </div>
             <div className="container1 card shadow-2xl ">
-              <div className="card-body">
-                {/*Input */}
+              <div className="card-body card-signup">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Name and Lastname</span>
