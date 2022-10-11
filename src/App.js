@@ -21,7 +21,9 @@ import AdminProfile from './pages/AdminProfile';
 import EditProducts from './pages/EditProducts';
 import NewProducts from './pages/NewProducts';
 import Details from './pages/Details'
+import MyFavorites from './pages/MyFavorites';
 import ScrollToTop from './components/ScrollToTop'
+
 
 export default function App() {
 
@@ -109,7 +111,7 @@ export default function App() {
         <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/Details' element={<Details />} />
-
+        <Route path='favs' element={<MyFavorites/>}/>
         <Route path='/aboutUs' element={<InfoPage />} />
         <Route path='/cart' element={<CartPage coupon={coupon} />} />
 

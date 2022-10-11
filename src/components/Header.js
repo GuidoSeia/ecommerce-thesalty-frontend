@@ -155,6 +155,7 @@ export default function Header() {
                 </div>
               </div>
               <div className="modal-action">
+              <LinkRouter className="btn" to={"/favs"}>My favorites</LinkRouter>
                 <a href="#" className="btn">Close</a>
               </div>
             </div>

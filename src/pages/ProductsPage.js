@@ -6,7 +6,10 @@ import PageLayout from "../components/layout/PageLayout"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import { toast } from 'react-toastify';
+
+import { useProductsFavoritesMutation } from '../features/productsApi'
 import CheckboxesProducts from '../components/CheckboxesProducts'
+
 
 export default function ProductsPage() {
 
@@ -41,6 +44,14 @@ export default function ProductsPage() {
         }
     }, [])
 
+    const [likeOrDislike] = useProductsFavoritesMutation()
+
+    async function like(event) {
+        console.log(event);
+        await likeOrDislike(event.target.id)
+        console.log(allProducts?.response)
+  }
+
     const productCard = card => (
         <div key={card._id} className="card cardProduct shadow-xl">
             <div className="container-img bg-white flex justify-center items-center">
@@ -63,6 +74,9 @@ export default function ProductsPage() {
             </div>
             <div className="flex justify-center items-center bg-white">
             
+            </div>
+            <div>
+                <button className="btn m-2" id={card?._id} onClick={like}>Add to favorites</button>
             </div>
         </div>
     )
