@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
+import { useGetNewCartMutation } from '../features/buyAPI'
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeCart, decrementQuantity, newOrder } from '../features/cartSlice'
 import { toast } from 'react-toastify';
@@ -14,10 +15,9 @@ export default function CartPage({ coupon }) {
 
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart.cart)
-    console.log(cart);
+    let cart = useSelector((state) => state.cart.cart.cart)
     
-    const order = useSelector((state) => state.cart.cart.orderNumber)
+    let order = useSelector((state) => state.cart.cart.orderNumber)
 
     const addition = (acc, currentValue) => {
         return acc + currentValue.price * currentValue.quantity
@@ -50,6 +50,29 @@ export default function CartPage({ coupon }) {
             }
         }
     }, [subTotalCart])
+
+    const [newCart] = useGetNewCartMutation()
+
+    /* Pasarela de pagos */
+
+    const user = useSelector((state) => state.logged.user);
+
+    const handlePay = async() => {
+        let cartOrder = {
+            user: user?.id,
+            items: cart,
+            shipping: 'free',
+            amount: !code ? subTotalCart : totalWithDiscount
+        }
+
+        
+        await newCart(cartOrder)
+            .then((res) => {
+                dispatch(removeCart())
+            })
+    }
+
+    /* ---------------------------------- */
 
     let tbody = (product) => (
         <tr key={product.id}>
@@ -153,7 +176,8 @@ export default function CartPage({ coupon }) {
                                 </div>
                             </div>
                             <div className='flex justify-center'>
-                                <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter>
+                                {/* <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter> */}
+                                <button onClick={handlePay}>Pagar</button>
                             </div>
                         </div>
                     </div>
