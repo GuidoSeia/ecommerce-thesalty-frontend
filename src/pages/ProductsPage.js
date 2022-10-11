@@ -6,24 +6,43 @@ import PageLayout from "../components/layout/PageLayout"
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import { toast } from 'react-toastify';
+
 import { useProductsFavoritesMutation } from '../features/productsApi'
+import CheckboxesProducts from '../components/CheckboxesProducts'
+
 
 export default function ProductsPage() {
 
     let params = window.location.search
     let urlParams = new URLSearchParams(params)
     let type = urlParams.get("type")
-    const dispatch = useDispatch()
+    let newLatest = urlParams.get("newLatest")
 
-    const cart = useSelector((state) => state.cart.cart)
+    const dispatch = useDispatch()
 
     const logged = useSelector((state) => state.logged.loggedState);
 
-    let { data: allProducts } = useGetAllProductsQuery(type)
+    let { data: allProducts, refetch } = useGetAllProductsQuery()
     let { data: products } = useGetFilteredProductsQuery(type)
+    
+    console.log(products);
 
-    let user = JSON.parse(localStorage.getItem('userLogged'))
-    let userRole = user?.role
+    const user = useSelector((state) => state.logged.user);
+
+    const [newLast, setNewLast] = useState()
+    const handlegender = (e) => {
+        setNewLast(e.target.value)
+    }
+
+    useEffect(() => {
+        if (!newLatest) {
+            setNewLast("all")
+        } else if (newLatest == "new") {
+            setNewLast("new")
+        } else {
+            setNewLast("latest")
+        }
+    }, [])
 
     const [likeOrDislike] = useProductsFavoritesMutation()
 
@@ -34,22 +53,27 @@ export default function ProductsPage() {
   }
 
     const productCard = card => (
-        <div key={card._id} className="card card-products w-72 bg-base-100 shadow-xl">
-            <figure className='h-2/5'><img className='w-full h-full object-cover' src={card.photo?.[0]} alt="Shoes" /></figure>
-            <div className="card-body h-3/5 text-center bg-white text-black flex flex-col justify-start p-5">
+        <div key={card._id} className="card cardProduct shadow-xl">
+            <div className="container-img bg-white flex justify-center items-center">
+                <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
+            </div>
+            <div className="card-body text-center bg-white text-black flex flex-col justify-between">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
-                <p>{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
-                <div className="card-actions items-center">
-                    <p>$: {card.price}</p>
-                    <p>Stock: {card.stock}</p>
+                <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
+                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
+                </div>
+                <div className="card-actions flex justify-center items-center">
+                    <p className="">Price: ${card.price}</p>
+                    <p className="">Stock: {card.stock}</p>
                 </div>
             </div>
             <div className="flex justify-around bg-white p-3">
                 { logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={()=>toast.error('Login to add to cart')}>Add to cart</button> }
-                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Know more</LinkRouter>
+                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
+                {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
             </div>
             <div className="flex justify-center items-center bg-white">
-            {userRole === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
+            
             </div>
             <div>
                 <button className="btn m-2" id={card?._id} onClick={like}>Add to favorites</button>
@@ -66,29 +90,64 @@ export default function ProductsPage() {
     const filterData = (e) => {
         e.preventDefault()
         setFilter(upperCaseOne(e.target.value));
-        console.log(filter);
     }
 
     let show
     if (type == null) {
-        { filter ? show = allProducts?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response?.map(productCard) }
+        switch (newLast) {
+            case "all":
+                { filter ? show = allProducts?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response?.map(productCard) }
+                break;
+            case "new":
+                {
+                    filter ? show = allProducts?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response?.map(productCard).reverse().slice(0, 8)
+                }
+                break;
+            case "latest":
+                {
+                    filter ? show = allProducts?.response?.filter((product) =>
+                        product.stock <= 10
+                    ).filter((item => item.brand.includes(filter))).map(productCard) : show = allProducts?.response?.filter((product) =>
+                        product.stock <= 10
+                    ).map(productCard)
+                }
+                break;
+        }
     } else {
         { filter ? show = products?.response?.filter((item => item.brand.includes(filter))).map(productCard) : show = products?.response?.map(productCard) }
+
     }
 
     return (
 
         <PageLayout>
-            <div className="form-control">
-                <label className="input-group input-group-md flex justify-center align-items-center py-4 bg-white">
-                    <span>TS</span>
-                    <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
-                </label>
-            </div>
-            <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
-                {show?.length > 0 ? show : <div><h1 className="text-black text-lg">No se encontraron resultados.</h1></div>}
+
+            <div className='flex flex-col md:flex-row'>
+                <div className='set-sticky z-40 md:h-full md:w-1/6 '>
+                    <CheckboxesProducts handlegender={handlegender} checked={newLast}></CheckboxesProducts>
+                </div>
+                <div className="flex flex-col bg-gray-900 md:w-5/6">
+                    <div className="form-control border-b border-black">
+                        <label className="input-group input-group-md flex justify-center align-items-center py-2 md:py-4 bg-white">
+                            <span>TS</span>
+                            <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
+                        </label>
+                    </div>
+                    <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
+                        {show?.length > 0 ?
+                            <>
+                                <h2 className='w-full text-xl font-bold text-black text-center'>{newLast} products</h2>
+                                {show}
+                            </>
+                            :
+                            <div>
+                                <h1 className="text-black text-lg">No se encontraron resultados.</h1>
+                            </div>}
+                    </div>
+                </div>
+
             </div>
         </PageLayout>
     )
-
+    // 
 }

@@ -1,0 +1,94 @@
+.main-container {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+video {
+    object-fit: cover;
+    height: 80vh;
+    width: 100%;
+    z-index: -1;
+}
+
+.input-container {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.formSignIn {
+    width: 100%;
+    min-height: 80vh;
+}
+
+form h1 {
+    color: white;
+}
+
+
+.container2 {
+    width: 30% !important;
+}
+
+.card {
+    background-color: #360027 !important;
+}
+
+.textNew {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.637) !important;
+    border-radius: 15px;
+    margin-top: 7px;
+}
+.or{
+    color: rgb(141, 141, 141);
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.buttonform{
+    background-color: rgb(31, 31, 31);
+    color: white;
+}
+
+.link-new {
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.btnform{
+    align-self: center;
+    width: 40%;
+}
+
+@media screen and (min-width: 320px) {
+    .container2 {
+        width: 90% !important;
+    }
+}
+
+@media screen and (min-width: 546px) {
+    .container2 {
+        width: 70% !important;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .container2 {
+        width: 50% !important;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .container2 {
+        width: 30% !important;
+    }
+}

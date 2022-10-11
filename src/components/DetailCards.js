@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import {useNavigate} from 'react-router-dom'
 import { toast } from 'react-toastify';
+import Review from '../components/Review';
 
 export default function DetailCards() {
 
@@ -22,7 +23,7 @@ export default function DetailCards() {
 
   const dispatch = useDispatch()
 
-  const cart = useSelector((state) => state.cart.cart)
+  const cart = useSelector((state) => state.cart.cart.cart)
 
   const [detailCards, setDetailCards] = useState([])
 
@@ -30,7 +31,7 @@ export default function DetailCards() {
     axios.get(apiurl + '/products/' + productId)
       .then(response => {
         setDetailCards(response.data.response)
-        console.log(detailCards);
+        
       }
       )
   }, [productId])
@@ -41,7 +42,7 @@ export default function DetailCards() {
         <div className="aspect-w-3 aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
           <img
             src={detailCards?.photo?.[0]}
-            className="h-full w-full object-cover object-center"
+            className="w-full h-full object-cover object-center"
           />
         </div>
         <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -80,11 +81,11 @@ export default function DetailCards() {
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
           <div className="rating py-2 ">
-            <input type="radio" name="rating-1" className="mask mask-star" checked />
-            <input type="radio" name="rating-1" className="mask mask-star" />
-            <input type="radio" name="rating-1" className="mask mask-star" />
-            <input type="radio" name="rating-1" className="mask mask-star" />
-            <input type="radio" name="rating-1" className="mask mask-star" />
+            <input type="radio" name="rating" value="1" className="mask mask-star" />
+            <input type="radio" name="rating" value="2" className="mask mask-star" />
+            <input type="radio" name="rating" value="3" className="mask mask-star" />
+            <input type="radio" name="rating" value="4" className="mask mask-star" />
+            <input type="radio" name="rating" value="5" className="mask mask-star" />
           </div> 
           </div>
           <div className="flex justify-center items-center flex-col mb-10 mx-20">
@@ -103,6 +104,9 @@ export default function DetailCards() {
         </div>
       </div>
       </div>
+      <Review />
       </div>
+      
   )
 }
+

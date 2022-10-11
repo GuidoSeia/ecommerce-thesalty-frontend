@@ -5,17 +5,20 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         cart: [],
+        orderNumber: 0
     },
     reducers: {
         addToCart: (state, action) => {
             const itemInCart = state.cart.find((item) => item._id === action.payload._id);
-            if (itemInCart && itemInCart.stock != 0) {
+            if (itemInCart && itemInCart.stock > 0) {
                 toast.success("Added to cart");
                 itemInCart.quantity++;
                 itemInCart.stock--;
             } else {
-                state.cart.push({ ...action.payload, stock: action.payload.stock - 1, quantity: 1 });
-                toast.success("Added to cart");
+                if(action.payload.stock > 0){
+                    state.cart.push({ ...action.payload, stock: action.payload.stock - 1, quantity: 1 });
+                    toast.success("Added to cart");
+                }
             }
         }
         ,
@@ -36,6 +39,10 @@ const cartSlice = createSlice({
 
         removeCart: (state, action) => {
             state.cart = []
+        },
+
+        newOrder: (state, action) => {
+            state.orderNumber = action.payload
         }
     },
 });
@@ -47,5 +54,6 @@ export const {
     incrementQuantity,
     decrementQuantity,
     removeItem,
-    removeCart
+    removeCart,
+    newOrder
 } = cartSlice.actions;

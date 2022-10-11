@@ -24,7 +24,7 @@ const productsApi = createApi({
                     url: "products/",
                     method: "POST",
                     body: product,
-                  };
+                };
             }
         }),
 
@@ -34,7 +34,16 @@ const productsApi = createApi({
                     url: `products/${id}`,
                     method: "PATCH",
                     body: body,
-                  };
+                };
+            }
+        }),
+
+        getRemoveProduct: builder.mutation ({
+            query (id) {
+                return {
+                    url: `products/${id}`,
+                    method: "DELETE",
+                };
             }
         }),
         productsFavorites: builder.mutation({
@@ -61,3 +70,4 @@ export const { useGetAllProductsQuery ,
        useGetUpdateProductMutation,
        useProductsFavoritesMutation
      } = productsApi
+
