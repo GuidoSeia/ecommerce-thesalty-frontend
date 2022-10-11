@@ -9,7 +9,7 @@ export const loggedSlice = createSlice({
     reducers: {
         setUser: (state, action) => {
             state.user = action.payload
-            state.loggedState= true
+            state.loggedState = true
             },
         deleteUser: (state, action) => {
             state.user = null
