@@ -24,12 +24,10 @@
 .container-img{
     height: 300px;
     width: 100% !important;
-    border: 2px solid black;
-
 }
 
 .container-img img{
-    height: 150px;
+    height: 300px;
 }
 
 .btn-products-card{
@@ -46,12 +44,7 @@
 
 @media screen and (max-width: 768px) {
     .cardProduct {
-        width: 230px;
-        height: 30rem;
         border: 2px solid black;
-    }
-    .container-img img{
-        height: 10rem;
     }
 
     .set-sticky{
