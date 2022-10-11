@@ -17,13 +17,12 @@ export default function ProductsPage() {
 
     const dispatch = useDispatch()
 
-    let cart = useSelector((state) => state.cart.cart.cart)
-    console.log(cart);
-
     const logged = useSelector((state) => state.logged.loggedState);
 
     let { data: allProducts, refetch } = useGetAllProductsQuery()
     let { data: products } = useGetFilteredProductsQuery(type)
+    
+    console.log(products);
 
     const user = useSelector((state) => state.logged.user);
 
