@@ -21,6 +21,16 @@ const buyAPI = createApi({
                 };
             }
         }),
+
+        makePayment: builder.mutation ({
+            query (cart) {
+                return {
+                    url: "/payments",
+                    method: "POST",
+                    body: cart,
+                };
+            }
+        }),
     
     })
 })
@@ -29,5 +39,6 @@ export default buyAPI
 
 export const {
     useGetNewCartMutation,
-    useGetBuysQuery
+    useGetBuysQuery,
+    useMakePaymentMutation
     } = buyAPI
