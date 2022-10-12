@@ -24,6 +24,12 @@
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#522546",GradientType=1);
 }
 
+.card-body{
+      width: 100%;
+}
+
+
+
 .text-Answ{
       -webkit-text-stroke: 1.5px black
 }
@@ -34,6 +40,15 @@
       color: black;
       border: 0 2px 0 2px solid black;
       border-radius: 15px 15px 0 0;
+      width: 30%;
+      display: flex;
+      justify-content: center;
+      
+}
+
+.divAllCards{
+      display: flex;
+      justify-content: space-evenly;
 }
 
 .collapse-title{ 
@@ -60,10 +75,14 @@
       border: 1px solid black;
       color: white;
       border-radius: 5%;
-      margin: 1rem 0 0 5rem;
+      margin: .3rem 2rem 0rem 0;
+      width: 20%;
       height: max-content;
-      background-color: #522546;
+      background-color: #2e1a29;
       padding: 5px;
+      display:flex !important;
+      justify-content: center !important;
+      align-items: center !important;
       
 }
 
