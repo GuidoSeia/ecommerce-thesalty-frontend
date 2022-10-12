@@ -104,16 +104,16 @@ export default function App() {
       <Routes>
         <Route path='/' element={<WelcomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path='/signup' element={!logged ? <SignUp /> : null} />
-        <Route path='/signin' element={!logged ? <SignIn /> : null} />
-        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon} /> : null} />
-        <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
-        <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
+        <Route path='/signup' element={!logged ? <SignUp /> : <HomePage />} />
+        <Route path='/signin' element={!logged ? <SignIn /> : <HomePage />} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon} /> : <HomePage />} />
+        <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : <HomePage />} />
+        <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : <HomePage />} />
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/Details' element={<Details />} />
-        <Route path='favs' element={<MyFavorites/>}/>
+        <Route path='/favourites' element={logged ? <MyFavorites/> : <HomePage />}/>
         <Route path='/aboutUs' element={<InfoPage />} />
-        <Route path='/cart' element={<CartPage coupon={coupon} />} />
+        <Route path='/cart' element={logged ? <CartPage coupon={coupon} /> : <HomePage />} />
 
       </Routes>
     </BrowserRouter>

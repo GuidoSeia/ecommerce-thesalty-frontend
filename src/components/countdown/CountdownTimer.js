@@ -5,7 +5,7 @@ import '../../styles/CountdownTimer.css'
 
 const ExpiredNotice = () => {
     return (
-        <div className="expired-notice flex justify-center items-center gap-1">
+        <div className="font-['Open_Sans'] expired-notice flex justify-center items-center gap-1">
             <span>Coupon expired!!!</span>
             <p>Please wait for another coupon</p>
         </div>
@@ -14,7 +14,7 @@ const ExpiredNotice = () => {
 
 const ShowCounter = ({ days, hours, minutes, seconds, codeCoupon }) => {
     return (
-        <div className="show-counter">
+        <div className="show-counter font-['Open_Sans']">
             <div className='countdownContainer flex gap-2 md:gap-5'>
                 <DateTimeDisplay value={days} type={'Days'} isDanger={days <= 1} />
                 <p>:</p>
@@ -23,9 +23,9 @@ const ShowCounter = ({ days, hours, minutes, seconds, codeCoupon }) => {
                 <DateTimeDisplay value={minutes} type={'Mins'} isDanger={false} />
                 <p>:</p>
                 <DateTimeDisplay value={seconds} type={'Seconds'} isDanger={false} />
-                <div className='flex gap-5 justify-center items-center'>
+                <div className='flex gap-5 justify-center items-center '>
                     <h2 className='text-center text-xs'>Coupon <br /> countdown</h2>
-                    <h2 className='hidden md:block'>Use this coupon to get a discount on your purchase</h2>
+                    <h2 className='hidden md:block '>Use this coupon to get a discount on your purchase</h2>
                 </div>
                 <div className='flex justify-center bg-black p-1 rounded'>
                     <p className=' text-xs'>{codeCoupon}</p>
