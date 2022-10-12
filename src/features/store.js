@@ -5,9 +5,11 @@ import loggedSlice from './loggedSlice'
 import cartSlice from './cartSlice'
 import codeSlice from './codeSlice'
 import couponApi from './couponApi'
+import buyAPI from './buyAPI'
 import { persistReducer } from 'redux-persist'
 import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage'
+import refreshSlice from './refreshSlice'
 
 const persistConfig = {
     key: "root",
@@ -26,7 +28,9 @@ export default  configureStore({
         [productsApi.reducerPath]: productsApi.reducer,
         [usersAPI.reducerPath]: usersAPI.reducer,
         [couponApi.reducerPath]: couponApi.reducer,
+        [buyAPI.reducerPath] : buyAPI.reducer,
         logged: loggedSlice,
+        refresh: refreshSlice,
         code: codeSlice,
         cart: persistedReducer
     },

@@ -2,21 +2,25 @@ import React, { useEffect, useRef, useState } from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
+import { useGetNewCartMutation, useMakePaymentMutation } from '../features/buyAPI'
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeCart, decrementQuantity, newOrder } from '../features/cartSlice'
 import { toast } from 'react-toastify';
 import { codeTrue } from '../features/codeSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function CartPage({ coupon }) {
+
+    let navigate = useNavigate()
 
     let couponCode = coupon?.response?.[0]?.couponCode;
     let couponDiscount = coupon?.response?.[0]?.discount;
 
     const dispatch = useDispatch()
 
-    const cart = useSelector((state) => state.cart.cart.cart)
-    
-    const order = useSelector((state) => state.cart.orderNumber)
+    let cart = useSelector((state) => state.cart.cart.cart)
+
+    let order = useSelector((state) => state.cart.cart.orderNumber)
 
     const addition = (acc, currentValue) => {
         return acc + currentValue.price * currentValue.quantity
@@ -42,13 +46,42 @@ export default function CartPage({ coupon }) {
 
     useEffect(() => {
         if (subTotalCart == 0) {
-            toast.warning("you have no items in your shopping cart")
+            toast.warning("0 items in your shopping cart")
         } else {
             if (order == 0) {
                 dispatch(newOrder(Math.floor(Math.random() * 1000000)))
             }
         }
     }, [subTotalCart])
+
+    const [newCart] = useGetNewCartMutation()
+    const [makePayment] = useMakePaymentMutation()
+
+    /* Pasarela de pagos */
+
+    const user = useSelector((state) => state.logged.user);
+
+    const handlePay = async () => {
+        let cartOrder = {
+            user: user?.id,
+            items: cart,
+            shipping: 'free',
+            amount: !code ? subTotalCart : totalWithDiscount
+        }
+
+        await newCart(cartOrder)
+            .then((res) => {
+                dispatch(removeCart())
+            })
+
+        await makePayment(cartOrder)
+            .then((res) => {
+                window.open(res.data.init_point)
+                // navigate(res.data.init_point)
+            })
+    }
+
+    /* ---------------------------------- */
 
     let tbody = (product) => (
         <tr key={product.id}>
@@ -142,8 +175,8 @@ export default function CartPage({ coupon }) {
                                     <div className="flex flex-col justify-center align-center gap-2">
                                         <p>$ {subTotalCart}</p>
                                         <div className="flex justify-center items-center ">
-                                            {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input" />}
-                                            {code == false ? <button onClick={applyDiscount} className="h-3 ml-1 btn">
+                                            {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input w-28" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input w-28" />}
+                                            {code == false ? <button onClick={applyDiscount} className="h-1 ml-1 btn w-12 text-white">
                                                 Add
                                             </button> : null}
                                         </div>
@@ -152,7 +185,8 @@ export default function CartPage({ coupon }) {
                                 </div>
                             </div>
                             <div className='flex justify-center'>
-                                <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter>
+                                {/* <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter> */}
+                                <button className="btn text-white" onClick={handlePay}>Pay</button>
                             </div>
                         </div>
                     </div>

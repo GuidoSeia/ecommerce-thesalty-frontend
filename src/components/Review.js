@@ -1,231 +1,897 @@
-import React from 'react'
-import '../styles/Review.css'
-import { useEffect, useState, } from 'react'
-import apiurl from '../api';
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import "../styles/Review.css";
+import { useEffect, useState, useRef } from "react";
+import { useNewReviewMutation, useGetReviewsMutation } from "../features/reviewApi";
+import apiurl from "../api";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { refresh } from '../features/refreshSlice'
 
 function Review() {
+  let params = window.location.search;
 
-      let params = window.location.search
+  const dispatch = useDispatch();
+  const refreshed = useSelector((state) => state.refresh.refreshState) 
+  let urlParams = new URLSearchParams(params);
+  const logged = useSelector((state) => state.logged.loggedState)
 
-      let urlParams = new URLSearchParams(params)
+  let productId = urlParams.get("productId");
 
-      let productId = urlParams.get("productId")
+  console.log(productId);
 
-      const [reviewCards, setReviewCards] = useState([])
+  const [reviewCards, setReviewCards] = useState([]);
 
-      useEffect(() => {
-            axios.get(apiurl + '/products/' + productId)
-                  .then(response => {
-                        setReviewCards(response.data.response)
-                        console.log(reviewCards);
-                  }
-                  )
-      }, [productId])
+  const showError = (msj) => {
+    toast.error(msj, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+
+  const showMsg = () => {
+    toast.success(`New review!`, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+  };
+
+  useEffect(() => {
+    axios.get(apiurl + "/products/" + productId).then((response) => {
+      setReviewCards(response.data.response);
+    });
+  }, [productId]);
+
+  const user = useSelector((state) => state.logged.user);
+  console.log(user);
+
+  /* New comment */
+
+  const [addNewReview] = useNewReviewMutation();
+
+  const reviewTitleRef = useRef();
+  const reviewRef = useRef();
+  const locationRef = useRef();
+  const ageRef = useRef();
+  const starRef = useRef();
+  const formRef = useRef();
+
+  const newReview = async (review) => {
+    await addNewReview(review)
+      .then((success) => {
+        console.log(success);
+        formRef.current.reset();
+      })
+      .catch((error) => {
+        /* alert */
+      });
+  };
+
+  const handleReview = async (e) => {
+    e.preventDefault();
+
+    let review = {
+      user: user?.id,
+      product: productId,
+      reviewTitle: reviewTitleRef.current.value,
+      review: reviewRef.current.value,
+      location: locationRef.current.value,
+      age: ageRef.current.value,
+      star: e.target.rating.value,
+    };
+
+    console.log()
+
+    if (
+      reviewTitleRef.current.value == "" ||
+      reviewRef.current.value == "" ||
+      locationRef.current.value == "" ||
+      ageRef.current.value == ""
+    ) {
+      showError("Please write a review");
+    } else {
+      console.log(review);
+      newReview(review);
+    }
+  };
+
+  /* get comments */
+
+  const [ getData ] = useGetReviewsMutation()
+  const [info, setInfo] = useState()
 
 
-      return (
-<div>
-            <div className='titleContainer text-white flex items-center justify-center h-28 '>
-                  <h2 className=' text-5xl font-mono font-semibold tracking-wide'>Customer Reviews</h2>
-            </div>        
-            <div className='reviewContainer flex items-center justify-center '>
-                  <div className='containerAllData  mb-2 w-11/12 mt-2  bg-white'>
-                        <div className='containerIntro mb-10 mt-5 flex w-full'>
-                              <div className='containerProduct w-4/12'>
-                                    <h2 className='text-black text-4xl font-bold mb-2  ml-5 mt-2'>Rolex padre</h2>
-                                    <div className="rating rating-lg  ml-5">
-                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400"  />
-                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" checked />
-                                          <input type="radio" name="rating-8" className="mask mask-star-2 bg-orange-400" />
-                                          <h4 className='text-black text-2xl font-bold ml-4 mt-1'> 4/5</h4>
-                                    </div>
-                                    <img src="/relojes-hombre-abaco.webp" width="250" className='mt-5 rounded-lg  ml-5'/>
-                              </div>
-                              
-                              <div className='w-4/12 flex flex-col mt-24 ml-24 justify-center mb-4'>
-                                    <p className='min-w-max'>5★</p>
-                                    <progress className="progress progress-black w-56 min-w-max" value="60" max="100">22</progress>          
-                                    <p>4★</p>
-                                    <progress className="progress progress-black w-56" value="38" max="100">22</progress>
-                                    <p>3★</p>
-                                    <progress className="progress progress-black w-56" value="30" max="100">22</progress>
-                                    <p>2★</p>
-                                    <progress className="progress progress-black w-56" value="8" max="100">22</progress>
-                                    <p>1★</p>
-                                    <progress className="progress progress-black w-56" value="12" max="100">33</progress>
-                              </div>
+  async function allReviews() {
+    await getData(productId) 
+      .then((res) => {
+        if (res.data?.success) {
+          setInfo(res.data.response)
 
-                              <label htmlFor="my-modal-5" className="btn modal-button">Add review</label>
+          console.log()
+        } else {
+          console.log(res.error);
+        }
+      })
 
-                                          <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-                                          <div className="modal">
-                                                <div className="modal-box w-11/12 max-w-5xl">
-                                                      <h1 className="font-bold text-2xl text-purple-900 text-center">My review for {reviewCards.brand}</h1>
-                                                      <div className='flex flex-row'>
-                                                            <div className='m-4  mr-14'>
-                                                                  <img src={reviewCards?.photo?.[0]} className="h-48 w-48 my-4 object-cover object-center" />
-                                                                  <img src={reviewCards?.photo?.[1]} className="h-48 w-48 my-4 object-cover object-center" />
-                                                                  <img src={reviewCards?.photo?.[3]} className="h-48 w-48 my-4 object-cover object-center" />
-                                                            </div>
-                                                            <div className='w-full'>
-                                                                  <p className="py-4 text-xl">Hi! Know the experience of our customers is too important for us, share yours!</p>
-                                                                  <form>
-                                                                        <div className="form-review my-4">
-                                                                              <label className="label">
-                                                                                    <span className="label-text text-xl">Review Title</span>
-                                                                              </label>
-                                                                              <input type="text" placeholder="Example: Fantastic product!" className="input input-bordered input-primary w-full max-w-xs" />
-                                                                        </div>
-                                                                        <div className="form-review my-4">
-                                                                              <label className="label">
-                                                                                    <span className="label-text text-xl">Review</span>
-                                                                              </label>
-                                                                              <input type="text" placeholder="Example: I got thi product and it's really good" className="input input-bordered input-primary w-full max-w-xs" />
-                                                                        </div>
-                                                                        <div className="form-review my-4">
-                                                                              <label className="label">
-                                                                                    <span className="label-text text-xl">location</span>
-                                                                              </label>
-                                                                              <input type="text" placeholder="Example: New York, NY" className="input input-bordered input-primary w-full max-w-xs" />
-                                                                        </div>
-                                                                        <div>
-                                                                        <p className='text-xl my-4'>How old are you?</p>
-                                                                              <select className="select select-primary w-full max-w-xs">
-                                                                                    <option disabled selected>Select</option>
-                                                                                    <option>17 or under</option>
-                                                                                    <option>18 to 28</option>
-                                                                                    <option>28 to 38</option>
-                                                                                    <option>38 to 48</option>
-                                                                                    <option>49 or over</option>
-                                                                              </select>
-                                                                        </div>
-                                                                        <div>
-                                                                              <div className="rating my-6">
-                                                                                    <p className='text-xl mr-6'>How would you rate this product? </p>
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" checked />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-purple-400" />
-                                                                              </div>
-                                                                        </div>
-                                                                  </form>
-                                                                  <div className="modal-action">
-                                                                        <label htmlFor="my-modal-5" className="btn shadow-md">Send review</label>
-                                                                  </div>
-                                                            </div>
-                                                      </div>
-                                                </div>
-                                          </div>
-                              
-                        </div>
-                        <div className='containerReviews'>
-                              <h2 className='text-Answ text-white flex items-center justify-start h-28 text-4xl ml-5 font-mono font-semibold tracking-wide'>What do our users say ?</h2>
-                              <div className='containerCards flex space-x-14 flex justify-center'>
+    }
 
-                                    <div className="cardReview w-96 bg-base-100 shadow-xl w-1/4">
-                                          <div className="card-body flex justify-center items-center">                                  
-                                                <div className="avatar">
-                                                      <div className="w-24 rounded-full">
-                                                      <img src="https://placeimg.com/192/192/people" />
-                                                      </div>                                         
-                                                </div>
-                                                      <h2 className="card-title">Card title!</h2>
-                                                      <p className=''>If a dog chews shoes whose shoes does he choose?</p>
-                                                      <div className="rating">
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400"  />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked/>
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                      </div>
-                                                
-                                          </div>
-                                    </div>
-                                    <div className="cardReview w-96 bg-base-100 shadow-xl w-1/4">
-                                          <div className="card-body flex justify-center items-center">                                  
-                                                <div className="avatar">
-                                                      <div className="w-24 rounded-full">
-                                                      <img src="https://placeimg.com/192/192/people" />
-                                                      </div>
-                                                </div>
-                                                      <h2 className="card-title">Card title!</h2>
-                                                      <p className=''>If a dog chews shoes whose shoes does he choose?</p>
-                                                      <div className="rating">
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400"  />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked/>
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                      </div>
-                                          </div>
-                                    </div>
-                                    <div className="cardReview w-96 bg-base-100 shadow-xl w-1/4">
-                                          <div className="card-body flex justify-center items-center">                                  
-                                                <div className="avatar">
-                                                      <div className="w-24 rounded-full">
-                                                      <img src="https://placeimg.com/192/192/people" />
-                                                      </div>
-                                                </div>
-                                                      <h2 className="card-title">Card title!</h2>
-                                                      <p className=''>If a dog chews shoes whose shoes does he choose?</p>
-                                                      <div className="rating">
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400"  />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" checked/>
-                                                            <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" />
-                                                      </div>
-                                          </div>      
-                                    </div>  
-                              </div>     
-                              </div>                                                                                      
-      
-                              <div className="collapse ">
-                                    <input type="checkbox" className='input-collapse' /> 
-                                    <div className="collapse-title text-xl font-medium flex justify-center align-center mb-2 mt-10 w-46 text-center">
-                                    <p className='text-center ml-4'>Click to see all reviews</p>
-                                    </div>
-                                    <div className="collapse-content w-8/12 flex justify-self-center justify-center items-center flex-wrap"> 
-                                          <div className='card- w-full bg-white h-26 mt-3 flex'>
-                                                <div className='card-userReview flex flex-col'>
-                                                      <div className="avatar">
-                                                            <div className="w-24 ml-7 mt-2 rounded-full">
-                                                            <img src="https://placeimg.com/192/192/people" />
-                                                            </div>
-                                                      </div>
-                                                      <div className="rating rating-xs ml-11 mt-3 mb-2">
-                                                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" checked />
-                                                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
-                                                            <input type="radio" name="rating-5" className="mask mask-star-2 bg-orange-400" />
-                                                      </div>                                               
-                                                </div>
-                                                <div className='containerUserInfo text-black flex flex-col justify-center ml-4 mr-5'>
-                                                      <h3 className='font-bold text-center text-sm'>Guido Seia</h3>
-                                                      <p className='text-sm'> Cordoba</p>
-                                                      <p className='text-sm'> 21 years</p>
-                                                      
-                                                </div>
-                                                <div className='review-box'>
-                                                      <h3 className='font-bold text-center '>Amazing product !</h3>
-                                                      <p className='ml-3 '>A backpack for school, to go to work, or to go on a trip. Spacious, lightweight, and durable enough to go wherever you need it. Sober on the outside, citrusy on the inside</p>
-                                                </div>
-                                                
-                                          </div>
-                                    </div>
-                              </div>
-                        </div>
+    useEffect(() => {
+      allReviews()
+    }, [refreshed])
+    
+
+  return (
+    <div>
+      <div className="reviewContainer flex flex-wrap items-center justify-center ">
+        <div className="containerAllData  mb-2 w-11/12  bg-white">
+          <div className="containerIntro flex justify-evenly items-center flex-wrap w-full">    
+            <div className="modal">
+              <div className="modal-box w-11/12 max-w-5xl">
+                <label htmlFor="my-modal-5" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <h1 className="font-bold text-2xl text-purple-900 text-center">
+                  My review for {reviewCards.brand}
+                </h1>
+                {logged ?
+                 <label htmlFor="my-modal-5" className="btn modal-button m-10">
+                 Add review
+                  <><input type="checkbox" id="my-modal-5" className="modal-toggle" /></>
+                </label>   : null }           
+                <div className="flex flex-row">
+                  <div className="m-4  mr-14">
+                    <img
+                      src={reviewCards?.photo?.[0]}
+                      className="h-48 w-48 my-4 object-cover object-center"
+                    />
+                    <img
+                      src={reviewCards?.photo?.[1]}
+                      className="h-48 w-48 my-4 object-cover object-center"
+                    />
+                    <img
+                      src={reviewCards?.photo?.[3]}
+                      className="h-48 w-48 my-4 object-cover object-center"
+                    />
                   </div>
-            </div>
-      
-  )
- }
+                  <div className="w-full">
+                    <p className="py-4 text-xl">
+                      Hi! Know the experience of our customers is too important
+                      for us, share yours!
+                    </p>
+                    <form onSubmit={handleReview} ref={formRef}>
+                      <div className="form-review my-4">
+                        <label className="label">
+                          <span className="label-text text-xl">
+                            Review Title
+                          </span>
+                        </label>
+                        <input
+                          type="text"
+                          ref={reviewTitleRef}
+                          placeholder="Example: Fantastic product!"
+                          className="input input-bordered input-primary w-full max-w-xs"
+                        />
+                      </div> 
+                      <div className="form-review my-4">
+                        <label className="label">
+                          <span className="label-text text-xl">Review</span>
+                        </label>
+                        <input
+                          type="text"
+                          ref={reviewRef}
+                          placeholder="Example: I got thi product and it's really good"
+                          className="input input-bordered input-primary w-full max-w-xs"
+                        />
+                      </div>
+                      <div className="form-review my-4">
+                        <label className="label">
+                          <span className="label-text text-xl">Location</span>
+                        </label>
+                        <input
+                          type="text"
+                          ref={locationRef}
+                          placeholder="Example: New York, NY"
+                          className="input input-bordered input-primary w-full max-w-xs"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-xl my-4">How old are you?</p>
+                        <input
+                          type="number"
+                          ref={ageRef}
+                          placeholder="Example: 22"
+                          className="input input-bordered input-primary w-full max-w-xs"
+                        />
+                      </div>
+                      <div>
+                        <div className="rating my-6">
+                          <p className="text-xl mr-6">
+                            How would you rate this product?{" "}
+                          </p>
+                          <input
+                            type="radio"
+                            value={1}
+                            name="rating"
+                            className="mask mask-star-2 bg-purple-400"
+                            
+                          />
+                          <input
+                            type="radio"
+                            value={2}                            
+                            name="rating"
+                            className="mask mask-star-2 bg-purple-400"
+                          />
+                          <input
+                            type="radio"
+                            value={3}
+                            name="rating"
+                            className="mask mask-star-2 bg-purple-400"
+                          />
+                          <input
+                            type="radio"
+                            value={4}
+                            name="rating"
+                            className="mask mask-star-2 bg-purple-400"
+                          />
+                          <input
+                            type="radio"
+                            value={5}
+                            name="rating"
+                            className="mask mask-star-2 bg-purple-400"
+                          />
+                        </div> 
+                      </div> 
 
-export default Review
+                      <div className="modal-action">
+                        <button
+                          type="submit"
+                          htmlFor="my-modal-5"
+                          className="btn-review shadow-md"
+                        >
+                          Send review
+                        </button>
+                      </div> 
+                    </form> 
+                  </div>
+                </div>
+              </div> 
+            </div> 
+          </div> 
+
+          <div className="containerReviews">
+            <h2 className="text-Answ text-white flex items-center justify-start h-28 text-4xl ml-5 font-mono font-semibold tracking-wide">
+              What do our users say ?
+            </h2>
+            <div className="containerCards flex space-x-14 justify-center">
+              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
+                <div className="card-body flex justify-center items-center">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={info[0]?.user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info[0]?.reviewTitle}</h2>
+                  <p>
+                  {info[0]?.review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info[0]?.star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                          
+                        </div> 
+                        :info[0]?.star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                            disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info[0]?.star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[0]?.star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[0]?.star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div> 
+              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
+                <div className="card-body flex justify-center items-center">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={info[1]?.user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info[1]?.reviewTitle}</h2>
+                  <p>
+                  {info[1]?.review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info[1]?.star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                        
+                        </div> 
+                        :info[1]?.star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info[1]?.star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[1]?.star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled 
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled  
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[1]?.star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div>           
+              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
+                <div className="card-body flex justify-center items-center">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={info[2]?.user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info[2]?.reviewTitle}</h2>
+                  <p>
+                  {info[2]?.review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info[2]?.star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                        
+                        </div> 
+                        :info[2]?.star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info[2]?.star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[2]?.star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info[2]?.star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div>                           
+          </div> 
+
+               <div className="collapse ">
+                  <input type="checkbox" className="input-collapse" />
+                  <div className="collapse-title text-xl font-medium flex justify-center align-center mb-2 mt-10 w-46 text-center">
+                    <p className="text-center ml-4">Click to see all reviews</p>
+                  </div>
+                  
+                  <div className="collapse-content w-8/12 flex justify-self-center justify-center items-center flex-wrap">
+                    {info?.length > 0 ? (info?.map((info) => 
+                      (
+                    <div className="card- w-full bg-white h-26 mt-3 flex">
+                      <div className="card-userReview flex flex-col">
+                        <div className="avatar">
+                          <div className="w-24 ml-7 mt-2 rounded-full">
+                            <img src={info?.user?.photo} />
+                          </div>
+                        </div>
+                        <div className="rating rating-xs ml-11 mt-3 mb-2">
+                        {
+                          info.star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>                     
+                        
+                        </div> 
+                        :info.star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>                      
+                        
+                        </div> 
+
+                        :info.star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        </div>
+
+                        :info.star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        </div>
+
+                        :info.star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"/>
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                        </div>  
+                      </div>  
+                      <div className="containerUserInfo w-3/12 text-black flex flex-col justify-center text-center ml-4 mr-5">
+                        <h3 className="font-bold text-center text-sm">{info?.user?.name}</h3>
+                        <p className="text-sm"> {info.location}</p>
+                        <p className="text-sm"> {info.age} years</p>
+                      </div>
+                      <div className="review-box w-96">
+                        <h3 className="font-bold text-center ">{info.reviewTitle}</h3>
+                        <p className="ml-3 ">
+                          {info.review}
+                        </p>
+                      </div>
+                    </div>))) : null                                                                       
+                    }  
+                  </div>  
+                </div>  
+            </div>               
+        </div> 
+      </div> 
+   </div> 
+
+  );
+}
+
+export default Review;

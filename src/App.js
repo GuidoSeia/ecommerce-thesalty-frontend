@@ -21,6 +21,9 @@ import AdminProfile from './pages/AdminProfile';
 import EditProducts from './pages/EditProducts';
 import NewProducts from './pages/NewProducts';
 import Details from './pages/Details'
+import MyFavorites from './pages/MyFavorites';
+import ScrollToTop from './components/ScrollToTop'
+
 
 export default function App() {
 
@@ -52,8 +55,6 @@ export default function App() {
 
   let { data: coupon } = useGetAllCouponsQuery()
   let [newCupon] = useNewCouponMutation()
-  let [cupon, setCupon] = useState()
-  let ola = cupon
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,7 +71,6 @@ export default function App() {
       if (response.error) {
         toast.error(response.error.data.message);
       } else {
-        setCupon(response.data.response._id)
         toast.success(response.data.message)
       }
     }
@@ -100,17 +100,18 @@ export default function App() {
       />
       {/* <CountdownTimer targetDate={jajas} /> */}
       <CountdownTimer couponId={coupon?.response[0]?._id} targetDate={coupon?.response[0]?.endTime} couponCode={coupon?.response[0]?.couponCode} />
+      <ScrollToTop />  
       <Routes>
         <Route path='/' element={<WelcomePage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path='/signup' element={!logged ? <SignUp /> : null} />
         <Route path='/signin' element={!logged ? <SignIn /> : null} />
-        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={ola} /> : null} />
+        <Route path="/admin" element={userRole === "admin" ? <AdminProfile functionCountdown={handleSubmit} currentCouponId={coupon} /> : null} />
         <Route path="/editproduct/:id" element={userRole === "admin" ? <EditProducts /> : null} />
         <Route path="/newproduct" element={userRole === "admin" ? <NewProducts /> : null} />
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/Details' element={<Details />} />
-
+        <Route path='favs' element={<MyFavorites/>}/>
         <Route path='/aboutUs' element={<InfoPage />} />
         <Route path='/cart' element={<CartPage coupon={coupon} />} />
 

@@ -48,7 +48,7 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
   }
 
   useEffect(() => {
-    setCoupon(currentCouponId)
+    setCoupon(currentCouponId?.response?.[0]._id)
   }, [currentCouponId])
 
 
@@ -110,7 +110,7 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
                 <label className="label">
                   <span className="label-text text-black text-base">Coupon code</span>
                 </label>
-                <input type="text" name="currentCode" className="input input-bordered h-10 text-xs w-full" value={coupon} disabled />
+                <input type="text" name="currentCode" className="input input-bordered h-10 text-xs w-full" value={coupon} />
                 <div className="my-5">
                   <button className="btn btn-primary btn-home-page text-xs">Remove</button>
                 </div>
@@ -128,7 +128,9 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
                         <option value={item?.brand} id={item?._id}>{item?.brand}</option>
                     )}
               </select>
-              <button type="submit" className='bg-black text-white p-3 rounded-xl mt-5'>Remove</button>
+              <div className="my-5">
+                  <button className="btn btn-primary btn-home-page text-xs">Remove</button>
+                </div>
               </form>
             </div>
           </div>
