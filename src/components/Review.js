@@ -119,11 +119,11 @@ function Review() {
       <div className="reviewContainer flex flex-wrap items-center justify-center">
         <div className="containerAllData w-10/12 mb-2  bg-white">
           <div className="containerReviews w-full">
-            <div className="flex mt-1 flex-wrap justify-center">
-              <h2 className="text-2xl justify-center text-white flex w-full items-center mt-5 md:text-5xl ml-5 font-mono font-semibold tracking-wide">
+            <div className="flex mt-1 flex-wrap justify-center bg-[#522546]">
+              <h2 className="text-2xl justify-center text-white flex w-full items-center mt-5 md:text-5xl ml-5 font-mono font-semibold">
                 What do our users say?
               </h2>
-              {logged ? <label htmlFor="my-modal-5" className="btn-review modal-button flex items-center justify-center text-center">Add review</label> : null}
+              {logged ? <label htmlFor="my-modal-5" className="btn-review modal-button flex items-center justify-center text-center my-5 bg-white">Add review</label> : null}
             </div>
             <input type="checkbox" id="my-modal-5" className="modal-toggle  " />
             <div className="modal w-full">
@@ -134,64 +134,60 @@ function Review() {
                   <div className='flex flex-wrap justify-around md:m-4  md:mr-14'>
                     <img
                       src={reviewCards?.photo?.[0]}
-                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center"
+                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center rounded-xl"
                     />
                     <img
                       src={reviewCards?.photo?.[1]}
-                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center"
+                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center rounded-xl"
                     />
                     <img
                       src={reviewCards?.photo?.[3]}
-                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center"
+                      className="new-review-img md:h-48 md:w-48 md:my-4 object-cover object-center rounded-xl"
                     />
                   </div>
-                  <div className="w-full">
+                  <div className="w-full flex justify-center items-center flex-col">
                     <p className="py-4 text-xl text-center">
                       Hi! Know the experience of our customers is too important
                       for us, share yours!
                     </p>
-                    <form onSubmit={handleReview} ref={formRef}>
+                    <form className="w-full flex justify-center items-center flex-col" onSubmit={handleReview} ref={formRef}>
                       <div className="form-review my-4">
-                        <label className="label">
+                        <label className="label justify-center">
                           <span className="label-text text-xl">
-                            Review Title
+                            Title
                           </span>
                         </label>
                         <input
                           type="text"
                           ref={reviewTitleRef}
-                          placeholder="Example: Fantastic product!"
                           className="input input-bordered input-primary w-full max-w-xs"
                         />
                       </div>
                       <div className="form-review my-4">
-                        <label className="label">
-                          <span className="label-text text-xl">Review</span>
+                        <label className="label justify-center">
+                          <span className="label-text text-xl text-center">Review</span>
                         </label>
                         <input
                           type="text"
                           ref={reviewRef}
-                          placeholder="Example: I got thi product and it's really good"
                           className="input input-bordered input-primary w-full max-w-xs"
                         />
                       </div>
                       <div className="form-review my-4">
-                        <label className="label">
+                        <label className="label justify-center">
                           <span className="label-text text-xl">Location</span>
                         </label>
                         <input
                           type="text"
                           ref={locationRef}
-                          placeholder="Example: New York, NY"
                           className="input input-bordered input-primary w-full max-w-xs"
                         />
                       </div>
-                      <div>
-                        <p className="text-xl my-4">How old are you?</p>
+                      <div className="flex justify-center flex-col items-center">
+                        <p className="text-xl my-4 ">How old are you?</p>
                         <input
                           type="number"
                           ref={ageRef}
-                          placeholder="Example: 22"
                           className="input input-bordered input-primary w-full max-w-xs"
                         />
                       </div>
@@ -1229,7 +1225,7 @@ function Review() {
               <div className="collapse-content w-full lg:w-8/12 flex justify-self-center justify-center items-center flex-wrap gap-5">
                 {info?.length > 0 ? (info?.map((info) =>
                 (
-                  <div className="w-full bg-white h-26 mt-3 flex flex-col md:flex-row items-center p-3 rounded-lg">
+                  <div className="w-full bg-white h-26 mt-3 flex flex-col md:flex-row items-center p-3 rounded-lg border-2 border-black">
                     <div className="card-userReview flex flex-col items-center">
                       <div className="avatar">
                         <div className="w-24 md:ml-7 md:mt-2 rounded-full">
