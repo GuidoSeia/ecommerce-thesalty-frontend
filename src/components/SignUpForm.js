@@ -99,7 +99,7 @@ const SignUp = () => {
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
-                  <input type="text" name="password" className="input input-bordered" />
+                  <input type="password" name="password" className="input input-bordered" />
                 </div>
                 <div className="flex justify-center align-items-center mt-5">
                   <ReCAPTCHA

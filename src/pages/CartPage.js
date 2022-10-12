@@ -175,8 +175,8 @@ export default function CartPage({ coupon }) {
                                     <div className="flex flex-col justify-center align-center gap-2">
                                         <p>$ {subTotalCart}</p>
                                         <div className="flex justify-center items-center ">
-                                            {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input" />}
-                                            {code == false ? <button onClick={applyDiscount} className="h-3 ml-1 btn">
+                                            {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input w-28" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input w-28" />}
+                                            {code == false ? <button onClick={applyDiscount} className="h-1 ml-1 btn w-12 text-white">
                                                 Add
                                             </button> : null}
                                         </div>
@@ -186,7 +186,7 @@ export default function CartPage({ coupon }) {
                             </div>
                             <div className='flex justify-center'>
                                 {/* <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter> */}
-                                <button onClick={handlePay}>Pay</button>
+                                <button className="btn text-white" onClick={handlePay}>Pay</button>
                             </div>
                         </div>
                     </div>
