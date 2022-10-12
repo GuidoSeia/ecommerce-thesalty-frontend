@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useState } from 'react'
 import PageLayout from '../components/layout/PageLayout'
 import '../styles/CartPage.css'
 import { Link as LinkRouter } from 'react-router-dom'
-import { useGetNewCartMutation } from '../features/buyAPI'
+import { useGetNewCartMutation, useMakePaymentMutation } from '../features/buyAPI'
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart, removeCart, decrementQuantity, newOrder } from '../features/cartSlice'
 import { toast } from 'react-toastify';
 import { codeTrue } from '../features/codeSlice'
+import { useNavigate } from 'react-router-dom'
 
 export default function CartPage({ coupon }) {
+
+    let navigate = useNavigate()
 
     let couponCode = coupon?.response?.[0]?.couponCode;
     let couponDiscount = coupon?.response?.[0]?.discount;
@@ -16,7 +19,7 @@ export default function CartPage({ coupon }) {
     const dispatch = useDispatch()
 
     let cart = useSelector((state) => state.cart.cart.cart)
-    
+
     let order = useSelector((state) => state.cart.cart.orderNumber)
 
     const addition = (acc, currentValue) => {
@@ -52,12 +55,13 @@ export default function CartPage({ coupon }) {
     }, [subTotalCart])
 
     const [newCart] = useGetNewCartMutation()
+    const [makePayment] = useMakePaymentMutation()
 
     /* Pasarela de pagos */
 
     const user = useSelector((state) => state.logged.user);
 
-    const handlePay = async() => {
+    const handlePay = async () => {
         let cartOrder = {
             user: user?.id,
             items: cart,
@@ -65,10 +69,15 @@ export default function CartPage({ coupon }) {
             amount: !code ? subTotalCart : totalWithDiscount
         }
 
-        
         await newCart(cartOrder)
             .then((res) => {
                 dispatch(removeCart())
+            })
+
+        await makePayment(cartOrder)
+            .then((res) => {
+                window.open(res.data.init_point)
+                // navigate(res.data.init_point)
             })
     }
 
@@ -177,7 +186,7 @@ export default function CartPage({ coupon }) {
                             </div>
                             <div className='flex justify-center'>
                                 {/* <LinkRouter className="btn btn-primary btn-home-page text-xs" to={'/pay'}>Place order</LinkRouter> */}
-                                <button onClick={handlePay}>Pagar</button>
+                                <button onClick={handlePay}>Pay</button>
                             </div>
                         </div>
                     </div>
