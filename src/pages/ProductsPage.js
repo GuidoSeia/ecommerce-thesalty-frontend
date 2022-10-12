@@ -71,22 +71,15 @@ export default function ProductsPage() {
             <div className="container-img bg-white flex justify-center items-center">
                 <img className='img-card object-cover' src={card.photo?.[0]} alt="Shoes" />
             </div>
-            <div className="card-body text-center bg-white text-black flex flex-col justify-between py-0">
+            <div className="card-body text-center bg-white text-black flex flex-col justify-center py-0">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
-                <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
-                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 50)}...` : card.description} </p>
-                </div>
                 <div className="card-actions flex justify-center items-center">
                     <p className="">Price: ${card.price}</p>
-                    <p className="">Stock: {card.stock}</p>
                 </div>
             </div>
             <div className="flex justify-around bg-white">
-                {logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={() => toast.error('Login to add to cart')}>Add to cart</button>}
-                <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
-            </div>
-            <div className="flex justify-center items-center bg-white">
-
+                {logged ? <button className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" onClick={() => toast.error('Login to add to cart')}>Add to cart</button>}
+                <LinkRouter className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
             </div>
             <div className="bg-white flex justify-center items-center">
                 {user ?
@@ -109,7 +102,7 @@ export default function ProductsPage() {
 
             </div>
         </div>
-        {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
+        {user?.role === "admin" ? (<LinkRouter className="btn m-2 text-white pl-3 min-h-0 h-10" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
         </div>
     )
 
