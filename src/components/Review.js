@@ -13,8 +13,8 @@ import { refresh } from '../features/refreshSlice'
 function Review() {
   let params = window.location.search;
 
-  const dispatch = useDispatch();
-  const refreshed = useSelector((state) => state.refresh.refreshState) 
+  const dispatch = useDispatch()
+  let refreshed = useSelector((state) => state.refresh.refreshState) 
   let urlParams = new URLSearchParams(params);
   const logged = useSelector((state) => state.logged.loggedState)
 
@@ -41,7 +41,6 @@ function Review() {
   }, [productId]);
 
   const user = useSelector((state) => state.logged.user);
-  console.log(user);
 
   /* New comment */
 
@@ -57,10 +56,9 @@ function Review() {
   const newReview = async (review) => {
     await addNewReview(review)
       .then((success) => {
-        console.log(success);
+        dispatch(refresh())
         formRef.current.reset();
         showMsg()
-
       })
       .catch((error) => {
         console.log(error);
@@ -81,8 +79,6 @@ function Review() {
       star: e.target.rating.value,
     };
 
-    console.log()
-
     if (
       reviewTitleRef.current.value == "" ||
       reviewRef.current.value == "" ||
@@ -92,7 +88,7 @@ function Review() {
       showError("Please complete all inputs");
     } else {
       console.log(review);
-      newReview(review);
+      newReview(review)
     }
   };
 
@@ -101,21 +97,16 @@ function Review() {
   const [ getData ] = useGetReviewsMutation()
   const [info, setInfo] = useState()
 
-  console.log(info);
-
 
   async function allReviews() {
     await getData(productId) 
       .then((res) => {
         if (res.data?.success) {
-          setInfo(res.data.response)
-
-          console.log(info.length)
+          setInfo(res.data?.response)
         } else {
           console.log(res.error);
         }
       })
-
     }
 
     useEffect(() => {
