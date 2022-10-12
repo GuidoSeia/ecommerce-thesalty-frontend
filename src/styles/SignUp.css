@@ -63,9 +63,11 @@
     font-weight: 600;
 }
 
-@media (max-width: 375px){
-   .card-signup{
-    width: 19rem;
+@media (max-width: 393px){
+   .container1{
+    width: 95%;
 }
-
+    .formSignUp{
+        width: 100%;
+    }
 }

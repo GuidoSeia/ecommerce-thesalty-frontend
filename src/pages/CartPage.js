@@ -84,8 +84,8 @@ export default function CartPage({ coupon }) {
     /* ---------------------------------- */
 
     let tbody = (product) => (
-        <tr key={product.id}>
-            <td>
+        <tr key={product.id} >
+            <td className='lol'>
                 <div className="flex items-center space-x-3">
                     <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
@@ -100,10 +100,10 @@ export default function CartPage({ coupon }) {
                     </div>
                 </div>
             </td>
-            <td>
-                {product.description.slice(0, 50)}...
+            <td className='lol'>
+                {product.brand}
             </td>
-            <td className='text-center quantity'>{product.quantity}
+            <td className='text-center quantity lol'>{product.quantity}
                 <p></p>
                 <button className="btnAdd btn w-10" onClick={() => dispatch(addToCart(product))}>+</button>
                 <button className="btnRemove btn w-10" onClick={() => dispatch(decrementQuantity(product))}>-</button>
@@ -115,7 +115,7 @@ export default function CartPage({ coupon }) {
         <PageLayout>
             <div className='flex items-center cart-container p-5 text-white h-full'>
                 <div className="flex flex-col w-full h-full lg:flex-row font-['Open_Sans']">
-                    <div className="grid flex-grow h-full card cart-card bg-base-300 rounded-box place-items-center">
+                    <div className="xd grid flex-grow h-full card cart-card rounded-box place-items-center">
                         <ul className="steps p-4">
                             <li className="step step-primary mx-2 text-xs md:text-base">Choose products</li>
                             <li className="step step-primary mx-2 text-xs md:text-base">Confirm payment</li>
@@ -126,22 +126,22 @@ export default function CartPage({ coupon }) {
                             <table className="table w-full">
                                 <thead>
                                     <tr>
-                                        <th className=''>Product</th>
-                                        <th className=''>Description</th>
-                                        <th className='text-center'>Quantity</th>
+                                        <th className='xdd'>Product</th>
+                                        <th className='xdd'>Name</th>
+                                        <th className='text-center xdd'>Quantity</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody className='bg-black'>
                                     {cart.map(tbody)}
                                 </tbody>
                             </table>
                             {cart.length > 0 ? <div className="flex justify-center items-center bg-#360027">
-                                <button className="btn bg-base-100 m-3" onClick={() => dispatch(removeCart())}>Empty cart</button>
+                                <button className="btn m-3 text-white" onClick={() => dispatch(removeCart())}>Empty cart</button>
                             </div> : null}
                         </div>
                     </div>
                     <div className="divider lg:divider-horizontal"></div>
-                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center font-['Open_Sans']">
+                    <div className="xd flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center font-['Open_Sans']">
                         <div className='flex flex-col gap-3 justify-center items-center'>
                             <img width={100} src="/logo-white.png" alt="" />
                             <h2 className='text-white'>Order: {subTotalCart == 0 ? null : '#' + order}</h2>

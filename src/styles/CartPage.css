@@ -1,7 +1,13 @@
 .cart-container{
     min-height: 80vh;
+    background-color: rgb(255, 255, 255);
 }
-
+.xd{
+    background-color: #522546!important;
+}
+.xdd{
+    background-color: #88304E;
+}
 .cart-card{
     box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(11, 46, 63, 0.23) 0px 6px 6px;
 }
@@ -19,17 +25,20 @@
 }
 
 .btnAdd{
-    background-color: #360027;
+    background-color: #88304E;
     padding: 6px;
     border-radius: 10px 0 0 10px;
     margin-top: 5px;
 }
 
 .btnRemove{
-    background-color: #360027;
+    background-color: #88304E;
     padding: 6px;
     border-radius:0 10px 10px 0;
     margin-top: 5px;
+}
+.lol {
+    background-color:  #401d37;
 }
 
 @media screen and (max-width: 425px) {

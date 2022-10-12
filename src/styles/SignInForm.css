@@ -34,10 +34,15 @@ form h1 {
 
 .container2 {
     width: 30% !important;
+    
+}
+
+.card-body input {
+    width: 100%;
 }
 
 .card {
-    background-color: #360027 !important;
+    background-color: #0000009d !important;
 }
 
 .form-signIn{
