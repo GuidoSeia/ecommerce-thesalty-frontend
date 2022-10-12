@@ -92,7 +92,7 @@ const SignUp = () => {
   return (
 
     <div className='containerSignUp'>
-      <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />git 
+      <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />git git branch -m 
       <form ref={form} className="formSignUp">
         <div className="text-center lg:text-left">
         </div>
