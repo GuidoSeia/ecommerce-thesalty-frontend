@@ -20,8 +20,6 @@ function Review() {
 
   let productId = urlParams.get("productId");
 
-  console.log(logged);
-
   const [reviewCards, setReviewCards] = useState([]);
 
   const showError = (msj) => {
@@ -31,7 +29,7 @@ function Review() {
   };
 
   const showMsg = () => {
-    toast.success(`New review!`, {
+    toast.success(`Review created !`, {
       position: toast.POSITION.BOTTOM_RIGHT,
     });
   };
@@ -61,9 +59,12 @@ function Review() {
       .then((success) => {
         console.log(success);
         formRef.current.reset();
+        showMsg()
+
       })
       .catch((error) => {
         console.log(error);
+        showError()
       });
   };
 
@@ -88,7 +89,7 @@ function Review() {
       locationRef.current.value == "" ||
       ageRef.current.value == ""
     ) {
-      showError("Please write a review");
+      showError("Please complete all inputs");
     } else {
       console.log(review);
       newReview(review);
@@ -109,7 +110,7 @@ function Review() {
         if (res.data?.success) {
           setInfo(res.data.response)
 
-          console.log()
+          console.log(info.length)
         } else {
           console.log(res.error);
         }
@@ -123,23 +124,28 @@ function Review() {
     
 
   return (
-    <div>
-      <div className="reviewContainer flex flex-wrap items-center justify-center ">
-        <div className="containerAllData  mb-2 w-11/12  bg-white">
-          <div className="containerIntro flex justify-evenly items-center flex-wrap w-full">    
-            <div className="modal">
+    <div className="w-screen">
+      <div className="reviewContainer flex flex-wrap items-center justify-center">
+        <div className="containerAllData w-10/12 mb-2  bg-white">
+          <div className="containerIntro flex justify-evenly items-center flex-wrap">    
+           
+          </div> 
+
+          <div className="containerReviews w-full">
+           <div className="flex items-center mt-1">
+            <h2 className="text-Answ text-white flex items-center justify-start w-full h-28 text-5xl ml-5 font-mono font-semibold tracking-wide">
+              What do our users say?
+            </h2>
+            {logged? <label htmlFor="my-modal-5" className="btn-review modal-button flex items-center justify-center ">Add review</label> : null}
+            
+            </div>
+            <input type="checkbox" id="my-modal-5" className="modal-toggle  " />
+           <div className="modal">
               <div className="modal-box w-11/12 max-w-5xl">
-                <label htmlFor="my-modal-5" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                <h1 className="font-bold text-2xl text-purple-900 text-center">
-                  My review for {reviewCards.brand}
-                </h1>
-                {logged ?
-                <label htmlFor="my-modal-5" className="btn modal-button m-10">
-                Add review
-                  <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-                </label> : null }           
-                <div className="flex flex-row">
-                  <div className="m-4  mr-14">
+              <label htmlFor="my-modal-5" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+              <h1 className="font-bold text-2xl text-purple-900 text-center">My review for {reviewCards.brand}</h1>
+              <div className='flex flex-row'>             
+                  <div className='m-4  mr-14'>
                     <img
                       src={reviewCards?.photo?.[0]}
                       className="h-48 w-48 my-4 object-cover object-center"
@@ -255,16 +261,13 @@ function Review() {
                   </div>
                 </div>
               </div> 
-            </div> 
-          </div> 
-
-          <div className="containerReviews">
-            <h2 className="text-Answ text-white flex items-center justify-start h-28 text-4xl ml-5 font-mono font-semibold tracking-wide">
-              What do our users say ?
-            </h2>
+            </div>
             <div className="containerCards flex space-x-14 justify-center">
-              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
-                <div className="card-body flex justify-center items-center">
+
+              {info?.length == 3 ?
+            <div className="divAllCards">
+              <div className="cardReview bg-base-100 shadow-xl ">   
+                <div className="card-body flex justify-center items-center ">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
                       <img src={info?.[0].user?.photo} />
@@ -422,8 +425,8 @@ function Review() {
                   </div>                   
                  </div>                
               </div> 
-              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
-                <div className="card-body flex justify-center items-center">
+              <div className="cardReview bg-base-100 shadow-xl w-full">   
+                <div className="card-body flex justify-center items-center w-full">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
                       <img src={user?.photo} />
@@ -581,8 +584,8 @@ function Review() {
                   </div>                   
                  </div>                
               </div>           
-              <div className="cardReview bg-base-100 shadow-xl w-1/4">   
-                <div className="card-body flex justify-center items-center">
+              <div className="cardReview bg-base-100 shadow-xl w-full">   
+                <div className="card-body flex justify-center items-center w-full">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
                       <img src={info?.[2].user?.photo} />
@@ -739,7 +742,496 @@ function Review() {
                     
                   </div>                   
                  </div>                
-              </div>                           
+              </div> 
+            </div>
+              : info?.length == 2 ?
+              <div className="divAllCards">
+              <div className="cardReview bg-base-100 shadow-xl w-full">   
+                <div className="card-body flex justify-center items-center w-full">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={info?.[0].user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info?.[0].reviewTitle}</h2>
+                  <p>
+                  {info?.[0].review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info?.[0].star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                          
+                        </div> 
+                        :info?.[0].star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                            disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info?.[0].star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[0].star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[0].star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div> 
+              <div className="cardReview bg-base-100 shadow-xl w-full">   
+                <div className="card-body flex justify-center items-center w-full">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info?.[1].reviewTitle}</h2>
+                  <p>
+                  {info?.[1].review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info?.[1].star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                        
+                        </div> 
+                        :info?.[1].star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info?.[1].star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[1].star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled 
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled  
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[1].star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div>    
+              </div>
+              :info?.length == 1 ?
+              <div className="divAllCards w-full">
+              <div className="cardReview bg-base-100 shadow-xl w-full">   
+                <div className="card-body flex justify-center items-center w-full">
+                  <div className="avatar">
+                    <div className="w-24 rounded-full">
+                      <img src={info?.[0].user?.photo} />
+                    </div>
+                  </div>
+                  <h2 className="card-title">{info?.[0].reviewTitle}</h2>
+                  <p>
+                  {info?.[0].review}
+                  </p>
+
+                  <div className="rating">                
+                    {
+                          info?.[0].star == 1?    
+                          <div>                
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />                     
+                          
+                        </div> 
+                        :info?.[0].star == 2?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                            disabled
+                          />                      
+                        
+                        </div> 
+
+                        :info?.[0].star == 3?
+                        <div> 
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[0].star == 4?  
+                        <div>                                         
+                          <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div>
+
+                        :info?.[0].star == 5?
+                        <div>
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        
+                        <input
+                          type="radio"
+                          name="rating-2"
+                          className="mask mask-star-2 bg-orange-400"
+                          disabled
+                          />
+                          
+                        
+                        </div> 
+
+                        : ""
+                      
+                    }
+                    
+                  </div>                   
+                 </div>                
+              </div> 
+              
+              </div>
+              
+              :<h2 className="text-black text-center text-3xl flex justify-center items-center mt-28">The product has not reviews </h2> 
+            } 
+
           </div> 
 
                <div className="collapse ">
@@ -884,7 +1376,7 @@ function Review() {
                           {info.review}
                         </p>
                       </div>
-                    </div>))) : null                                                                       
+                    </div>))) :<h2 className="text-black text-center text-3xl flex justify-center items-center mt-4">The product has not reviews </h2>                                                                      
                     }
                   </div>  
                 </div>  
