@@ -75,12 +75,12 @@ const SignUp = () => {
 
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-  const [value, setValue] = useState(0) 
-  const [picture, setPicture] = useState(null) 
-  console.log(picture)
-  const handleUpload = (event) => { 
-    const file = event.target.files[0] 
-    const storageRef = ref(getStorage(), 'images/' + file.name) 
+  const [value, setValue] = useState(0)
+  const [picture, setPicture] = useState(null)
+
+  const handleUpload = (event) => {
+    const file = event.target.files[0]
+    const storageRef = ref(getStorage(), 'images/' + file.name)
     const task = uploadBytesResumable(storageRef, file, { contentType: 'image/png' })
     task.on('state_changed',
       (snapshot) => setValue(100 * (snapshot.bytesTransferred / snapshot.totalBytes)),
@@ -95,36 +95,37 @@ const SignUp = () => {
       <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />
       <form ref={form} className="formSignUp">
         <div className="text-center lg:text-left">
+          <h1 className='signup-h1'>Sign up</h1>
         </div>
         <div className="container1 card shadow-2xl ">
           <div className="card-body card-signup">
-            <div className="form-control">
+            <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Name and Lastname</span>
               </label>
-              <input type="text" name="name" className="input input-bordered" />
+              <input type="text" name="name" className="input input-bordered h-8" />
             </div>
-            <div className="form-control">
+            <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
-              <input type="text" name="email" className="input input-bordered" />
+              <input type="text" name="email" className="input input-bordered h-8" />
             </div>
-            <div className="form-control">
+            <div className="form-control form-signup-input flex-wrap">
               <label className="label">
                 <span className="label-text">Photo</span>
               </label>
-              <input className='m-2' type='file' onChange={handleUpload} />
-              <input  type='hidden' name='photo' id={picture} />
+              <input className='w-full' type='file' onChange={handleUpload} />
+              <input type='hidden' name='photo' id={picture} />
               <progress className='m-2' value={value} max='100' name='file' />
             </div>
-            <div className="form-control">
+            <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input type="text" name="password" className="input input-bordered" />
+              <input type="text" name="password" className="input input-bordered h-8" />
             </div>
-            <div className="flex justify-center align-items-center mt-5">
+            <div className="flex justify-center items-center">
               <ReCAPTCHA
                 sitekey="6LfLI1UiAAAAAEG2Baygi7bZD1cAggQcuDvK3W0N"
                 onChange={onChange}
@@ -132,19 +133,21 @@ const SignUp = () => {
                 ref={captcha}
               />
             </div>
-            <div className="btnform form-control mt-6">
+            <div className="btnform form-control">
               <button className="buttonform btn" onClick={handleSubmit}>Sign up</button>
             </div>
             <p className='or'>or</p>
-            <div className="flex justify-center align-items-center pt-5">
+            <div className="flex justify-center align-items-center">
               <SignUpGoogle />
             </div>
-            <div className="textNew text-center lg:text-left p-4">
-              <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>
-            </div>
+
           </div>
         </div>
+        <div className="textNew text-center lg:text-left">
+          <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>
+        </div>
       </form>
+
     </div>
   )
 }

@@ -34,13 +34,13 @@ export default function ProductsPage() {
 
     const showLike = (like) => {
         refetch()
-        if(like[0].includes('Itinerary-dislike-btn')){
-        toast.success(`Product removed from favourites`, {
-            position: toast.POSITION.BOTTOM_RIGHT
-        });
+        if (like[0].includes('Itinerary-dislike-btn')) {
+            toast.success(`Product removed from favourites`, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            });
         } else {
             toast.success(`Product added to favourites`, {
-                    position: toast.POSITION.BOTTOM_RIGHT
+                position: toast.POSITION.BOTTOM_RIGHT
             });
         }
     };
@@ -60,54 +60,56 @@ export default function ProductsPage() {
     async function like(event) {
         refetch()
         await likeOrDislike(event.target.id)
-            .then((res)=>{
+            .then((res) => {
                 showLike(event.target.classList)
             })
     }
 
     const productCard = card => (
+        <div className="flex flex-col">
         <div key={card._id} className="card cardProduct shadow-xl font-['Open_Sans']">
             <div className="container-img bg-white flex justify-center items-center">
-                <img className='img-card' src={card.photo?.[0]} alt="Shoes" />
+                <img className='img-card object-cover' src={card.photo?.[0]} alt="Shoes" />
             </div>
-            <div className="card-body text-center bg-white text-black flex flex-col justify-between">
+            <div className="card-body text-center bg-white text-black flex flex-col justify-between py-0">
                 <h2 className="text-center title-card-products">{card.brand} </h2>
                 <div className="flex justify-center items-center bg-[#360027] h-full w-full text-white rounded-lg">
-                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 100)}...` : card.description} </p>
+                    <p className="p-3">{card.description.length > 100 ? `${card.description.slice(0, 50)}...` : card.description} </p>
                 </div>
                 <div className="card-actions flex justify-center items-center">
                     <p className="">Price: ${card.price}</p>
                     <p className="">Stock: {card.stock}</p>
                 </div>
             </div>
-            <div className="flex justify-around bg-white p-3">
-                { logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={()=>toast.error('Login to add to cart')}>Add to cart</button> }
+            <div className="flex justify-around bg-white">
+                {logged ? <button className="btn m-2" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2" onClick={() => toast.error('Login to add to cart')}>Add to cart</button>}
                 <LinkRouter className="btn m-2" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
-                {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
             </div>
             <div className="flex justify-center items-center bg-white">
-            
+
             </div>
             <div className="bg-white flex justify-center items-center">
-            {user ? 
-                                !card?.likes?.includes(user?.id) ? 
-                                    <span className={'Itinerary-like-btn'} style={{cursor:'pointer'}} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart pointer-events-none my-3" viewBox="0 0 16 16">
-                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                                    </svg></span>
-                                    :
-                                    <span className={'Itinerary-dislike-btn'} style={{cursor:'pointer', border: 'none'}} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill pointer-events-none my-3" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                    </svg></span>
-                                    
-                                    : 
-                                    <span style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
-                                        <svg style={{margin:'5px'}} xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                        </svg>
-                                    </span>
-            }
-                        
+                {user ?
+                    !card?.likes?.includes(user?.id) ?
+                        <span className={'Itinerary-like-btn'} style={{ cursor: 'pointer' }} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart pointer-events-none my-3" viewBox="0 0 16 16">
+                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                        </svg></span>
+                        :
+                        <span className={'Itinerary-dislike-btn'} style={{ cursor: 'pointer', border: 'none' }} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill pointer-events-none my-3" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                        </svg></span>
+
+                    :
+                    <span style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                        <svg style={{ margin: '5px' }} xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                        </svg>
+                    </span>
+                }
+
             </div>
+        </div>
+        {user?.role === "admin" ? (<LinkRouter className="btn m-2" to={"/editproduct/" + card._id}>Edit</LinkRouter>) : null}
         </div>
     )
 

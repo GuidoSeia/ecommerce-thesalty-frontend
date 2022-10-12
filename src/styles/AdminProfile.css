@@ -5,8 +5,7 @@
 
 .cardContainer {
   background:gray;
-    width: 300px;
-    height: 400px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,4 +22,9 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+}
+
+.admin-title{
+  border-bottom: 2px solid #360027fd;
+  padding: 1rem;
 }
