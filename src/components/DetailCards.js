@@ -76,9 +76,9 @@ export default function DetailCards() {
 
   <div className="flex justify-center px-4 flex-wrap">
         <div className="flex justify-center flex-col items-center flex-wrap">
-        <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
-          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
-          <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
+        <p className=" text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
+          <p className=" text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
+          <p className=" text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
           </div>
           <div className="flex justify-center items-center flex-col mb-10 mx-20">
           { logged ? <button
