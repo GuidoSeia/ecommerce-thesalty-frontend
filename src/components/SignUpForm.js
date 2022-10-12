@@ -21,7 +21,6 @@ const SignUp = () => {
 
   const [newUser, resultSignUp] = useGetNewUserMutation();
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(form.current);
@@ -76,15 +75,14 @@ const SignUp = () => {
 
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
-
-  const [value, setValue] = useState(0) //para definir el % de carga
-  const [picture, setPicture] = useState(null) //para definir la URL de la imagen
+  const [value, setValue] = useState(0) 
+  const [picture, setPicture] = useState(null) 
   console.log(picture)
-  const handleUpload = (event) => { //función manejadora de la carga
-    const file = event.target.files[0] //el elemento cero o el/los que sean
-    const storageRef = ref(getStorage(), 'images/' + file.name) //para indicar la carpeta raiz
+  const handleUpload = (event) => { 
+    const file = event.target.files[0] 
+    const storageRef = ref(getStorage(), 'images/' + file.name) 
     const task = uploadBytesResumable(storageRef, file, { contentType: 'image/png' })
-    task.on('state_changed', //para configurar la carga
+    task.on('state_changed',
       (snapshot) => setValue(100 * (snapshot.bytesTransferred / snapshot.totalBytes)),
       (error) => console.log(error.message),
       async () => setPicture(await getDownloadURL(task.snapshot.ref))
@@ -95,11 +93,7 @@ const SignUp = () => {
 
     <div className='containerSignUp'>
       <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />
-
-
-
       <form ref={form} className="formSignUp">
-
         <div className="text-center lg:text-left">
         </div>
         <div className="container1 card shadow-2xl ">
@@ -110,14 +104,12 @@ const SignUp = () => {
               </label>
               <input type="text" name="name" className="input input-bordered" />
             </div>
-            {/*Input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input type="text" name="email" className="input input-bordered" />
             </div>
-            {/*Input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Photo</span>
@@ -126,7 +118,6 @@ const SignUp = () => {
               <input  type='hidden' name='photo' id={picture} />
               <progress className='m-2' value={value} max='100' name='file' />
             </div>
-            {/*Input */}
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
@@ -141,28 +132,20 @@ const SignUp = () => {
                 ref={captcha}
               />
             </div>
-
             <div className="btnform form-control mt-6">
               <button className="buttonform btn" onClick={handleSubmit}>Sign up</button>
             </div>
-
             <p className='or'>or</p>
-
             <div className="flex justify-center align-items-center pt-5">
               <SignUpGoogle />
             </div>
-
             <div className="textNew text-center lg:text-left p-4">
               <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>
             </div>
           </div>
         </div>
-
       </form>
-
     </div>
-
-
   )
 }
 
