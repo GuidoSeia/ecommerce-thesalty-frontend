@@ -35,7 +35,6 @@ const SignUp = () => {
 
     try {
       await newUser(formUser)
-
         .then(success => {
           if (captcha.current.getValue()) {
             if (success.error) {
@@ -50,7 +49,6 @@ const SignUp = () => {
             toast.error('Confirm captcha before sign up');
           }
         })
-
     }
     catch (error) {
       console.error(error);
@@ -94,7 +92,7 @@ const SignUp = () => {
   return (
 
     <div className='containerSignUp'>
-      <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />
+      <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />git 
       <form ref={form} className="formSignUp">
         <div className="text-center lg:text-left">
         </div>
@@ -106,57 +104,11 @@ const SignUp = () => {
               </label>
               <input type="text" name="name" className="input input-bordered" />
             </div>
-
-            <div className="container1 card shadow-2xl ">
-              <div className="card-body card-signup">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Name and Lastname</span>
-                  </label>
-                  <input type="text" name="name" className="input input-bordered" />
-                </div>
-                {/*Input */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <input type="text" name="email" className="input input-bordered" />
-                </div>
-                {/*Input */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Photo</span>
-                  </label>
-                  <input type="text" name="photo" className="input input-bordered" />
-                </div>
-                {/*Input */}
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input type="password" name="password" className="input input-bordered" />
-                </div>
-                <div className="flex justify-center align-items-center mt-5">
-                  <ReCAPTCHA
-                    sitekey="6LfLI1UiAAAAAEG2Baygi7bZD1cAggQcuDvK3W0N"
-                    onChange={onChange}
-                    theme={'dark'}
-                    ref={captcha}
-                  />
-                </div>
-                
-                <div className="btnform form-control mt-6">
-                  <button className="buttonform btn" onClick={handleSubmit}>Sign up</button>
-                </div>
-                
-                <p className='or'>or</p>
-
-                <div className="flex justify-center align-items-center pt-5">
-                  <SignUpGoogle />
-                </div>
-
-                <div className="textNew text-center lg:text-left p-4">
-              <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>          
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input type="text" name="email" className="input input-bordered" />
             </div>
             <div className="form-control">
               <label className="label">
