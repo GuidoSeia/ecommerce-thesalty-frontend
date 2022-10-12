@@ -30,7 +30,7 @@
 .text-Container p{
     padding: 1rem;
     font-weight: 300;
-    font-size: 25px;
+    font-size: 1.3rem;
 }
 
 .ubication-container{
@@ -150,4 +150,18 @@
     
     }
 
+}
+
+@media (max-width: 425px){
+    .text-Container h1{
+        font-weight: 400;
+        font-size: 2rem;
+    }
+    
+    .text-Container p{
+        padding: 1rem;
+        font-weight: 300;
+        font-size: 1rem;
+    }
+    
 }

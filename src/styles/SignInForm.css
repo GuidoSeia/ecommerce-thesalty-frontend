@@ -25,7 +25,6 @@ video {
 
 .formSignIn {
     width: 100%;
-    min-height: 80vh;
 }
 
 form h1 {
@@ -41,6 +40,12 @@ form h1 {
     background-color: #360027 !important;
 }
 
+.form-signIn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .textNew {
     color: white;
     background-color: rgba(0, 0, 0, 0.637) !important;
@@ -50,7 +55,6 @@ form h1 {
 .or{
     color: rgb(141, 141, 141);
     text-align: center;
-    margin-top: 15px;
     font-weight: bold;
 }
 .buttonform{

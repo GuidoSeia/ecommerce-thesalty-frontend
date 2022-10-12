@@ -174,7 +174,7 @@ export default function CartPage({ coupon }) {
                                     </div>
                                     <div className="flex flex-col justify-center align-center gap-2">
                                         <p>$ {subTotalCart}</p>
-                                        <div className="flex justify-center items-center ">
+                                        <div className="flex flex-wrap md:flex-nowrap justify-center items-center ">
                                             {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input w-28" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input w-28" />}
                                             {code == false ? <button onClick={applyDiscount} className="h-1 ml-1 btn w-12 text-white">
                                                 Add

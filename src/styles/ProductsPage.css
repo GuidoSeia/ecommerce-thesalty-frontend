@@ -1,3 +1,7 @@
+.card:hover{
+    transform: none
+}
+
 .card-products{
     background-color: rgba(0, 0, 0, 0.597);
     height: auto;
@@ -16,18 +20,18 @@
 }
 
 .cardProduct {
-    width: 400px;
+    width: 250px;
     border: 1px solid black;
-    height: auto;
+    height: 500px;
 }
 
 .container-img{
-    height: 300px;
+    height: 180px;
     width: 100% !important;
 }
 
 .container-img img{
-    height: 300px;
+    height: 100%;
 }
 
 .btn-products-card{
@@ -43,13 +47,28 @@
 
 
 @media screen and (max-width: 768px) {
-    .cardProduct {
-        border: 2px solid black;
-    }
 
     .set-sticky{
         position: sticky;
         top: 0;
+    }
+}
+
+
+@media screen and (max-width: 425px) {
+    .cardProduct {
+        width: 300px;
+        border: 1px solid black;
+        height: 500px;
+    }
+    
+    .container-img{
+        height: 180px;
+        width: 100% !important;
+    }
+
+    .container-img img{
+        height: 100%;
     }
 }
 
