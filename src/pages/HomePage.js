@@ -46,7 +46,7 @@ export default function HomePage() {
                 {card.type === "offer" ?
                     (
                         <>
-                            <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-4 p-4">OFF%</div>
+                            <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-4 p-4">OFF %</div>
                             <h2 className="text-white text-xs md:text-base lg:text-lg">Do you like offers?</h2>
                             <h2 className="text-white text-xs md:text-base lg:text-lg"> Here we have some for you</h2>
                         </>
@@ -60,7 +60,7 @@ export default function HomePage() {
                             (
                                 <>
                                     <div className="badge badge-home text-xs md:text-lg lg:text-2xl lg:p-5 p-5">Latest products</div>
-                                    <h2 className="text-white text-xs md:text-base lg:text-lg">Hurry up !!</h2>
+                                    <h2 className="text-white text-xs md:text-base lg:text-lg">Hurry up!</h2>
                                     <h2 className="text-white text-xs md:text-base lg:text-lg">Latest products</h2>
                                 </>
 

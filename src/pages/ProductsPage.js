@@ -160,10 +160,10 @@ export default function ProductsPage() {
                     </div>
                     <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2 font-['Open_Sans']">
                         {show?.length > 0 ?
-                            <>
+                            <div className="flex justify-center items-center flex-wrap gap-12">
                                 <h2 className='w-full text-xl font-bold text-black text-center my-3'>{(newLast + ' products').toUpperCase()} </h2>
                                 {show}
-                            </>
+                            </div>
                             :
                             <div>
                                 <h1 className="text-black text-lg">No se encontraron resultados.</h1>
