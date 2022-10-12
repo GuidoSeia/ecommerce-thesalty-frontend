@@ -114,7 +114,7 @@ export default function CartPage({ coupon }) {
     return (
         <PageLayout>
             <div className='flex items-center cart-container p-5 text-white h-full'>
-                <div className="flex flex-col w-full h-full lg:flex-row">
+                <div className="flex flex-col w-full h-full lg:flex-row font-['Open_Sans']">
                     <div className="grid flex-grow h-full card cart-card bg-base-300 rounded-box place-items-center">
                         <ul className="steps p-4">
                             <li className="step step-primary mx-2 text-xs md:text-base">Choose products</li>
@@ -122,7 +122,7 @@ export default function CartPage({ coupon }) {
                             <li className="step mx-2 text-xs md:text-base">Pay</li>
                             <li className="step mx-2 text-xs md:text-base">Order end</li>
                         </ul>
-                        <div className="overflow-x-auto w-full">
+                        <div className="overflow-x-auto w-full font-['Open_Sans']">
                             <table className="table w-full">
                                 <thead>
                                     <tr>
@@ -141,14 +141,14 @@ export default function CartPage({ coupon }) {
                         </div>
                     </div>
                     <div className="divider lg:divider-horizontal"></div>
-                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center">
+                    <div className="flex flex-grow card cart-card rounded-box p-4 justify-center gap-5 items-center font-['Open_Sans']">
                         <div className='flex flex-col gap-3 justify-center items-center'>
                             <img width={100} src="/logo-white.png" alt="" />
                             <h2 className='text-white'>Order: {subTotalCart == 0 ? null : '#' + order}</h2>
                             <p className='text-white'>{new Date().getDate() + ' / ' + (new Date().getMonth() + 1) + ' / ' + new Date().getFullYear()}</p>
                         </div>
                         <div className='flex flex-col gap-2 w-full'>
-                            <div className="cart-summary-body mt-2 flex flex-col justify-center gap-5">
+                            <div className="cart-summary-body mt-2 flex flex-col justify-center gap-5 font-['Open_Sans']">
                                 <div className='flex p-3 justify-between'>
                                     <p>Name product</p>
                                     <div>
@@ -167,7 +167,7 @@ export default function CartPage({ coupon }) {
                                     </div>
                                 </div>
                                 <div className='flex p-3 justify-between'>
-                                    <div className="flex flex-col justify-between align-center gap-2">
+                                    <div className="flex flex-col justify-between align-center gap-2 font-['Open_Sans']">
                                         <p>Subtotal</p>
                                         <p>Discount *cupon*</p>
                                         <p className='font-bold'>Total</p>
@@ -175,7 +175,7 @@ export default function CartPage({ coupon }) {
                                     <div className="flex flex-col justify-center align-center gap-2">
                                         <p>$ {subTotalCart}</p>
                                         <div className="flex justify-center items-center ">
-                                            {code == false ? <input type="text" placeholder="Enter code discount" ref={codeRef} className="input w-28" /> : <input type="text" placeholder="Enter code discount" ref={codeRef} disabled className="input w-28" />}
+                                            {code == false ? <input type="text" placeholder="Enter code" ref={codeRef} className="input w-32" /> : <input type="text" placeholder="Enter code" ref={codeRef} disabled className="input w-28" />}
                                             {code == false ? <button onClick={applyDiscount} className="h-1 ml-1 btn w-12 text-white">
                                                 Add
                                             </button> : null}

@@ -5,10 +5,10 @@ export default function CheckboxesProducts({ handlegender, checked }) {
     return (
         <div className="collapse">
             <input type="checkbox" className="peer" />
-            <div className="collapse-title collapse-filters">
+            <div className="collapse-title collapse-filters font-['Open_Sans']">
                 <h3 className='text-center md:text-xs lg:text-base'>Open Filters</h3>
             </div>
-            <div className="collapse-content collapse-filters-content">
+            <div className="collapse-content collapse-filters-content font-['Open_Sans']">
                 <form className='flex flex-col p-2 items-center'>
                     <div className="form-control">
                         <label className="label cursor-pointer">
