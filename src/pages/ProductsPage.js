@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../features/cartSlice'
 import { toast } from 'react-toastify';
 
-import { useProductsFavoritesMutation } from '../features/productsApi'
+import { useProductsFavouritesMutation } from '../features/productsApi'
 import CheckboxesProducts from '../components/CheckboxesProducts'
 
 
@@ -24,8 +24,6 @@ export default function ProductsPage() {
 
     let { data: allProducts, refetch } = useGetAllProductsQuery()
     let { data: products } = useGetFilteredProductsQuery(type)
-    
-    console.log(products);
 
     const user = useSelector((state) => state.logged.user);
 
@@ -33,6 +31,19 @@ export default function ProductsPage() {
     const handlegender = (e) => {
         setNewLast(e.target.value)
     }
+
+    const showLike = (like) => {
+        refetch()
+        if(like[0].includes('Itinerary-dislike-btn')){
+        toast.success(`Product removed from favourites`, {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
+        } else {
+            toast.success(`Product added to favourites`, {
+                    position: toast.POSITION.BOTTOM_RIGHT
+            });
+        }
+    };
 
     useEffect(() => {
         if (!newLatest) {
@@ -44,13 +55,15 @@ export default function ProductsPage() {
         }
     }, [])
 
-    const [likeOrDislike] = useProductsFavoritesMutation()
+    const [likeOrDislike] = useProductsFavouritesMutation()
 
     async function like(event) {
-        console.log(event);
+        refetch()
         await likeOrDislike(event.target.id)
-        console.log(allProducts?.response)
-  }
+            .then((res)=>{
+                showLike(event.target.classList)
+            })
+    }
 
     const productCard = card => (
         <div key={card._id} className="card cardProduct shadow-xl">
@@ -75,8 +88,25 @@ export default function ProductsPage() {
             <div className="flex justify-center items-center bg-white">
             
             </div>
-            <div>
-                <button className="btn m-2" id={card?._id} onClick={like}>Add to favorites</button>
+            <div className="bg-white flex justify-center items-center">
+            {user ? 
+                                !card?.likes?.includes(user?.id) ? 
+                                    <span className={'Itinerary-like-btn'} style={{cursor:'pointer'}} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart pointer-events-none my-3" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                    </svg></span>
+                                    :
+                                    <span className={'Itinerary-dislike-btn'} style={{cursor:'pointer', border: 'none'}} onClick={like} id={card?._id}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill pointer-events-none my-3" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg></span>
+                                    
+                                    : 
+                                    <span style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:'center'}}>
+                                        <svg style={{margin:'5px'}} xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                        </svg>
+                                    </span>
+            }
+                        
             </div>
         </div>
     )
@@ -136,7 +166,7 @@ export default function ProductsPage() {
                     <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
                         {show?.length > 0 ?
                             <>
-                                <h2 className='w-full text-xl font-bold text-black text-center'>{newLast} products</h2>
+                                <h2 className='w-full text-xl font-bold text-black text-center'>{(newLast + ' products').toUpperCase()} </h2>
                                 {show}
                             </>
                             :

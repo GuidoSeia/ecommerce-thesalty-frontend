@@ -128,7 +128,9 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
                         <option value={item?.brand} id={item?._id}>{item?.brand}</option>
                     )}
               </select>
-              <button type="submit" className='bg-black text-white p-3 rounded-xl mt-5'>Remove</button>
+              <div className="my-5">
+                  <button className="btn btn-primary btn-home-page text-xs">Remove</button>
+                </div>
               </form>
             </div>
           </div>

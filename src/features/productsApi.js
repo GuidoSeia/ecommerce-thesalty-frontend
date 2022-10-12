@@ -46,9 +46,9 @@ const productsApi = createApi({
                 };
             }
         }),
-        productsFavorites: builder.mutation({
+        productsFavourites: builder.mutation({
             query: (id) =>({
-                url: '/products/favorite/' + id ,
+                url: 'products/favourites/'+id ,
                 method: 'PATCH',
                 headers: {
                     Authorization: "Bearer " + JSON.parse(localStorage.getItem("token"))
@@ -67,7 +67,8 @@ export const { useGetAllProductsQuery ,
      useGetFilteredProductsQuery,
       useGetNewProductMutation,
        useGetProductQuery,
+       useGetRemoveProductMutation,
        useGetUpdateProductMutation,
-       useProductsFavoritesMutation
+       useProductsFavouritesMutation
      } = productsApi
 

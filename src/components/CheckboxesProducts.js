@@ -12,7 +12,7 @@ export default function CheckboxesProducts({ handlegender, checked }) {
                 <form className='flex flex-col p-2 items-center'>
                     <div className="form-control">
                         <label className="label cursor-pointer">
-                            <span className="label-text text-white">All products</span>
+                            <span className="label-text text-white mr-2">All products</span>
                             {checked == "all" ?
                                 <input type="radio" name="filter" value="all" className="radio checked:bg-green-500" checked onChange={handlegender} />
                                 :
@@ -22,7 +22,7 @@ export default function CheckboxesProducts({ handlegender, checked }) {
                     </div>
                     <div className="form-control">
                         <label className="label cursor-pointer">
-                            <span className="label-text text-white">New products</span>
+                            <span className="label-text text-white mr-2">New products</span>
                             {checked == "new" ?
                                 <input type="radio" name="filter" value="new" className="radio checked:bg-blue-500" checked onChange={handlegender} />
                                 :
@@ -32,7 +32,7 @@ export default function CheckboxesProducts({ handlegender, checked }) {
                     </div>
                     <div className="form-control">
                         <label className="label cursor-pointer">
-                            <span className="label-text text-white">Latest products</span>
+                            <span className="label-text text-white mr-2">Latest products</span>
                             {checked == "latest" ?
                                 <input type="radio" name="filter" value="latest" className="radio checked:bg-red-500" checked onChange={handlegender} />
                                 :
