@@ -20,7 +20,7 @@ function Review() {
 
   let productId = urlParams.get("productId");
 
-  console.log(productId);
+  console.log(logged);
 
   const [reviewCards, setReviewCards] = useState([]);
 
@@ -63,7 +63,7 @@ function Review() {
         formRef.current.reset();
       })
       .catch((error) => {
-        /* alert */
+        console.log(error);
       });
   };
 
@@ -132,10 +132,10 @@ function Review() {
                   My review for {reviewCards.brand}
                 </h1>
                 {logged ?
-                 <label htmlFor="my-modal-5" className="btn modal-button m-10">
-                 Add review
-                  <><input type="checkbox" id="my-modal-5" className="modal-toggle" /></>
-                </label>   : null }           
+                <label htmlFor="my-modal-5" className="btn modal-button m-10">
+                Add review
+                  <input type="checkbox" id="my-modal-5" className="modal-toggle" />
+                </label> : null }           
                 <div className="flex flex-row">
                   <div className="m-4  mr-14">
                     <img
@@ -265,17 +265,17 @@ function Review() {
                 <div className="card-body flex justify-center items-center">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
-                      <img src={info[0]?.user?.photo} />
+                      <img src={info?.[0].user?.photo} />
                     </div>
                   </div>
-                  <h2 className="card-title">{info[0]?.reviewTitle}</h2>
+                  <h2 className="card-title">{info?.[0].reviewTitle}</h2>
                   <p>
-                  {info[0]?.review}
+                  {info?.[0].review}
                   </p>
 
                   <div className="rating">                
                     {
-                          info[0]?.star == 1?    
+                          info?.[0].star == 1?    
                           <div>                
                           <input
                           type="radio"
@@ -285,7 +285,7 @@ function Review() {
                           />                     
                           
                         </div> 
-                        :info[0]?.star == 2?
+                        :info?.[0].star == 2?
                         <div>
                         <input
                           type="radio"
@@ -304,7 +304,7 @@ function Review() {
                         
                         </div> 
 
-                        :info[0]?.star == 3?
+                        :info?.[0].star == 3?
                         <div> 
                         <input
                           type="radio"
@@ -332,7 +332,7 @@ function Review() {
                         
                         </div>
 
-                        :info[0]?.star == 4?  
+                        :info?.[0].star == 4?  
                         <div>                                         
                           <input
                           type="radio"
@@ -368,7 +368,7 @@ function Review() {
                         
                         </div>
 
-                        :info[0]?.star == 5?
+                        :info?.[0].star == 5?
                         <div>
                         <input
                           type="radio"
@@ -424,17 +424,17 @@ function Review() {
                 <div className="card-body flex justify-center items-center">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
-                      <img src={info[1]?.user?.photo} />
+                      <img src={info?.[1].user?.photo} />
                     </div>
                   </div>
-                  <h2 className="card-title">{info[1]?.reviewTitle}</h2>
+                  <h2 className="card-title">{info?.[1].reviewTitle}</h2>
                   <p>
-                  {info[1]?.review}
+                  {info?.[1].review}
                   </p>
 
                   <div className="rating">                
                     {
-                          info[1]?.star == 1?    
+                          info?.[1].star == 1?    
                           <div>                
                           <input
                           type="radio"
@@ -444,7 +444,7 @@ function Review() {
                           />                     
                         
                         </div> 
-                        :info[1]?.star == 2?
+                        :info?.[1].star == 2?
                         <div>
                         <input
                           type="radio"
@@ -463,7 +463,7 @@ function Review() {
                         
                         </div> 
 
-                        :info[1]?.star == 3?
+                        :info?.[1].star == 3?
                         <div> 
                         <input
                           type="radio"
@@ -491,7 +491,7 @@ function Review() {
                         
                         </div>
 
-                        :info[1]?.star == 4?  
+                        :info?.[1].star == 4?  
                         <div>                                         
                           <input
                           type="radio"
@@ -527,7 +527,7 @@ function Review() {
                         
                         </div>
 
-                        :info[1]?.star == 5?
+                        :info?.[1].star == 5?
                         <div>
                         <input
                           type="radio"
@@ -583,17 +583,17 @@ function Review() {
                 <div className="card-body flex justify-center items-center">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
-                      <img src={info[2]?.user?.photo} />
+                      <img src={info?.[2].user?.photo} />
                     </div>
                   </div>
-                  <h2 className="card-title">{info[2]?.reviewTitle}</h2>
+                  <h2 className="card-title">{info?.[2].reviewTitle}</h2>
                   <p>
-                  {info[2]?.review}
+                  {info?.[2].review}
                   </p>
 
                   <div className="rating">                
                     {
-                          info[2]?.star == 1?    
+                          info?.[2].star == 1?    
                           <div>                
                           <input
                           type="radio"
@@ -603,7 +603,7 @@ function Review() {
                           />                     
                         
                         </div> 
-                        :info[2]?.star == 2?
+                        :info?.[2].star == 2?
                         <div>
                         <input
                           type="radio"
@@ -622,7 +622,7 @@ function Review() {
                         
                         </div> 
 
-                        :info[2]?.star == 3?
+                        :info?.[2].star == 3?
                         <div> 
                         <input
                           type="radio"
@@ -650,7 +650,7 @@ function Review() {
                         
                         </div>
 
-                        :info[2]?.star == 4?  
+                        :info?.[2].star == 4?  
                         <div>                                         
                           <input
                           type="radio"
@@ -686,7 +686,7 @@ function Review() {
                         
                         </div>
 
-                        :info[2]?.star == 5?
+                        :info?.[2].star == 5?
                         <div>
                         <input
                           type="radio"
@@ -883,7 +883,7 @@ function Review() {
                         </p>
                       </div>
                     </div>))) : null                                                                       
-                    }  
+                    }
                   </div>  
                 </div>  
             </div>               
