@@ -89,10 +89,6 @@ export default function DetailCards() {
           </div> 
           </div>
           <div className="flex justify-center items-center flex-col mb-10 mx-20">
-          <button
-            type="submit"
-            className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >Add favorites ❤</button>
           { logged ? <button
             onClick={() => dispatch(addToCart(detailCards))}
             className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
