@@ -79,13 +79,6 @@ export default function DetailCards() {
         <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Model: {detailCards.model}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Price: ${detailCards.price}</p>
           <p className="xd text-base md:text-2xl tracking-tight py-2 text-gray-900">Stock: {detailCards.stock}</p>
-          <div className="rating py-2 ">
-            <input type="radio" name="rating" value="1" className="mask mask-star" />
-            <input type="radio" name="rating" value="2" className="mask mask-star" />
-            <input type="radio" name="rating" value="3" className="mask mask-star" />
-            <input type="radio" name="rating" value="4" className="mask mask-star" />
-            <input type="radio" name="rating" value="5" className="mask mask-star" />
-          </div> 
           </div>
           <div className="flex justify-center items-center flex-col mb-10 mx-20">
           { logged ? <button

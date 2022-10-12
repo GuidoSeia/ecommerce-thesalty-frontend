@@ -118,13 +118,9 @@ function Review() {
     <div className="w-full">
       <div className="reviewContainer flex flex-wrap items-center justify-center">
         <div className="containerAllData w-10/12 mb-2  bg-white">
-          <div className="containerIntro flex justify-evenly items-center flex-wrap">
-
-          </div>
-
           <div className="containerReviews w-full">
-            <div className="flex mt-1 flex flex-wrap justify-center">
-              <h2 className="text-Answ text-2xl justify-center text-white flex w-full h-28 md:text-5xl ml-5 font-mono font-semibold tracking-wide">
+            <div className="flex mt-1 flex-wrap justify-center">
+              <h2 className="text-2xl justify-center text-white flex w-full items-center mt-5 md:text-5xl ml-5 font-mono font-semibold tracking-wide">
                 What do our users say?
               </h2>
               {logged ? <label htmlFor="my-modal-5" className="btn-review modal-button flex items-center justify-center text-center">Add review</label> : null}
@@ -133,7 +129,7 @@ function Review() {
             <div className="modal w-full">
               <div className="modal-box w-11/12 max-w-5xl">
                 <label htmlFor="my-modal-5" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                <h1 className="font-bold text-2xl text-center text-white text-center p-2">My review for {reviewCards.brand}</h1>
+                <h1 className="font-bold text-2xl text-center text-white p-2">My review for {reviewCards.brand}</h1>
                 <div className='flex flex-col md:flex-row'>
                   <div className='flex flex-wrap justify-around md:m-4  md:mr-14'>
                     <img
@@ -1219,7 +1215,7 @@ function Review() {
 
                     </div>
 
-                    : <h2 className="text-black text-center text-3xl flex justify-center items-center mt-28">The product has not reviews </h2>
+                    : null
               }
 
             </div>
