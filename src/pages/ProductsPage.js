@@ -154,8 +154,8 @@ export default function ProductsPage() {
                 <div className="flex flex-col bg-gray-900 md:w-5/6">
                     <div className="form-control border-b border-black">
                         <label className="input-group input-group-md flex justify-center align-items-center py-2 md:py-4 bg-white">
-                            <span>TS</span>
-                            <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
+                            <span className='bg-black'>TS</span>
+                            <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md bg-black" />
                         </label>
                     </div>
                     <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2 font-['Open_Sans']">

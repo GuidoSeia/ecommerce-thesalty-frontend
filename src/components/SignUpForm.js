@@ -103,13 +103,13 @@ const SignUp = () => {
               <label className="label">
                 <span className="label-text">Name and Lastname</span>
               </label>
-              <input type="text" name="name" className="input input-bordered h-8" />
+              <input type="text" name="name" className="input input-bordered" />
             </div>
             <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
-              <input type="text" name="email" className="input input-bordered h-8" />
+              <input type="text" name="email" className="input input-bordered" />
             </div>
             <div className="form-control form-signup-input flex-wrap">
               <label className="label">
@@ -123,7 +123,7 @@ const SignUp = () => {
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input type="text" name="password" className="input input-bordered h-8" />
+              <input type="text" name="password" className="input input-bordered" />
             </div>
             <div className="flex justify-center items-center">
               <ReCAPTCHA
