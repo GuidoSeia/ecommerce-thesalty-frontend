@@ -24,14 +24,16 @@
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#522546",GradientType=1);
 }
 
+.new-review-img{
+      width: 30%;
+}
+
 .card-body{
       width: 100%;
 }
 
-
-
 .text-Answ{
-      -webkit-text-stroke: 1.5px black
+      -webkit-text-stroke: 1px black
 }
 
 .cardReview{
@@ -54,36 +56,29 @@
 .collapse-title{ 
       color: white;
       background-color: #522546;
-      width: 30%;
+      width: 100%;
 }
 
 .collapse-content{
-      background-color: lightgrey;
+      background-color: rgba(92, 69, 25, 0);
 }
 
 .collapse{
-      justify-items: center
-      
+      justify-items: center;
 }
 
 .input-collapse{
       width: 30%;
-      
 }
 
 .btn-review{
       border: 1px solid black;
       color: white;
       border-radius: 5%;
-      margin: .3rem 2rem 0rem 0;
-      width: 20%;
       height: max-content;
       background-color: #2e1a29;
       padding: 5px;
-      display:flex !important;
-      justify-content: center !important;
-      align-items: center !important;
-      
+      text-align: center;
 }
 
 
@@ -94,6 +89,17 @@
 .review-box{
       border:2px solid lightgrey;
       margin: 5px 5px 5px 0;
-      width: 70%;
       color: black;
+}
+
+@media screen and (min-width: 768px) {
+      .new-review-img{
+            width: 100%;
+      }
+
+      .collapse-title{ 
+            color: white;
+            background-color: #522546;
+            width: 30%;
+      }
 }
