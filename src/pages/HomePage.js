@@ -40,9 +40,9 @@ export default function HomePage() {
 
     const carouselCard = (card) => (
 
-        <div className="card shadow-xl image-full m-1 w-48 h-56 md:m-4 md:w-96 md:h-72 lg:h-96 xl:m-6" key={card._id}>
+        <div className="card font-['Open_Sans'] shadow-xl image-full m-1 w-48 h-56 md:m-4 md:w-96 md:h-72 lg:h-96 xl:m-6" key={card._id}>
             <figure><img src={card.image} alt="Shoes" /></figure>
-            <div className="card-body flex flex-col justify-evenly items-center p-3 md:justify-center md:gap-6 lg:gap-6">
+            <div className="card-body font-['Open_Sans'] flex flex-col justify-evenly items-center p-3 md:justify-center md:gap-6 lg:gap-6">
                 {card.type === "offer" ?
                     (
                         <>
@@ -71,21 +71,21 @@ export default function HomePage() {
     )
 
     const productCard = card => (
-        <div className="card cardHome border-black border m-1.5 h-52 w-44 md:m-1.5 md:w-40 md:h-80 lg:w-56 xl:m-10 xl:h-96 xl:w-64 shadow-xl" key={card._id}>
+        <div className="card cardHome font-['Open_Sans'] border-black border m-1.5 h-52 w-44 md:m-1.5 md:w-40 md:h-80 lg:w-56 xl:m-10 xl:h-96 xl:w-64 shadow-xl" key={card._id}>
             <figure className="h-1/2">
                 <img className="h-full w-full object-cover" src={card.photo?.[0]} alt="Shoes" />
             </figure>
-            <div className="card-body h-1/2 flex justify-center p-2 md:justify-start md:p-5 lg:justify-evenly items-center">
+            <div className="card-body h-1/2 font-['Open_Sans'] flex justify-center p-2 md:justify-start md:p-5 lg:justify-evenly items-center">
                 <h2 className="card-title text-white text-sm lg:text-xl">
                     {card.brand}
                 </h2>
                 <div className='flex flex-col justify-center gap-2'>
                     <p className='text-white text-xs md:text-sm lg:text-base'>
-                        Model: {card.model}
+                        Brand: {card.model}
                     </p>
                     <div className='flex gap-6'>
                         <p className='text-white text-xs md:text-sm'>
-                            $: {card.price}
+                            Price: ${card.price}
                         </p>
                         <p className='text-white text-xs md:text-sm'>
                             Stock: {card.stock}
@@ -104,32 +104,32 @@ export default function HomePage() {
                 {data.map(carouselCard)}
             </div>
 
-            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
+            <div className="flex flex-col font-['Open_Sans'] justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
                 <h2 className="w-full p-5 text-center text-5xl">Watches</h2>
                 <div className='flex flex-wrap justify-center'>
                     {watches?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=reloj'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home font-['Open_Sans'] w-full" to={'/products/?type=reloj'}>See more.</LinkRouter>
                 </div>
             </div>
-            <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
+            <div className="flex flex-col font-['Open_Sans'] justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">
                 <h2 className="w-full p-5 text-center text-5xl text-black">Sunglasses</h2>
                 <div className='flex flex-wrap justify-center'>
                     {sunglasses?.response.slice(0, 4).map(productCard)}
                 </div>
                 <div>
-                    <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=anteojos'}>See more.</LinkRouter>
+                    <LinkRouter className="btn btn-primary btn-card-home font-['Open_Sans'] w-full" to={'/products/?type=anteojos'}>See more.</LinkRouter>
                 </div>
             </div>
             <div className='flex flex-wrap justify-around bg-combined'>
-                <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
+                <div className="flex flex-col font-['Open_Sans'] justify-center items-center flex-wrap gap-12 p-5 bg-products-v1">
                     <h2 className="w-full p-5 text-center text-5xl text-white">Backpack</h2>
                     <div className='flex flex-wrap justify-center'>
                         {backpack?.response.slice(0, 2).map(productCard)}
                     </div>
                     <div>
-                        <LinkRouter className="btn btn-primary btn-card-home w-full" to={'/products/?type=mochilas'}>See more.</LinkRouter>
+                        <LinkRouter className="btn btn-primary btn-card-home font-['Open_Sans'] w-full" to={'/products/?type=mochilas'}>See more.</LinkRouter>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center flex-wrap gap-12 p-5 bg-products-v2">

@@ -67,7 +67,7 @@ export default function ProductsPage() {
 
     const productCard = card => (
         <div className="flex flex-col">
-        <div key={card._id} className="card cardProduct shadow-xl">
+        <div key={card._id} className="card cardProduct shadow-xl font-['Open_Sans']">
             <div className="container-img bg-white flex justify-center items-center">
                 <img className='img-card object-cover' src={card.photo?.[0]} alt="Shoes" />
             </div>
@@ -165,10 +165,10 @@ export default function ProductsPage() {
                             <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md" />
                         </label>
                     </div>
-                    <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2">
+                    <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2 font-['Open_Sans']">
                         {show?.length > 0 ?
                             <>
-                                <h2 className='w-full text-xl font-bold text-black text-center'>{(newLast + ' products').toUpperCase()} </h2>
+                                <h2 className='w-full text-xl font-bold text-black text-center my-3'>{(newLast + ' products').toUpperCase()} </h2>
                                 {show}
                             </>
                             :

@@ -100,6 +100,8 @@ function Review() {
   const [ getData ] = useGetReviewsMutation()
   const [info, setInfo] = useState()
 
+  console.log(info);
+
 
   async function allReviews() {
     await getData(productId) 
@@ -424,7 +426,7 @@ function Review() {
                 <div className="card-body flex justify-center items-center">
                   <div className="avatar">
                     <div className="w-24 rounded-full">
-                      <img src={info?.[1].user?.photo} />
+                      <img src={user?.photo} />
                     </div>
                   </div>
                   <h2 className="card-title">{info?.[1].reviewTitle}</h2>
