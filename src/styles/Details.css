@@ -1,0 +1,15 @@
+.DetailCards-Container{
+    background-color: lightgray;
+
+}
+.btn-details{
+    background-color: #522546;
+    border: 1px solid #360027;
+}
+.btn-details:hover{
+    background-color: #ad204f;
+}
+
+.xd{
+    font-weight: 500;
+}

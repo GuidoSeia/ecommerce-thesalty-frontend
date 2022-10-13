@@ -1,0 +1,50 @@
+.card{
+    transition: transform .2s; /* Animation */
+}
+.card:hover {
+    transform: scale(.9);
+}
+
+.btn-home-page{
+    background-color: black;
+    border: none;
+}
+
+.btn-home-page:hover{
+    background-color: rgb(42, 0, 70);
+    border: 1px solid white;
+}
+
+.badge {
+    border: none;
+    color: white;
+}
+
+.cardHome{
+    background-color: #360027  !important; 
+}
+
+.badge-home{
+    background-color: #E23E57;
+}
+
+.btn-card-home{
+    background-color: #88304E;
+    border: 1px solid #360027;
+}
+
+.btn-card-home:hover{
+    background-color: #ad204f;
+}
+
+.bg-combined{
+    background-color: #1f0016;
+}
+
+.bg-products-v1{
+    background-color: black;
+}
+
+.bg-products-v2{
+    background-color: white;
+}

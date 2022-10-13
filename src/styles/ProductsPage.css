@@ -1,0 +1,64 @@
+.card:hover{
+    transform: none
+}
+
+.card-products{
+    background-color: rgba(0, 0, 0, 0.597);
+    height: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.title-card-products{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.img-card{
+    width:100%;
+    height:100%;
+    display: block;
+}
+
+.cardProduct {
+    width: 250px;
+    height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.container-img{
+    width: 100% !important;
+    height: 45%;
+}
+
+.btn-products-card{
+    padding: .5rem;
+    font-size: .8rem;
+}
+
+.set-sticky{
+    position: sticky;
+    top: 40px;
+}
+
+
+
+@media screen and (max-width: 768px) {
+
+    .set-sticky{
+        position: sticky;
+        top: 0;
+    }
+}
+
+
+/* CheckboxesProducts */
+
+.collapse-filters{
+    width: 100% !important;
+}
+
+.collapse-filters-content{
+    background-color: #352b44 !important;
+    width: 100%;
+
+}

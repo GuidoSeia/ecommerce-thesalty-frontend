@@ -1,0 +1,73 @@
+.containerSignUp{
+    width: 100%;
+    display: flex;
+    min-height: 120vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.videoSignUp {
+    object-fit: cover;
+    min-height: 120vh;
+    width: 100%;
+    z-index: -1;
+}
+
+.formSignUp{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    height: 120vh;
+}
+
+
+.signup-h1 {
+    color: white;
+    font-size: 2rem;
+}
+
+.form-signup-input{
+    display: flex;
+    align-items: center;
+}
+
+/* .card-body {
+    background-color: #360027 !important;
+} */
+
+.textNew {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.637) !important;
+    border-radius: 15px;
+    margin-top: 7px;
+}
+
+.or{
+    color: rgb(161, 161, 161);
+    text-align: center;
+    font-weight: bold;
+}
+
+.buttonform{
+    background-color: rgb(31, 31, 31);
+    color: white;
+}
+
+.link-new {
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+@media (max-width: 393px){
+   .container1{
+    width: 95%;
+}
+    .formSignUp{
+        width: 100%;
+    }
+}

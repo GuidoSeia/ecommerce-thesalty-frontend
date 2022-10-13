@@ -1,0 +1,100 @@
+.titleContainer{
+      background-color: #522546;
+      -webkit-text-stroke: 2.5px black
+}
+
+.containerAllData{
+      background-color: white;
+      
+}
+
+.reviewContainer{
+      background-color: white;
+}
+
+.containerIntro{
+      border:1.7px solid lightgray;
+}
+
+.containerReviews{
+      background: rgb(255,255,255);
+      background: -moz-linear-gradient(0deg, rgba(255,255,255,1) 52%, rgba(82,37,70,1) 53%);
+      background: -webkit-linear-gradient(0deg, rgba(255,255,255,1) 52%, rgba(82,37,70,1) 53%);
+      background: linear-gradient(0deg, rgba(255,255,255,1) 52%, rgba(82,37,70,1) 53%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#522546",GradientType=1);
+}
+
+.new-review-img{
+      width: 30%;
+}
+
+.card-body{
+      width: 100%;
+}
+
+.cardReview{
+      background-color: lightgrey;
+      box-shadow: none;
+      color: black;
+      border: 0 2px 0 2px solid black;
+      border-radius: 15px 15px 0 0;
+      width: 30%;
+      display: flex;
+      justify-content: center;  
+}
+
+.divAllCards{
+      display: flex;
+      justify-content: space-evenly;
+}
+
+.collapse-title{ 
+      color: white;
+      background-color: #522546;
+      width: 100%;
+}
+
+.collapse-content{
+      background-color: rgba(92, 69, 25, 0);
+}
+
+.collapse{
+      justify-items: center;
+}
+
+.input-collapse{
+      width: 30%;
+}
+
+.btn-review{
+      border: 1px solid black;
+      color: white;
+      border-radius: 5%;
+      height: max-content;
+      background-color: #2e1a29;
+      padding: 5px;
+      text-align: center;
+}
+
+
+.btn-review:hover{
+      background-color:  #7e3b6c;
+}
+
+.review-box{
+      border:2px solid lightgrey;
+      margin: 5px 5px 5px 0;
+      color: black;
+}
+
+@media screen and (min-width: 768px) {
+      .new-review-img{
+            width: 100%;
+      }
+
+      .collapse-title{ 
+            color: white;
+            background-color: #522546;
+            width: 30%;
+      }
+}
