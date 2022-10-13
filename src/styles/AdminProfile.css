@@ -5,8 +5,9 @@
 
 .cardContainer {
   background:gray;
-    height: auto;
+    height: 450px;
     display: flex;
+    width: 250px;
     flex-direction: column;
     justify-content: center;
     align-items: center;

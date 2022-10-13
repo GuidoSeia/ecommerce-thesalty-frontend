@@ -74,8 +74,8 @@ export default function AdminProfile({ functionCountdown, currentCouponId }) {
             </div>
 
             <div className="cardContainer w-64 rounded-lg">
-              <figure className='h-2/4'>
-                <img className='object-cover h-full w-full' src="/logo.png" alt="logo" />
+              <figure className='h-2/4 flex justify-center items-center'>
+                <img className='object-cover' src="/logo.png" alt="logo" />
               </figure>
               <div className="subContainer h-2/4">
                 <h2 className="card-title">Create a Product!</h2>
