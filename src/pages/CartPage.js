@@ -66,7 +66,9 @@ export default function CartPage({ coupon }) {
             user: user?.id,
             items: cart,
             shipping: 'free',
-            amount: !code ? subTotalCart : totalWithDiscount
+            total: subTotalCart,
+            amount: !code ? 0 : couponDiscount,
+            totalBuy: !code ? subTotalCart : totalWithDiscount
         }
 
         await newCart(cartOrder)
