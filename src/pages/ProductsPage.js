@@ -85,7 +85,7 @@ export default function ProductsPage() {
         <div className="flex flex-col">
             <div key={card._id} className="card cardProduct shadow-xl font-['Open_Sans']">
                 <div className="container-img bg-white flex justify-center items-center">
-                    <img className='img-card object-cover' src={card.photo?.[0]} alt="Shoes" />
+                    <img className='img-card' src={card.photo?.[1]} alt="Shoes" />
                 </div>
                 <div className="card-body text-center bg-white text-black flex flex-col justify-center py-0">
                     <h2 className="text-center title-card-products">{card.brand} </h2>
@@ -93,7 +93,7 @@ export default function ProductsPage() {
                         <p className="">Price: ${card.price}</p>
                     </div>
                 </div>
-                <div className="flex justify-around bg-white">
+                <div className="flex justify-center gap-4 bg-white">
                     {logged ? <button className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" onClick={() => dispatch(addToCart(card))}>Add to cart</button> : <button className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" onClick={() => toast.error('Login to add to cart')}>Add to cart</button>}
                     <LinkRouter className="btn m-2 text-xs text-white pl-3 min-h-0 h-10" to={`/Details?productId=${card._id}`}>Details</LinkRouter>
                 </div>
@@ -273,7 +273,7 @@ export default function ProductsPage() {
                             <input type="text" placeholder="Search products..." onChange={filterData} className="input input-bordered input-md bg-black" />
                         </label>
                     </div>
-                    <div className="flex justify-center items-center min-h-screen flex-wrap gap-12 p-5 bg-products-v2 font-['Open_Sans']">
+                    <div className="flex justify-center items-start min-h-screen flex-wrap gap-12 p-5 bg-products-v2 font-['Open_Sans']">
                         {show?.length > 0 ?
                             <div className="flex justify-center items-center flex-wrap gap-12">
                                 <h2 className='w-full text-xl font-bold text-black text-center my-3'>{(newLast + ' products').toUpperCase()} </h2>

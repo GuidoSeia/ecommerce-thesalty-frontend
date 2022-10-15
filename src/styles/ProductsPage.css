@@ -20,14 +20,14 @@
 }
 
 .cardProduct {
-    width: 250px;
-    height: 400px;
+    width: 310px;
+    height: 450px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .container-img{
     width: 100% !important;
-    height: 45%;
+    height: 55%;
 }
 
 .btn-products-card{
