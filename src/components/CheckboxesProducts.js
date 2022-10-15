@@ -24,7 +24,7 @@ export default function CheckboxesProducts({ handlegender, handleCategoryFilter,
             name2: "bolsos"
         },
         {
-            name: "fragrances",
+            name: "Fragrances",
             name2: "perfume"
         },
     ]

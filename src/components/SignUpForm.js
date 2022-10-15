@@ -94,22 +94,19 @@ const SignUp = () => {
     <div className='containerSignUp'>
       <video className='videoSignUp' src="./assets/video.mp4" autoPlay loop playsInline muted />
       <form ref={form} className="formSignUp">
-        <div className="text-center lg:text-left">
-          <h1 className='signup-h1'>Sign up</h1>
-        </div>
         <div className="container1 card shadow-2xl ">
           <div className="card-body card-signup">
             <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Name and Lastname</span>
               </label>
-              <input type="text" name="name" className="input input-bordered" />
+              <input type="text" name="name" placeholder="Enter name..." className="input input-bordered" />
             </div>
             <div className="form-control form-signup-input">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
-              <input type="text" name="email" className="input input-bordered" />
+              <input type="text" name="email" placeholder="Enter email..." className="input input-bordered" />
             </div>
             <div className="form-control form-signup-input flex-wrap">
               <label className="label">
@@ -123,7 +120,7 @@ const SignUp = () => {
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input type="text" name="password" className="input input-bordered" />
+              <input type="password" placeholder="Enter password..." name="password" className="input input-bordered" />
             </div>
             <div className="flex justify-center items-center">
               <ReCAPTCHA
@@ -144,7 +141,7 @@ const SignUp = () => {
           </div>
         </div>
         <div className="textNew text-center lg:text-left">
-          <p>You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>
+          <p className="p-4">You have an account? Please <LinkRouter className='link-new' to="/signin">login!</LinkRouter>  </p>
         </div>
       </form>
 

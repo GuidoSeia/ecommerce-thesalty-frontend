@@ -97,6 +97,8 @@ function Review() {
   const [getData] = useGetReviewsMutation()
   const [info, setInfo] = useState()
 
+  console.log(info);
+
 
   async function allReviews() {
     await getData(productId)
@@ -262,7 +264,7 @@ function Review() {
 
                       <div className="rating">
                         {
-                          info?.[0].star == 1 ?
+                          info?.[0]?.star == 1 ?
                             <div>
                               <input
                                 type="radio"
@@ -272,7 +274,8 @@ function Review() {
                               />
 
                             </div>
-                            : info?.[0].star == 2 ?
+                            
+                            : info?.[0]?.star == 2 ?
                               <div>
                                 <input
                                   type="radio"
@@ -291,7 +294,7 @@ function Review() {
 
                               </div>
 
-                              : info?.[0].star == 3 ?
+                              : info?.[0]?.star == 3 ?
                                 <div>
                                   <input
                                     type="radio"
@@ -319,7 +322,7 @@ function Review() {
 
                                 </div>
 
-                                : info?.[0].star == 4 ?
+                                : info?.[0]?.star == 4 ?
                                   <div>
                                     <input
                                       type="radio"
@@ -355,7 +358,7 @@ function Review() {
 
                                   </div>
 
-                                  : info?.[0].star == 5 ?
+                                  : info?.[0]?.star == 5 ?
                                     <div>
                                       <input
                                         type="radio"

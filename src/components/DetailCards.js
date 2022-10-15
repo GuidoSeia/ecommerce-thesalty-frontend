@@ -23,8 +23,6 @@ export default function DetailCards() {
 
   const dispatch = useDispatch()
 
-  const cart = useSelector((state) => state.cart.cart.cart)
-
   const [detailCards, setDetailCards] = useState([])
 
   useEffect(() => {
@@ -87,7 +85,7 @@ export default function DetailCards() {
           >Add to cart 🛒</button> : <button onClick={()=>toast.error('Login to add to cart')}
           className="mt-10 btn-details rounded-md  bg-indigo-600 py-3 px-8 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >Add to cart 🛒</button>}
-          <button className="btn btn-details mt-10" onClick={() => navigate(-1)}>Go back</button>
+          <button className="btn btn-details mt-10 text-white" onClick={() => navigate(-1)}>Go back</button>
           </div>
         </div>
       </div>
